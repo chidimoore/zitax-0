@@ -1,0 +1,36 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="toogleBar()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    &nbsp;
+    <span>ZiTax Management Portal</span>
+    <span class="spacer"></span>
+    <!-- <button mat-icon-button class="element">
+      <mat-icon matBadge="15" matBadgeColor="warn">email</mat-icon>
+    </button> -->
+    &nbsp;&nbsp;
+    <a><button class="element" mat-button [matMenuTriggerFor]="reg">
+        <mat-icon>more_vert</mat-icon>
+        <span>
+          &nbsp;
+          More</span>
+      </button>
+      <mat-menu #reg="matMenu">
+        <mat-nav-list>
+          <a mat-list-item routerLinkActive="list-item-actve" routerLink="/">
+            <mat-icon>person</mat-icon>
+            &nbsp; &nbsp;
+            <span>profile</span>
+          </a>
+          <a mat-list-item routerLinkActive="list-item-actve" routerLink="/">
+            <mat-icon>logout</mat-icon>
+            &nbsp; &nbsp;
+            <span>Logout</span>
+          </a>
+        </mat-nav-list>
+      </mat-menu>
+
+    </a>
+  </mat-toolbar-row>
+</mat-toolbar>

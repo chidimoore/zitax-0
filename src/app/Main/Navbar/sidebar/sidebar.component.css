@@ -1,0 +1,43 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.mat-drawer{
+width: 270px;
+background-color: rgb(243, 242, 226);
+}
+.mat-drawer-container{
+  height: 100%;
+}
+.mat-drawer-content{
+  padding: 20px;
+}
+#sidenav.menu-close{
+width: 60px;
+}
+#sidenav.menu-open{
+  width: 240px;
+  }
+
+.mat-expansion-panel{
+  background-color: rgb(243, 242, 226);
+}
+.mat-expansion-panel-header{
+  margin-left: -8px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: blue orange;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: 5px;
+}
+

@@ -1,0 +1,13 @@
+.mat-toolbar{
+  background-color: teal;
+  color: whitesmoke;
+}
+.spacer{
+  flex: 1 1 auto;
+}
+.element {
+
+  animation: rollIn;
+  animation-duration: 3s;
+}
+

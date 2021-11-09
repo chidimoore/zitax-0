@@ -1,0 +1,285 @@
+
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+	<div fxFlex="95%">
+  
+	  <mat-card>
+		<mat-card-content>
+		  <h2>Register Taxpayer</h2>
+		<mat-tab-group mat-stretch-tabs>
+		  <mat-tab label="Signup">
+			<ng-template mat-tab-label>
+			  <mat-icon>person_outline</mat-icon>
+			  &nbsp; Citizen
+			</ng-template>
+			<form [formGroup]="verifyTINForm" (submit)="verifyTIN()">
+			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" style="padding-top: 10px;">
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="TIN Number" formControlName="TIN">
+				</mat-form-field>
+				<button class="example-full-button " mat-raised-button color="primary">Verify</button>
+
+			</div>
+		</form>
+
+		  </mat-tab>
+  
+  
+  
+  
+		  <mat-tab label="Signup">
+			<ng-template mat-tab-label>
+	   
+			  <mat-icon>person</mat-icon>
+			  &nbsp;Foreigner
+			</ng-template>
+			<form [formGroup]="verifyTINForm" (submit)="verifyTIN()">
+				<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" style="padding-top: 10px;">
+					<mat-form-field fxFlex color="accent">
+						<input matInput type="text" placeholder="Passport Number" formControlName="TIN">
+					</mat-form-field>
+					<button class="example-full-button " mat-raised-button color="primary">Verify</button>
+	
+				</div>
+			</form>
+		  </mat-tab>
+
+		
+		</mat-tab-group>
+  
+  
+		
+	<div *ngIf="dataFetchedFromTRA">
+		
+		<h1 fxHide fxShow.xs>Information from TRA</h1>
+		<h1 fxHide fxShow.sm>Information from TRA</h1>
+		<h1 fxHide fxShow.md>Information from TRA</h1>
+		<h1 fxHide fxShow.lg>Information from TRA</h1>
+		<h1 fxHide fxShow.xl>Information from TRA</h1>
+		<form [formGroup]="addUserForm" (submit)="createUser()">
+		<div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="10px" ngClass.gt-xs="ml-10">
+		  <mat-card fxFlex.sm="0 1 calc(50%-10px)" fxFlex.md="0 1 calc(33%-10px)" fxFlex.gt-md="0 1 calc(25%-10px)">
+			
+			<img mat-card-image src="https://kakiseni.org/wp-content/uploads/2018/03/250X250.png" class="image">
+			<!-- <p>content of card 1 </p> -->
+			<!-- <mat-card-content>Primary card content. Intended for blocks of text</mat-card-content>
+			<mat-card-actions>Container for buttons at the bottom of the card</mat-card-actions> -->
+		  </mat-card>
+		  
+		  <mat-card fxFlex.sm="0 1 calc(67%-10px)" fxFlex.md="0 1 calc(67%-10px)" fxFlex.gt-md="0 1 calc(67%-10px)" >
+			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+			
+				  <mat-form-field fxFlex color="accent">
+					<mat-select
+					  placeholder="Taxpayer Type"
+					  [(ngModel)]="selectedTaxpayer"
+					  (ngModelChange)="onFoodSelection2()"
+					  [ngModelOptions]="{standalone: true}"
+					>
+					  <mat-option *ngFor="let food of foods" [value]="food.value">
+						{{ food.viewValue }}
+					  </mat-option>
+					</mat-select>
+					<mat-hint>Eg: Soleapropriate</mat-hint>
+				  </mat-form-field>
+	
+			
+				<mat-form-field fxFlex color="accent" *ngIf="showNida">
+					<input matInput type="text" placeholder="NIDA/Zan ID" formControlName="NIDAZan ID">
+				</mat-form-field>
+			
+					
+			</div>
+			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Full Name" formControlName="firstName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Vusiness Name" formControlName="lastName">
+				</mat-form-field>
+			
+					
+			</div>
+			<div fxLayout="row" fxLayout.lt-sm="col	umn" fxLayoutGap="16px">
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Business Reg, Number" formControlName="firstName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Type of application" formControlName="lastName">
+				</mat-form-field>			
+					
+			</div>
+			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Address" formControlName="firstName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Location" formControlName="lastName">
+				</mat-form-field>
+				
+			</div>
+			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Tax type" formControlName="firstName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Attachment" formControlName="lastName">
+				</mat-form-field>
+			
+					
+			</div>
+		  </mat-card>
+		
+	  
+		  <mat-card fxFlex.sm="0 1 calc(100%-10px)" fxFlex.md="0 1 calc(100%-10px)" fxFlex.gt-md="0 1 calc(100%-10px)" >
+		 
+			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+				<p >
+					<strong>Location:</strong>
+				</p>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Latitude" formControlName="lastName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Longitude" formControlName="lastName">
+				</mat-form-field>
+			</div>
+			 
+			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Estimated turn annual over" formControlName="firstName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Contact Number" formControlName="lastName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Email" formControlName="lastName">
+				</mat-form-field>
+					
+			</div>
+	
+			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Region Information" formControlName="firstName">
+				</mat-form-field>
+
+				  <mat-form-field fxFlex color="accent">
+					<mat-select
+					  placeholder="Region"
+					  [(ngModel)]="selectedRegion"
+					  (ngModelChange)="onRegionSelection()"
+					  [ngModelOptions]="{standalone: true}"
+					>
+					  <mat-option>
+						<ngx-mat-select-search
+						  [formControl]="regionFilterCtrl"
+						></ngx-mat-select-search>
+					  </mat-option>
+				  
+					  <mat-option *ngFor="let region of filteredRegions | async" [value]="region.value">
+						{{ region.viewValue}}
+					  </mat-option>
+					</mat-select>
+				  </mat-form-field>
+
+				  <mat-form-field fxFlex color="accent">
+					<mat-select
+					  placeholder="District"
+					  [(ngModel)]="selectedDistrict"
+					  (ngModelChange)="onDistrictSelection()"
+					  [ngModelOptions]="{standalone: true}"
+					>
+					  <mat-option *ngFor="let district of districts" [value]="district.value">
+						{{ district.viewValue }}
+					  </mat-option>
+					</mat-select>
+					<mat-hint>Eg: District 1</mat-hint>
+				  </mat-form-field>
+
+					
+			</div>
+		
+			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+					  <mat-form-field fxFlex color="accent">
+
+					<mat-select
+					  placeholder="Ward"
+					  [(ngModel)]="selectedTaxpayer"
+					  (ngModelChange)="onFoodSelection2()"
+					  [ngModelOptions]="{standalone: true}"
+					>
+					  
+					  <mat-option *ngFor="let food of foods" [value]="food.value">
+						{{ food.viewValue }}
+					  </mat-option>
+					</mat-select>
+					<mat-hint>Eg: Soleapropriate</mat-hint>
+				  </mat-form-field>
+
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Type of Business Activities" formControlName="lastName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Date of commencing Business" formControlName="lastName">
+				</mat-form-field>
+					
+			</div>
+	
+			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Tax type" formControlName="firstName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Attachment" formControlName="lastName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Responsible Person" formControlName="lastName">
+				</mat-form-field>
+					
+			</div>
+		
+			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Declaration" formControlName="firstName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Tax Consultant" formControlName="lastName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Finger Print" formControlName="lastName">
+				</mat-form-field>
+					
+			</div>
+	
+			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Designation" formControlName="firstName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Date of Verification" formControlName="lastName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Approved Officer Name" formControlName="lastName">
+				</mat-form-field>
+					
+			</div>
+			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Title" formControlName="firstName">
+				</mat-form-field>
+				<button class="example-full-button " mat-raised-button color="primary">Sumbit</button>
+	
+			</div>
+		  </mat-card>
+		</div>
+	</form>
+	
+	</div>
+	  </mat-card-content>
+	</mat-card>
+  
+  </div>
+  </div>
+  
+  
+
+  

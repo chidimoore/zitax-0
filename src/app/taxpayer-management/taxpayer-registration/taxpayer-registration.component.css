@@ -1,0 +1,81 @@
+
+  .tax-form-container{
+    width: 100%;
+  }
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    /* color: blueviolet; */
+  }
+  
+  .example-full-width {
+    width: 100%;
+    /* color: blueviolet;   */
+  }
+
+  .container {
+    width: 100%;
+    /* color: blueviolet;   */
+  }
+  #example-tab {
+    width: 100%;
+    /* color: blueviolet;   */
+  }
+  #example-form {
+    width: 100%;
+    /* color: blueviolet;   */
+  }
+  ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+    width: 100%!important;
+    padding: 13px!important;
+    margin: 3px!important;  
+    /* color: blueviolet;   */
+   }
+
+   .example-container {
+    margin-left: 38px;
+    margin-top: 38px;
+  }
+
+  .col2 * { width:100%;}
+
+  example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+    padding-top: 20px;
+  }
+  .example-full-button {
+    width: 50%;
+    height: 39px;
+    /* padding-top: 20px; */
+  }
+  
+  td {
+    padding-right: 8px;
+  }
+
+  .content {
+    padding: 16px;
+}
+
+.content > mat-card {
+    width: 100%;
+}
+.button-style{
+  height: 100px;
+}
+
+
+.progress-bar {
+  margin: 0;
+  top: 0;
+  position: absolute;
+  left: 0;
+  width:100%;
+}
