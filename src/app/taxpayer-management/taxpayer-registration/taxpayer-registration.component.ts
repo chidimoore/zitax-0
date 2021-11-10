@@ -21,7 +21,6 @@ const REGIONS_DATA: Regions[] = [
 
 ];
 
-
 export interface Districts {
   value: string;
   viewValue: string;
@@ -103,16 +102,6 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
   /** list of regions filtered by search keyword */
   public filteredRegions: ReplaySubject<Regions[]> = new ReplaySubject<Regions[]>(1);
-
-  // @ViewChild('singleSelect') singleSelect: MatSelect;
-
-  /** Subject that emits when the component has been destroyed. */
-  // protected _onDestroy = new Subject<void>()
-
-  // public regionFilterCtrl: FormControl = new FormControl();
-
-  // protected _onDestroy = new Subject<void>();
-
 
 
   selectedDay: string = '';
@@ -199,12 +188,6 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
   }
 
-//   onBookChange(deviceValue:any) {
-//     console.log('follow=>',deviceValue);
-// }
-
-
-// version = VERSION;
 
   selectedFood1: string='';
   selectedTaxpayer: string='';
@@ -241,43 +224,39 @@ export class TaxpayerRegistrationComponent implements OnInit {
   }
 
   onRegionSelection() {
-    console.log(this.selectedRegion);
-    this.wards=[];
-    if(this.selectedRegion=='region-0'){
-      this.districts=DISTRICTS_DATA_ONE;
-    }
-    else  if(this.selectedRegion=='region-1'){
-      this.districts=DISTRICTS_DATA_TWO;
-    }
 
-    else  if(this.selectedRegion=='region-2'){
-      this.districts=DISTRICTS_DATA_THREE;
-    }
-
-    else {
-      this.districts=[];
-    }
+    switch (this.selectedRegion) {
+      case 'region-0':
+          this.districts=DISTRICTS_DATA_ONE;
+          break;
+      case 'region-1':
+          this.districts=DISTRICTS_DATA_TWO;
+          break;
+      case 'region-2':
+          this.districts=DISTRICTS_DATA_THREE;
+          break;
+      default:
+          this.districts=[];
+          break;
+  }
 
   }
 
-
   onDistrictSelection() {
-    console.log(this.selectedDistrict);
-    console.log('this is supposed to work');
-    if(this.selectedDistrict=='district-0'){
-      this.wards=WARDS_DATA_ONE;
 
-    }
-    else  if(this.selectedDistrict=='district-1'){
-      this.wards=WARDS_DATA_TWO;
-    }
-
-    else  if(this.selectedDistrict=='district-2'){
-      this.wards=WARDS_DATA_THREE;
-    }
-
-    else {
-      this.wards=[];
+    switch (this.selectedDistrict) {
+        case 'district-0':
+            this.wards=WARDS_DATA_ONE;
+            break;
+        case 'district-1':
+            this.wards=WARDS_DATA_TWO;
+            break;
+        case 'district-2':
+            this.wards=WARDS_DATA_THREE;
+            break;
+        default:
+            this.wards=[];
+            break;
     }
 
   }
