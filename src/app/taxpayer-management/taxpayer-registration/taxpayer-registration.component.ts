@@ -262,12 +262,6 @@ export class TaxpayerRegistrationComponent implements OnInit {
   }
 
 
-
- 
-  onKey(value:any) { 
-    // this.selectedStates = this.search(value);
-  }
-
   protected filterRegions() {
     if (!this.regions) {
       return;

@@ -12,7 +12,7 @@
 			  &nbsp; Citizen
 			</ng-template>
 			<form [formGroup]="verifyTINForm" (submit)="verifyTIN()">
-			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" style="padding-top: 10px;">
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px" style="padding-top: 10px;">
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="TIN Number" formControlName="TIN">
 				</mat-form-field>
@@ -33,7 +33,7 @@
 			  &nbsp;Foreigner
 			</ng-template>
 			<form [formGroup]="verifyTINForm" (submit)="verifyTIN()">
-				<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" style="padding-top: 10px;">
+				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px" style="padding-top: 10px;">
 					<mat-form-field fxFlex color="accent">
 						<input matInput type="text" placeholder="Passport Number" formControlName="TIN">
 					</mat-form-field>
@@ -55,6 +55,8 @@
 		<h1 fxHide fxShow.md>Information from TRA</h1>
 		<h1 fxHide fxShow.lg>Information from TRA</h1>
 		<h1 fxHide fxShow.xl>Information from TRA</h1>
+
+
 		<form [formGroup]="addUserForm" (submit)="createUser()">
 		<div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="10px" ngClass.gt-xs="ml-10">
 		  <mat-card fxFlex.sm="0 1 calc(50%-10px)" fxFlex.md="0 1 calc(33%-10px)" fxFlex.gt-md="0 1 calc(25%-10px)">
@@ -65,8 +67,8 @@
 			<mat-card-actions>Container for buttons at the bottom of the card</mat-card-actions> -->
 		  </mat-card>
 		  
-		  <mat-card fxFlex.sm="0 1 calc(67%-10px)" fxFlex.md="0 1 calc(67%-10px)" fxFlex.gt-md="0 1 calc(67%-10px)" >
-			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+		  <mat-card fxFlex.sm="0 1 calc(75%-10px)" fxFlex.md="0 1 calc(75%-10px)" fxFlex.gt-md="0 1 calc(75%-10px)" >
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 			
 				  <mat-form-field fxFlex color="accent">
 					<mat-select
@@ -89,7 +91,7 @@
 			
 					
 			</div>
-			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="Full Name" formControlName="firstName">
 				</mat-form-field>
@@ -99,7 +101,7 @@
 			
 					
 			</div>
-			<div fxLayout="row" fxLayout.lt-sm="col	umn" fxLayoutGap="16px">
+			<!-- <div fxLayout="row" fxLayout.lt-sm="col	umn" fxLayoutGap="16px">
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="Business Reg, Number" formControlName="firstName">
 				</mat-form-field>
@@ -107,8 +109,18 @@
 					<input matInput type="text" placeholder="Type of application" formControlName="lastName">
 				</mat-form-field>			
 					
+			</div> -->
+
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Business Reg, Number" formControlName="firstName">
+				</mat-form-field>
+				<mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Type of application" formControlName="lastName">
+				</mat-form-field>
+				
 			</div>
-			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="Address" formControlName="firstName">
 				</mat-form-field>
@@ -117,7 +129,7 @@
 				</mat-form-field>
 				
 			</div>
-			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="Tax type" formControlName="firstName">
 				</mat-form-field>
@@ -132,7 +144,7 @@
 	  
 		  <mat-card fxFlex.sm="0 1 calc(100%-10px)" fxFlex.md="0 1 calc(100%-10px)" fxFlex.gt-md="0 1 calc(100%-10px)" >
 		 
-			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 				<p >
 					<strong>Location:</strong>
 				</p>
@@ -144,7 +156,7 @@
 				</mat-form-field>
 			</div>
 			 
-			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="Estimated turn annual over" formControlName="firstName">
 				</mat-form-field>
@@ -157,7 +169,7 @@
 					
 			</div>
 	
-			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="Region Information" formControlName="firstName">
 				</mat-form-field>
@@ -181,6 +193,9 @@
 					</mat-select>
 				  </mat-form-field>
 
+				  <!-- <mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Type of Business Activities" formControlName="lastName">
+				</mat-form-field> -->
 				  <mat-form-field fxFlex color="accent">
 					<mat-select
 					  placeholder="District"
@@ -195,10 +210,13 @@
 					<mat-hint>Eg: District 1</mat-hint>
 				  </mat-form-field>
 
+				  <!-- <mat-form-field fxFlex color="accent">
+					<input matInput type="text" placeholder="Type of Business Activities" formControlName="lastName">
+				</mat-form-field> -->
 					
 			</div>
 		
-			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 					  <!-- <mat-form-field fxFlex color="accent"> -->
 
 					<!-- <mat-select
@@ -241,6 +259,10 @@
 						<mat-hint>Eg: Ward 1</mat-hint>
 					  </mat-form-field>
 
+					  <!-- <mat-form-field fxFlex color="accent">
+						<input matInput type="text" placeholder="Type of Business Activities" formControlName="lastName">
+					</mat-form-field> -->
+
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="Type of Business Activities" formControlName="lastName">
 				</mat-form-field>
@@ -250,7 +272,7 @@
 					
 			</div>
 	
-			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="Tax type" formControlName="firstName">
 				</mat-form-field>
@@ -263,7 +285,7 @@
 					
 			</div>
 		
-			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="Declaration" formControlName="firstName">
 				</mat-form-field>
@@ -276,7 +298,7 @@
 					
 			</div>
 	
-			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="Designation" formControlName="firstName">
 				</mat-form-field>
@@ -288,7 +310,7 @@
 				</mat-form-field>
 					
 			</div>
-			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="Title" formControlName="firstName">
 				</mat-form-field>
