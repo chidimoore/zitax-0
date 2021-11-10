@@ -26,6 +26,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {NgSelectModule, NgOption} from '@ng-select/ng-select';
 // import { MatWgs84InputModule } from 'mat-wgs84-input';
 import { ReactiveFormsModule,FormsModule} from '@angular/forms';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -62,7 +63,9 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    NgSelectModule,
+    // NgOption
     // MatWgs84InputModule
   ]
 })

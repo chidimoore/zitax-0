@@ -199,9 +199,9 @@
 			</div>
 		
 			<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px">
-					  <mat-form-field fxFlex color="accent">
+					  <!-- <mat-form-field fxFlex color="accent"> -->
 
-					<mat-select
+					<!-- <mat-select
 					  placeholder="Ward"
 					  [(ngModel)]="selectedTaxpayer"
 					  (ngModelChange)="onFoodSelection2()"
@@ -211,9 +211,35 @@
 					  <mat-option *ngFor="let food of foods" [value]="food.value">
 						{{ food.viewValue }}
 					  </mat-option>
-					</mat-select>
-					<mat-hint>Eg: Soleapropriate</mat-hint>
-				  </mat-form-field>
+					</mat-select> -->
+				
+					<!-- <mat-form-field fxFlex color="accent"> -->
+					<!-- <ng-select 
+					ngSelectMat
+	
+					placeholder="Ward"
+					[(ngModel)]="selectedTaxpayer"
+					(ngModelChange)="onFoodSelection2()"
+					[ngModelOptions]="{standalone: true}"
+					 >
+						<ng-option *ngFor="let food of foods" [value]="food.value">
+							{{ food.viewValue }}
+						</ng-option>
+					 </ng-select> -->
+					<!-- </mat-form-field>	 -->
+					<mat-form-field fxFlex color="accent">
+						<mat-select
+						  placeholder="Ward"
+						  [(ngModel)]="selectedWard"
+					
+						  [ngModelOptions]="{standalone: true}"
+						>
+						  <mat-option *ngFor="let ward of wards" [value]="ward.value">
+							{{ ward.viewValue }}
+						  </mat-option>
+						</mat-select>
+						<mat-hint>Eg: Ward 1</mat-hint>
+					  </mat-form-field>
 
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="Type of Business Activities" formControlName="lastName">

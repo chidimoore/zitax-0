@@ -1,4 +1,4 @@
-
+@import "~@ng-select/ng-select/themes/material.theme.css";
   .tax-form-container{
     width: 100%;
   }

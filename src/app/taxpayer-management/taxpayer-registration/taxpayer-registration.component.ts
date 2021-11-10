@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {NgSelectModule, NgOption} from '@ng-select/ng-select';
+
 // import { MatSnackBar } from '@angular/material/snack-bar';
 // import { VERSION } from '@angular/material';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
-
+import { BANKS } from 'src/app/material/shared-functions';
 
 export interface Regions {
   value: string;
@@ -66,7 +68,7 @@ const WARDS_DATA_TWO: Wards[] = [
 ];
 
 
-const WARDS_DATA_DATA_THREE: Wards[] = [
+const WARDS_DATA_THREE: Wards[] = [
   {value: 'ward-6', viewValue: 'Ward  6'},
   {value: 'ward-7', viewValue: 'Ward  7'},
   {value: 'ward-8', viewValue: 'Ward  8'},
@@ -80,6 +82,15 @@ const WARDS_DATA_DATA_THREE: Wards[] = [
 })
 
 export class TaxpayerRegistrationComponent implements OnInit {
+
+  selectedCar: number=0;
+
+    cars = [
+        { id: 1, name: 'Volvo' },
+        { id: 2, name: 'Saab' },
+        { id: 3, name: 'Opel' },
+        { id: 4, name: 'Audi' },
+    ];
 
   /** list of regions */
   protected regions: Regions[] = REGIONS_DATA
@@ -215,7 +226,7 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
   // districts=[]
   districts: Districts[] = [];
-  wards=[]
+  wards:Wards[]=[]
  
   onFoodSelection2() {
     console.log(this.selectedTaxpayer);
@@ -231,7 +242,7 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
   onRegionSelection() {
     console.log(this.selectedRegion);
-
+    this.wards=[];
     if(this.selectedRegion=='region-0'){
       this.districts=DISTRICTS_DATA_ONE;
     }
@@ -249,17 +260,29 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
   }
 
+
   onDistrictSelection() {
     console.log(this.selectedDistrict);
+    console.log('this is supposed to work');
+    if(this.selectedDistrict=='district-0'){
+      this.wards=WARDS_DATA_ONE;
 
-    if(this.selectedDistrict=='partner-1'){
-      this.districts=DISTRICTS_DATA_ONE;
     }
-    else{
-      this.showNida=false
+    else  if(this.selectedDistrict=='district-1'){
+      this.wards=WARDS_DATA_TWO;
+    }
+
+    else  if(this.selectedDistrict=='district-2'){
+      this.wards=WARDS_DATA_THREE;
+    }
+
+    else {
+      this.wards=[];
     }
 
   }
+
+
 
  
   onKey(value:any) { 
