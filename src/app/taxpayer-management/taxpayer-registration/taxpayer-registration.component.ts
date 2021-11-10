@@ -82,15 +82,21 @@ const WARDS_DATA_THREE: Wards[] = [
 
 export class TaxpayerRegistrationComponent implements OnInit {
 
-  selectedCar: number=0;
-
-    cars = [
-        { id: 1, name: 'Volvo' },
-        { id: 2, name: 'Saab' },
-        { id: 3, name: 'Opel' },
-        { id: 4, name: 'Audi' },
-    ];
-
+  onFileSelected() {
+    const inputNode: any = document.querySelector('#file');
+  
+    if (typeof (FileReader) !== 'undefined') {
+      // const reader = new FileReader();
+  
+      console.log('File Selected');
+      
+      // reader.onload = (e: any) => {
+      //   this.srcResult = e.target.result;
+      // };
+  
+      // reader.readAsArrayBuffer(inputNode.files[0]);
+    }
+  }
   /** list of regions */
   protected regions: Regions[] = REGIONS_DATA
 

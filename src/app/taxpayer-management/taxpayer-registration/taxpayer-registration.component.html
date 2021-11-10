@@ -133,9 +133,28 @@
 				<mat-form-field fxFlex color="accent">
 					<input matInput type="text" placeholder="Tax type" formControlName="firstName">
 				</mat-form-field>
-				<mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="Attachment" formControlName="lastName">
-				</mat-form-field>
+				<!-- <mat-form-field fxFlex color="accent"> -->
+
+					<!-- <button 
+					class="example-full-button "
+					 mat-raised-button
+					  color="primary"
+					  >
+					  Verify
+					</button> -->
+
+					<button
+					 class="example-full-button "
+					 fxFlex color="accent"
+					 type="button" 
+					 mat-raised-button 
+					 (click)="fileInput.click()"
+					 >
+					 Choose File
+					</button>
+
+					<input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+				<!-- </mat-form-field> -->
 			
 					
 			</div>
