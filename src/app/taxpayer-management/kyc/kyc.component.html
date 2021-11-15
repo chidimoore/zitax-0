@@ -1,0 +1,133 @@
+<!-- <ngx-spinner
+  bdColor="rgba(0, 0, 0, 1)"
+  template="<img src='../../assets/ezgif.com-gif-maker.gif' />"
+  
+>
+</ngx-spinner> -->
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "762B12" type = "timer" [fullScreen] = "true">
+	<br>
+	<br>
+	<p *ngIf="verifying" style="color: white" >Verifying... </p>
+	<p *ngIf="submittingRegistrationData" style="color: white" >Uploading data... </p>
+</ngx-spinner>
+<!-- 
+		<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+			<circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+			<path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+		  </svg> -->
+
+		  
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+	<div fxFlex="95%">
+  
+	  <mat-card>
+		<mat-card-content>
+		  <h2>Customer Identification (KYC)</h2>
+
+
+		  <form [formGroup]="applyForZNumberForm" (submit)="applyForZNumberButtonPress()">
+
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+		  
+  
+				<mat-form-field appearance="outline" fxFlex color="accent" >
+				  <mat-label>Document Type</mat-label>
+				  <mat-select
+				  placeholder="Document Type"
+				  [(ngModel)]="selectedDocumentType"
+				  (ngModelChange)="onDocumentTypeSelection()"
+				  formControlName="documentType"
+				>
+				  <mat-option  *ngFor="let documentType of documentTypes" [value]="documentType.value">
+					{{ documentType.viewValue}}
+				  </mat-option>
+				</mat-select>
+  
+  
+				  <mat-icon class="matIcon" matSuffix>select_all</mat-icon>
+			  
+				</mat-form-field>
+			  
+  
+				<mat-form-field appearance="outline" fxFlex color="accent" *ngIf="isNIDA">
+				  <mat-label>NIDA</mat-label>
+				  <input matInput placeholder="NIDA" formControlName="NIDA">
+				  <mat-icon class="matIcon" matSuffix>mail</mat-icon>
+				  <mat-error *ngIf="applyForZNumberForm.controls['NIDA'].errors && applyForZNumberForm.controls['NIDA'].hasError('required')">
+					NIDA Number is required
+				  </mat-error>
+				  
+				</mat-form-field>
+			  
+	  
+			  <mat-form-field appearance="outline" fxFlex color="accent" *ngIf="isPassport">
+				  <mat-label>Passport Number</mat-label>
+				  <input matInput placeholder="Passport Number" formControlName="passportNumber">
+				  <mat-icon class="matIcon" matSuffix>phone</mat-icon>
+				  <mat-error *ngIf="applyForZNumberForm.controls['passportNumber'].errors && applyForZNumberForm.controls['passportNumber'].hasError('required')">
+					passportNumber Number is required
+				  </mat-error>
+			  
+				</mat-form-field>
+  
+				<mat-form-field appearance="outline" fxFlex color="accent">	
+				  <mat-label>Mobile Number</mat-label>
+				  <input matInput placeholder="Mobile Number" formControlName="MobileNumber">
+				  <mat-icon class="matIcon" matSuffix>phone</mat-icon>
+				  <mat-error *ngIf="applyForZNumberForm.controls['MobileNumber'].errors && applyForZNumberForm.controls['MobileNumber'].hasError('required')">
+					MobileNumber Number is required
+				  </mat-error>
+			  
+				</mat-form-field>
+  
+				<!-- <mat-form-field fxFlex color="accent">
+				  <input matInput type="text" placeholder="Type of Business Activities" formControlName="lastName">
+			  </mat-form-field> -->
+				  
+		  </div>
+	
+	
+		  <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+  <!-- 		
+			  <mat-form-field fxFlex color="accent">
+				  <mat-label>Current Address</mat-label>
+				  <textarea matInput
+							cdkTextareaAutosize
+							#autosize="cdkTextareaAutosize"
+							cdkAutosizeMinRows="1"
+							cdkAutosizeMaxRows="5"
+							formControlName="phone">
+				  </textarea>
+				</mat-form-field> -->
+  
+  
+				<mat-form-field appearance="outline" fxFlex color="accent" >
+				  <mat-label>Current Address</mat-label>
+				  <textarea matInput
+							cdkTextareaAutosize
+							#autosize="cdkTextareaAutosize"
+							cdkAutosizeMinRows="1"
+							cdkAutosizeMaxRows="5"
+							formControlName="currentAddress">
+				  </textarea>
+				  <mat-icon class="matIcon" matSuffix>gps_fixed</mat-icon>
+				  <mat-error *ngIf="applyForZNumberForm.controls['currentAddress'].errors && applyForZNumberForm.controls['currentAddress'].hasError('required')">
+					Phone Number is required
+				  </mat-error>
+				  
+				</mat-form-field>
+  
+				<button class="example-full-button " mat-raised-button color="primary" [disabled]="!applyForZNumberForm.valid">Apply</button>
+  
+		</div>
+	  </form>
+	  </mat-card-content>
+	</mat-card>
+  
+  </div>
+  </div>
+  
+  
+
+  

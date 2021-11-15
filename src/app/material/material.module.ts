@@ -30,6 +30,7 @@ import {NgSelectModule, NgOption} from '@ng-select/ng-select';
 // import { MatWgs84InputModule } from 'mat-wgs84-input';
 import { ReactiveFormsModule,FormsModule} from '@angular/forms';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   exports: [
@@ -65,6 +66,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     FormsModule,
     NgxMatSelectSearchModule,
     NgSelectModule,
+    NgxSpinnerModule
     // NgOption
     // MatWgs84InputModule
   ]

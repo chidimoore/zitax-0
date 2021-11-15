@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {NgSelectModule, NgOption} from '@ng-select/ng-select';
-
+import { NgxSpinnerService } from 'ngx-spinner';
 // import { MatSnackBar } from '@angular/material/snack-bar';
 // import { VERSION } from '@angular/material';
 import { ReplaySubject, Subject } from 'rxjs';
@@ -19,6 +19,29 @@ const REGIONS_DATA: Regions[] = [
   {value: 'region-1', viewValue: 'Kusini Pemba'},
   {value: 'region-2', viewValue: 'Kaskazini Pemba'},
 
+];
+
+
+
+export interface TaxTypes {
+  value: string;
+  viewValue: string;
+}
+
+const TAX_TYPES_DATA: TaxTypes[] = [
+  {value: 'taxType-0', viewValue: 'VAT'},
+  {value: 'taxType-1', viewValue: 'Hotel levy'},
+  {value: 'taxType-2', viewValue: 'Restaurant levy'},
+  {value: 'taxType-0', viewValue: 'Tour Operation levy'},
+  {value: 'taxType-1', viewValue: 'Land Lease'},
+  {value: 'taxType-2', viewValue: 'Public Services'},
+  {value: 'taxType-0', viewValue: 'Excercise Duty'},
+  {value: 'taxType-1', viewValue: 'Petroleum levy'},
+  {value: 'taxType-2', viewValue: 'Airport Service Charge'},
+  {value: 'taxType-0', viewValue: 'Airport Safety fee'},
+  {value: 'taxType-1', viewValue: 'Seaport Service Charge'},
+  {value: 'taxType-2', viewValue: 'Airport Transport Charge'},
+  {value: 'taxType-2', viewValue: 'Tax consultant licences'},
 ];
 
 export interface Districts {
@@ -100,6 +123,7 @@ export class TaxpayerRegistrationComponent implements OnInit {
   /** list of regions */
   protected regions: Regions[] = REGIONS_DATA
 
+  public taxTypes: TaxTypes[] = TAX_TYPES_DATA
   /** control for the selected region */
   // public regionCtrl: FormControl = new FormControl();
 
@@ -111,8 +135,13 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
 
   selectedDay: string = '';
-  showNida:Boolean=false;
+  isNGO:Boolean=false;
+  isZNumberVefied:Boolean=false;
+  isBusinessDataFetched:Boolean=false;
+  isOther:Boolean=true
   dataFetchedFromTRA:Boolean=false;
+  submittingRegistrationData:Boolean=false;
+  verifying:Boolean=true;
   //event handler for the select element's change event
   selectChangeHandler (event: any) {
     //update the ui
@@ -123,15 +152,18 @@ export class TaxpayerRegistrationComponent implements OnInit {
   }
 
   addUserForm: FormGroup  = new FormGroup({});
-  verifyTINForm: FormGroup  = new FormGroup({});
+  taxPayerRegistrationForm: FormGroup  = new FormGroup({});
+  verifyZNumberForm: FormGroup  = new FormGroup({});
+  fetchBusinessInfoForm: FormGroup  = new FormGroup({});
   constructor(
     private formBuilder:FormBuilder,
+    private spinner: NgxSpinnerService
     // private userService:UserService,
     // private _snackBar: MatSnackBar
     ) { }
 
   ngOnInit(): void {
-    this.addUserForm=this.formBuilder.group({
+    this.taxPayerRegistrationForm=this.formBuilder.group({
       'firstName': new FormControl('',[Validators.required,Validators.minLength(3)]),
       'lastName': new FormControl('',[Validators.required,Validators.minLength(3)]),
       'TIN': new FormControl('',[Validators.required,Validators.email]),
@@ -140,9 +172,12 @@ export class TaxpayerRegistrationComponent implements OnInit {
     })
 
 
-    this.verifyTINForm=this.formBuilder.group({
-      'TIN': new FormControl('',[Validators.required]),
+    this.verifyZNumberForm=this.formBuilder.group({
+      'ZNumber': new FormControl('',Validators.required),
+    })
 
+    this.fetchBusinessInfoForm=this.formBuilder.group({
+      'BPRANumber': new FormControl('',Validators.required),
     })
 
   // set initial selection
@@ -157,8 +192,25 @@ export class TaxpayerRegistrationComponent implements OnInit {
       .subscribe(() => {
         this.filterRegions();
       });
+
+
+      // this.spinner.show();
+      // setTimeout(() => {
+      //   this.spinner.hide();
+      // }, 2000);
    
   }
+
+  showSpinner() {
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+      // this.dataFetchedFromTRA=true;
+      this.verifying=false;
+      this.submittingRegistrationData=false;
+    }, 500);
+  }
+
 
   createUser(){
     // console.log(this.addUserForm.value);
@@ -171,12 +223,13 @@ export class TaxpayerRegistrationComponent implements OnInit {
       
     // }
   //  )
-
-  // console.log("TIN fetched from TRA");
+  this.submittingRegistrationData=true
+  this.showSpinner();
+  console.log("TIN fetched from TRA");
 
   }
 
-  verifyTIN(){
+  verifyZNumber(){
     // console.log(this.addUserForm.value);
     // this.userService.addUser(this.addUserForm.value).subscribe(data=>{
     //   // console.log("user created");
@@ -190,13 +243,16 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
   console.log("TIN fetched from TRA");
 
-  this.dataFetchedFromTRA=true
+  this.verifying=true;
+  this.dataFetchedFromTRA=false;
+  this.showSpinner();
 
   }
 
 
   selectedFood1: string='';
   selectedTaxpayer: string='';
+  selectedTaxType: string='';
   selectedRegion: string='';
   selectedDistrict: string='';
   selectedWard: string='';
@@ -218,15 +274,23 @@ export class TaxpayerRegistrationComponent implements OnInit {
   wards:Wards[]=[]
  
   onFoodSelection2() {
+    
     console.log(this.selectedTaxpayer);
 
-    if(this.selectedTaxpayer=='partner-0'){
-          this.showNida=true
+    if(this.selectedTaxpayer=='NGOs-2'){
+          this.isNGO=true
+          this.isOther=false
     }
     else {
-      this.showNida=false
+      this.isNGO=false
+      this.isOther=true
     }
 
+  }
+
+  onTaxType() {
+    
+  
   }
 
   onRegionSelection() {
@@ -286,4 +350,27 @@ export class TaxpayerRegistrationComponent implements OnInit {
     );
   }
 
+  verifyZNumberButtonPress(){
+  
+ 
+    console.log(this.verifyZNumberForm.value);
+    this.isZNumberVefied=true;
+    this.verifying=true;
+    this.dataFetchedFromTRA=false;
+    this.showSpinner();
+  
+    }
+
+    fetchBusinessInfoButtonPress(){
+  
+ 
+      console.log(this.fetchBusinessInfoForm.value);
+      this.verifying=true;
+      // this.dataFetchedFromTRA=false;
+
+      this.showSpinner();
+
+      this.isBusinessDataFetched=true;
+    
+      }
 }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TaxpayerRegistrationComponent } from './taxpayer-registration/taxpayer-registration.component';
 // import { TaxpayerRegistrationComponent} from './taxpayer-registration/taxpayer-registration.component';
 import { MainComponent } from '../Main/main.component';
+import { KYCComponent } from './kyc/kyc.component';
 const routes: Routes = [
   {
     path: '',
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path:'taxpayerRegistration',
         component: TaxpayerRegistrationComponent
+      },
+      {
+        path:'kyc',
+        component: KYCComponent
       }
     ]
   }

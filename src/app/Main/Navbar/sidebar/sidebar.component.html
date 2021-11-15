@@ -4,65 +4,69 @@
     <div class="mat-drawer-inner-container">
       <mat-nav-list>
         <mat-list-item routerLinkActive="current active" routerLink="/dashboard">
-          <mat-icon>home</mat-icon> &nbsp; &nbsp;&nbsp;
+          <mat-icon class="matIcon">home</mat-icon> &nbsp; &nbsp;&nbsp;
           <span *ngIf="isExpanded">Dashboard</span>
         </mat-list-item>
         <mat-expansion-panel *ngIf="isExpanded" class="mat-elevation-z0">
           <mat-expansion-panel-header>
-            <mat-icon>app_registration</mat-icon>
+            <mat-icon class="matIcon">app_registration</mat-icon>
             &nbsp; &nbsp;&nbsp;
             <span>Registration</span>
           </mat-expansion-panel-header>
           <mat-nav-list>
             <a mat-list-item routerLinkActive="current active" routerLink="/students">
-              <mat-icon>groups</mat-icon>&nbsp; &nbsp;&nbsp;
+              <mat-icon class="matIcon">groups</mat-icon>&nbsp; &nbsp;&nbsp;
               <span *ngIf="isExpanded">Students</span>
             </a>
             <a mat-list-item routerLinkActive="current active" routerLink="/staff">
-              <mat-icon>groups</mat-icon>&nbsp; &nbsp;&nbsp;
+              <mat-icon class="matIcon">groups</mat-icon>&nbsp; &nbsp;&nbsp;
               <span *ngIf="isExpanded">School Staff</span>
             </a>
             <a mat-list-item routerLinkActive="current active" routerLink="/">
-              <mat-icon>storage</mat-icon>&nbsp; &nbsp;&nbsp;
+              <mat-icon class="matIcon">storage</mat-icon>&nbsp; &nbsp;&nbsp;
               <span>Class</span>
             </a>
             <a mat-list-item routerLinkActive="current active" routerLink="/">
-              <mat-icon>storage</mat-icon>&nbsp; &nbsp;&nbsp;
+              <mat-icon class="matIcon">storage</mat-icon>&nbsp; &nbsp;&nbsp;
               <span>Subject</span>
             </a>
           </mat-nav-list>
         </mat-expansion-panel>
         <mat-expansion-panel *ngIf="isExpanded" class="mat-elevation-z0">
           <mat-expansion-panel-header>
-            <mat-icon>assignment_ind</mat-icon>
+            <mat-icon class="matIcon">assignment_ind</mat-icon>
             &nbsp; &nbsp;&nbsp;
-            <span>Taxpayer Management</span>
+            <span>TaxPayer Management</span>
           </mat-expansion-panel-header>
           <mat-nav-list>
+            <a mat-list-item routerLinkActive="current active" routerLink="/kyc">
+              <mat-icon class="matIcon">person</mat-icon>&nbsp; &nbsp;&nbsp;
+              <span *ngIf="isExpanded">KYC</span>
+            </a>
             <a mat-list-item routerLinkActive="current active" routerLink="/taxpayerRegistration">
-              <mat-icon>app_registration</mat-icon>&nbsp; &nbsp;&nbsp;
+              <mat-icon class="matIcon">app_registration</mat-icon>&nbsp; &nbsp;&nbsp;
               <span *ngIf="isExpanded">Registration</span>
             </a>
-
           </mat-nav-list>
         </mat-expansion-panel>
+        
         <mat-expansion-panel *ngIf="isExpanded" class="mat-elevation-z0">
           <mat-expansion-panel-header>
-            <mat-icon>my_location</mat-icon>
+            <mat-icon class="matIcon">my_location</mat-icon>
             &nbsp; &nbsp;&nbsp;
             <span>Locations</span>
           </mat-expansion-panel-header>
           <mat-nav-list>
             <a mat-list-item routerLinkActive="current active" routerLink="/students">
-              <mat-icon>place</mat-icon>&nbsp; &nbsp;&nbsp;
+              <mat-icon class="matIcon">place</mat-icon>&nbsp; &nbsp;&nbsp;
               <span *ngIf="isExpanded">Regions</span>
             </a>
             <a mat-list-item routerLinkActive="current active" routerLink="/staff">
-              <mat-icon>place</mat-icon>&nbsp; &nbsp;&nbsp;
+              <mat-icon class="matIcon">place</mat-icon>&nbsp; &nbsp;&nbsp;
               <span *ngIf="isExpanded">Districts</span>
             </a>
             <a mat-list-item routerLinkActive="current active" routerLink="/">
-              <mat-icon>place</mat-icon>&nbsp; &nbsp;&nbsp;
+              <mat-icon class="matIcon">place</mat-icon>&nbsp; &nbsp;&nbsp;
               <span>Localities</span>
             </a>
           </mat-nav-list>
