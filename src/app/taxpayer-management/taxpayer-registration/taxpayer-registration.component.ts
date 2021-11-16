@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {NgSelectModule, NgOption} from '@ng-select/ng-select';
+import { NgSelectModule, NgOption } from '@ng-select/ng-select';
 import { NgxSpinnerService } from 'ngx-spinner';
 // import { MatSnackBar } from '@angular/material/snack-bar';
 // import { VERSION } from '@angular/material';
@@ -15,9 +15,9 @@ export interface Regions {
 }
 
 const REGIONS_DATA: Regions[] = [
-  {value: 'region-0', viewValue: 'Kaskazini Unguja'},
-  {value: 'region-1', viewValue: 'Kusini Pemba'},
-  {value: 'region-2', viewValue: 'Kaskazini Pemba'},
+  { value: 'region-0', viewValue: 'Kaskazini Unguja' },
+  { value: 'region-1', viewValue: 'Kusini Pemba' },
+  { value: 'region-2', viewValue: 'Kaskazini Pemba' },
 
 ];
 
@@ -29,19 +29,19 @@ export interface TaxTypes {
 }
 
 const TAX_TYPES_DATA: TaxTypes[] = [
-  {value: 'taxType-0', viewValue: 'VAT'},
-  {value: 'taxType-1', viewValue: 'Hotel levy'},
-  {value: 'taxType-2', viewValue: 'Restaurant levy'},
-  {value: 'taxType-0', viewValue: 'Tour Operation levy'},
-  {value: 'taxType-1', viewValue: 'Land Lease'},
-  {value: 'taxType-2', viewValue: 'Public Services'},
-  {value: 'taxType-0', viewValue: 'Excercise Duty'},
-  {value: 'taxType-1', viewValue: 'Petroleum levy'},
-  {value: 'taxType-2', viewValue: 'Airport Service Charge'},
-  {value: 'taxType-0', viewValue: 'Airport Safety fee'},
-  {value: 'taxType-1', viewValue: 'Seaport Service Charge'},
-  {value: 'taxType-2', viewValue: 'Airport Transport Charge'},
-  {value: 'taxType-2', viewValue: 'Tax consultant licences'},
+  { value: 'taxType-0', viewValue: 'VAT' },
+  { value: 'taxType-1', viewValue: 'Hotel levy' },
+  { value: 'taxType-2', viewValue: 'Restaurant levy' },
+  { value: 'taxType-0', viewValue: 'Tour Operation levy' },
+  { value: 'taxType-1', viewValue: 'Land Lease' },
+  { value: 'taxType-2', viewValue: 'Public Services' },
+  { value: 'taxType-0', viewValue: 'Excercise Duty' },
+  { value: 'taxType-1', viewValue: 'Petroleum levy' },
+  { value: 'taxType-2', viewValue: 'Airport Service Charge' },
+  { value: 'taxType-0', viewValue: 'Airport Safety fee' },
+  { value: 'taxType-1', viewValue: 'Seaport Service Charge' },
+  { value: 'taxType-2', viewValue: 'Airport Transport Charge' },
+  { value: 'taxType-2', viewValue: 'Tax consultant licences' },
 ];
 
 export interface Districts {
@@ -51,21 +51,21 @@ export interface Districts {
 
 
 const DISTRICTS_DATA_ONE: Districts[] = [
-  {value: 'district-0', viewValue: 'District 0'},
-  {value: 'district-1', viewValue: 'District 1'},
-  {value: 'district-2', viewValue: 'District 2'},
+  { value: 'district-0', viewValue: 'District 0' },
+  { value: 'district-1', viewValue: 'District 1' },
+  { value: 'district-2', viewValue: 'District 2' },
 ];
 
 const DISTRICTS_DATA_TWO: Districts[] = [
-  {value: 'district-3', viewValue: 'District 3'},
-  {value: 'district-4', viewValue: 'District 4'},
-  {value: 'district-5', viewValue: 'District 5'},
+  { value: 'district-3', viewValue: 'District 3' },
+  { value: 'district-4', viewValue: 'District 4' },
+  { value: 'district-5', viewValue: 'District 5' },
 ];
 
 const DISTRICTS_DATA_THREE: Districts[] = [
-  {value: 'district-6', viewValue: 'District 6'},
-  {value: 'district-7', viewValue: 'District 7'},
-  {value: 'district-8', viewValue: 'District 8'},
+  { value: 'district-6', viewValue: 'District 6' },
+  { value: 'district-7', viewValue: 'District 7' },
+  { value: 'district-8', viewValue: 'District 8' },
 
 ];
 
@@ -76,24 +76,24 @@ export interface Wards {
 
 
 const WARDS_DATA_ONE: Wards[] = [
-  {value: 'ward-0', viewValue: 'Ward 0'},
-  {value: 'ward-1', viewValue: 'Ward  1'},
-  {value: 'ward-2', viewValue: 'Ward  2'},
+  { value: 'ward-0', viewValue: 'Ward 0' },
+  { value: 'ward-1', viewValue: 'Ward  1' },
+  { value: 'ward-2', viewValue: 'Ward  2' },
 
 
 ];
 
 const WARDS_DATA_TWO: Wards[] = [
-  {value: 'ward-3', viewValue: 'Ward  3'},
-  {value: 'ward-4', viewValue: 'Ward  4'},
-  {value: 'ward-5', viewValue: 'Ward  5'},
+  { value: 'ward-3', viewValue: 'Ward  3' },
+  { value: 'ward-4', viewValue: 'Ward  4' },
+  { value: 'ward-5', viewValue: 'Ward  5' },
 ];
 
 
 const WARDS_DATA_THREE: Wards[] = [
-  {value: 'ward-6', viewValue: 'Ward  6'},
-  {value: 'ward-7', viewValue: 'Ward  7'},
-  {value: 'ward-8', viewValue: 'Ward  8'},
+  { value: 'ward-6', viewValue: 'Ward  6' },
+  { value: 'ward-7', viewValue: 'Ward  7' },
+  { value: 'ward-8', viewValue: 'Ward  8' },
 
 ];
 
@@ -105,18 +105,24 @@ const WARDS_DATA_THREE: Wards[] = [
 
 export class TaxpayerRegistrationComponent implements OnInit {
 
+  region = new FormControl();
+  district = new FormControl();
+  ward = new FormControl();
+  typeofBusinessActivities = new FormControl();
+  taxType = new FormControl();
+
   onFileSelected() {
     const inputNode: any = document.querySelector('#file');
-  
+
     if (typeof (FileReader) !== 'undefined') {
       // const reader = new FileReader();
-  
+
       console.log('File Selected');
-      
+
       // reader.onload = (e: any) => {
       //   this.srcResult = e.target.result;
       // };
-  
+
       // reader.readAsArrayBuffer(inputNode.files[0]);
     }
   }
@@ -135,52 +141,91 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
 
   selectedDay: string = '';
-  isNGO:Boolean=false;
-  isZNumberVefied:Boolean=false;
-  isBusinessDataFetched:Boolean=false;
-  isOther:Boolean=true
-  dataFetchedFromTRA:Boolean=false;
-  submittingRegistrationData:Boolean=false;
-  verifying:Boolean=true;
+  isNGO: Boolean = false;
+  isZNumberVefied: Boolean = false;
+  isBusinessDataFetched: Boolean = false;
+  isOther: Boolean = true
+  dataFetchedFromTRA: Boolean = false;
+  submittingRegistrationData: Boolean = false;
+  verifying: Boolean = true;
   //event handler for the select element's change event
-  selectChangeHandler (event: any) {
+  selectChangeHandler(event: any) {
     //update the ui
     this.selectedDay = event.target.value;
 
     console.log(this.selectedDay);
-    
+
   }
 
-  addUserForm: FormGroup  = new FormGroup({});
-  taxPayerRegistrationForm: FormGroup  = new FormGroup({});
-  verifyZNumberForm: FormGroup  = new FormGroup({});
-  fetchBusinessInfoForm: FormGroup  = new FormGroup({});
+  addUserForm: FormGroup = new FormGroup({});
+  taxPayerRegistrationForm: FormGroup = new FormGroup({});
+  verifyZNumberForm: FormGroup = new FormGroup({});
+  fetchBusinessInfoForm: FormGroup = new FormGroup({});
   constructor(
-    private formBuilder:FormBuilder,
+    private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService
     // private userService:UserService,
     // private _snackBar: MatSnackBar
-    ) { }
+  ) { }
 
   ngOnInit(): void {
-    this.taxPayerRegistrationForm=this.formBuilder.group({
-      'firstName': new FormControl('',[Validators.required,Validators.minLength(3)]),
-      'lastName': new FormControl('',[Validators.required,Validators.minLength(3)]),
-      'TIN': new FormControl('',[Validators.required,Validators.email]),
-      'NIDAZan ID': new FormControl('',[Validators.required,Validators.minLength(10)]),
+    this.taxPayerRegistrationForm = this.formBuilder.group({
+      'firstName': new FormControl('', Validators.required),
+      'lastName': new FormControl('', Validators.required),
+      'TIN': new FormControl('', Validators.required),
+      'NIDAZan ID': new FormControl('', Validators.required),
+      'businessName': new FormControl('', Validators.required),
+      'companyName': new FormControl('', Validators.required),
+      'businessCategoryType': new FormControl('', Validators.required),
+      'registeredDate': new FormControl('', Validators.required),
+
+      'businessRegNo': new FormControl('', Validators.required),
+      'NIDAZanID': new FormControl('', Validators.required),
+      'typeOfApplication': new FormControl('', Validators.required),
+      'address': new FormControl('', Validators.required),
+
+      'placeOfBusiness': new FormControl('', Validators.required),
+      'fullName': new FormControl('', Validators.required),
+      'latitude': new FormControl('', Validators.required),
+      'longitude': new FormControl('', Validators.required),
+
+      'zNumber': new FormControl('', Validators.required),
+      'estimatedTurnAnnualOver': new FormControl('', Validators.required),
+      'contactNumber': new FormControl('', Validators.required),
+      'email': new FormControl('', Validators.required),
+
+      'regionInformation': new FormControl('', Validators.required),
+      'region': new FormControl('', Validators.required),
+      'district': new FormControl('', Validators.required),
+      'ward': new FormControl('', Validators.required),
+
+      'typeofBusinessActivities': new FormControl('', Validators.required),
+      'dateOfCommencingBusiness': new FormControl('', Validators.required),
+      'taxType': new FormControl('', Validators.required),
+      'fingerPrint': new FormControl('',[Validators.required,Validators.minLength(10)]),
+
+      'taxConsultant': new FormControl('', Validators.required),
+      'responsiblePerson': new FormControl('', Validators.required),
+      'designation': new FormControl('', Validators.required),
+      'dateOfVerification': new FormControl('', Validators.required),
+
+      'approvedOfficerName': new FormControl('', Validators.required),
+      'title': new FormControl('', Validators.required),
+      'declaration': new FormControl('', Validators.required),
+      'selectedTaxpayer': new FormControl('', Validators.required),
 
     })
 
 
-    this.verifyZNumberForm=this.formBuilder.group({
-      'ZNumber': new FormControl('',Validators.required),
+    this.verifyZNumberForm = this.formBuilder.group({
+      'ZNumber': new FormControl('', Validators.required),
     })
 
-    this.fetchBusinessInfoForm=this.formBuilder.group({
-      'BPRANumber': new FormControl('',Validators.required),
+    this.fetchBusinessInfoForm = this.formBuilder.group({
+      'BPRANumber': new FormControl('', Validators.required),
     })
 
-  // set initial selection
+    // set initial selection
     // this.regionCtrl.setValue(this.regions[10]);
 
     // load the initial region list
@@ -194,11 +239,11 @@ export class TaxpayerRegistrationComponent implements OnInit {
       });
 
 
-      // this.spinner.show();
-      // setTimeout(() => {
-      //   this.spinner.hide();
-      // }, 2000);
-   
+    // this.spinner.show();
+    // setTimeout(() => {
+    //   this.spinner.hide();
+    // }, 2000);
+
   }
 
   showSpinner() {
@@ -206,64 +251,68 @@ export class TaxpayerRegistrationComponent implements OnInit {
     setTimeout(() => {
       this.spinner.hide();
       // this.dataFetchedFromTRA=true;
-      this.verifying=false;
-      this.submittingRegistrationData=false;
+      this.verifying = false;
+      this.submittingRegistrationData = false;
     }, 500);
   }
 
+  registerTaxPayer(){
+    console.log(this.taxPayerRegistrationForm.value);
+  }
 
-  createUser(){
+  
+  createUser() {
     // console.log(this.addUserForm.value);
     // this.userService.addUser(this.addUserForm.value).subscribe(data=>{
     //   // console.log("user created");
     //   this._snackBar.open("user crated successfully")
-      
+
     // },err=>{  
     //   this._snackBar.open("Un able to create user")
-      
+
     // }
-  //  )
-  this.submittingRegistrationData=true
-  this.showSpinner();
-  console.log("TIN fetched from TRA");
+    //  )
+    this.submittingRegistrationData = true
+    this.showSpinner();
+    console.log("TIN fetched from TRA");
 
   }
 
-  verifyZNumber(){
+  verifyZNumber() {
     // console.log(this.addUserForm.value);
     // this.userService.addUser(this.addUserForm.value).subscribe(data=>{
     //   // console.log("user created");
     //   this._snackBar.open("user crated successfully")
-      
+
     // },err=>{  
     //   this._snackBar.open("Un able to create user")
-      
+
     // }
-  //  )
+    //  )
 
-  console.log("TIN fetched from TRA");
+    console.log("TIN fetched from TRA");
 
-  this.verifying=true;
-  this.dataFetchedFromTRA=false;
-  this.showSpinner();
+    this.verifying = true;
+    this.dataFetchedFromTRA = false;
+    this.showSpinner();
 
   }
 
 
-  selectedFood1: string='';
-  selectedTaxpayer: string='';
-  selectedTaxType: string='';
-  selectedRegion: string='';
-  selectedDistrict: string='';
-  selectedWard: string='';
+  selectedFood1: string = '';
+  selectedTaxpayer: string = '';
+  selectedTaxType: string = '';
+  selectedRegion: string = '';
+  selectedDistrict: string = '';
+  selectedWard: string = '';
 
 
   foods = [
-    {value: 'soleapropriate-0', viewValue: 'Soleapropriate'},
-    {value: 'partner-1', viewValue: 'Partner'},
-    {value: 'company-2', viewValue: 'Company'},
-    {value: 'consultant-2', viewValue: 'Consultant'},
-    {value: 'NGOs-2', viewValue: 'NGOs'}
+    { value: 'soleapropriate-0', viewValue: 'Soleapropriate' },
+    { value: 'partner-1', viewValue: 'Partner' },
+    { value: 'company-2', viewValue: 'Company' },
+    { value: 'consultant-2', viewValue: 'Consultant' },
+    { value: 'NGOs-2', viewValue: 'NGOs' }
   ];
 
   // public regions: Regions[] = REGIONS_DATA;
@@ -271,62 +320,62 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
   // districts=[]
   districts: Districts[] = [];
-  wards:Wards[]=[]
- 
+  wards: Wards[] = []
+
   onFoodSelection2() {
-    
+
     console.log(this.selectedTaxpayer);
 
-    if(this.selectedTaxpayer=='NGOs-2'){
-          this.isNGO=true
-          this.isOther=false
+    if (this.selectedTaxpayer == 'NGOs-2') {
+      this.isNGO = true
+      this.isOther = false
     }
     else {
-      this.isNGO=false
-      this.isOther=true
+      this.isNGO = false
+      this.isOther = true
     }
 
   }
 
   onTaxType() {
-    
-  
+
+
   }
 
   onRegionSelection() {
 
     switch (this.selectedRegion) {
       case 'region-0':
-          this.districts=DISTRICTS_DATA_ONE;
-          break;
+        this.districts = DISTRICTS_DATA_ONE;
+        break;
       case 'region-1':
-          this.districts=DISTRICTS_DATA_TWO;
-          break;
+        this.districts = DISTRICTS_DATA_TWO;
+        break;
       case 'region-2':
-          this.districts=DISTRICTS_DATA_THREE;
-          break;
+        this.districts = DISTRICTS_DATA_THREE;
+        break;
       default:
-          this.districts=[];
-          break;
-  }
+        this.districts = [];
+        break;
+    }
 
   }
 
   onDistrictSelection() {
 
     switch (this.selectedDistrict) {
-        case 'district-0':
-            this.wards=WARDS_DATA_ONE;
-            break;
-        case 'district-1':
-            this.wards=WARDS_DATA_TWO;
-            break;
-        case 'district-2':
-            this.wards=WARDS_DATA_THREE;
-            break;
-        default:
-            this.wards=[];
-            break;
+      case 'district-0':
+        this.wards = WARDS_DATA_ONE;
+        break;
+      case 'district-1':
+        this.wards = WARDS_DATA_TWO;
+        break;
+      case 'district-2':
+        this.wards = WARDS_DATA_THREE;
+        break;
+      default:
+        this.wards = [];
+        break;
     }
 
   }
@@ -350,27 +399,27 @@ export class TaxpayerRegistrationComponent implements OnInit {
     );
   }
 
-  verifyZNumberButtonPress(){
-  
- 
+  verifyZNumberButtonPress() {
+
+
     console.log(this.verifyZNumberForm.value);
-    this.isZNumberVefied=true;
-    this.verifying=true;
-    this.dataFetchedFromTRA=false;
+    this.isZNumberVefied = true;
+    this.verifying = true;
+    this.dataFetchedFromTRA = false;
     this.showSpinner();
-  
-    }
 
-    fetchBusinessInfoButtonPress(){
-  
- 
-      console.log(this.fetchBusinessInfoForm.value);
-      this.verifying=true;
-      // this.dataFetchedFromTRA=false;
+  }
 
-      this.showSpinner();
+  fetchBusinessInfoButtonPress() {
 
-      this.isBusinessDataFetched=true;
-    
-      }
+
+    console.log(this.fetchBusinessInfoForm.value);
+    this.verifying = true;
+    // this.dataFetchedFromTRA=false;
+
+    this.showSpinner();
+
+    this.isBusinessDataFetched = true;
+
+  }
 }
