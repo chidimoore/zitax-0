@@ -61,6 +61,30 @@
     margin-top: 4px;
   }
   
+
+  .stepper-button {
+    width: 20%;
+    height: 50px;
+    /* padding-top: 20px; */
+    margin-top: 4px;
+    margin-left: 4px;
+
+    float: right
+  }
+  
+
+  .upload-button {
+    width: 40px;
+    height: 40px;
+    /* padding-top: 20px; */
+    /* margin-top: 4px;
+    margin-left: 4px; */
+
+    /* float: right */
+  }
+  
+
+
   td {
     padding-right: 8px;
   }

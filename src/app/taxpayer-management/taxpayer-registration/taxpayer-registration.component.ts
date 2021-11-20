@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators , FormArray, AbstractControl } from '@angular/forms';
 import { NgSelectModule, NgOption } from '@ng-select/ng-select';
 import { NgxSpinnerService } from 'ngx-spinner';
+
 // import { MatSnackBar } from '@angular/material/snack-bar';
 // import { VERSION } from '@angular/material';
 import { ReplaySubject, Subject } from 'rxjs';
@@ -105,6 +106,16 @@ const WARDS_DATA_THREE: Wards[] = [
 
 export class TaxpayerRegistrationComponent implements OnInit {
 
+  
+  arrayItems: {
+    id: number;
+    title: string;
+  }[] = [];
+  
+  firstFormGroup2: FormGroup = new FormGroup({});
+  secondFormGroup: FormGroup = new FormGroup({});
+  isEditable = false;
+
   region = new FormControl();
   district = new FormControl();
   ward = new FormControl();
@@ -158,17 +169,179 @@ export class TaxpayerRegistrationComponent implements OnInit {
   }
 
   addUserForm: FormGroup = new FormGroup({});
+
+  businessForm: FormGroup = new FormGroup({});
+
   taxPayerRegistrationForm: FormGroup = new FormGroup({});
   verifyZNumberForm: FormGroup = new FormGroup({});
   fetchBusinessInfoForm: FormGroup = new FormGroup({});
+
+  name = 'Angular 6';
+
+  userForm: FormGroup = new FormGroup({});
+  demoForm : FormGroup = new FormGroup({});
+
+  productForm: FormGroup= new FormGroup({});
+
+  addressForm: FormGroup= new FormGroup({});
+
+  bankForm: FormGroup= new FormGroup({});
+
+  actitiesForm: FormGroup= new FormGroup({});
+
   constructor(
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private _formBuilder: FormBuilder,
+    // private fb: FormBuilder
+    // private fb: FormBuilder
+    
     // private userService:UserService,
     // private _snackBar: MatSnackBar
-  ) { }
+  ) {
+
+    // this.userForm = this.fb.group({
+    //   name: [],
+    //   phones: this.fb.array([
+    //     this.fb.control(null)
+    //   ])
+    // })
+
+    this.demoForm = this._formBuilder.group({
+      demoArray: this._formBuilder.array([])
+   });
+
+   }
 
   ngOnInit(): void {
+   
+      /* Initiate the form structure */
+  
+      this.addressForm = this.formBuilder.group({
+    
+        address:  this.formBuilder.array([
+          this.formBuilder.group({ 
+            address: '',
+            buildingNumber: '',
+            effectiveDate: '',
+            email: '',
+            fax: '',
+            mobile: '',
+            officeType: '',
+            phone: '',
+            poBox: '',
+            shehia: '',
+            calculationMethod: '',
+            exempt: '',
+            filingCurrency: '',
+            filingPeriod: '',
+            filingType: '',
+            infrastructure: '',
+            localRate: '',
+            taxId: ''
+        
+          })
+        ]
+          
+          )
+      })
+
+       
+      this.bankForm = this.formBuilder.group({
+    
+        bInfo:  this.formBuilder.array([
+          this.formBuilder.group({ 
+            accountName:'' ,
+            accountNumber:'',
+            accountType: '',
+            bankId: '',
+            currency:'',
+            swiftCode: ''
+        
+          })
+        ]
+          
+          )
+      })
+
+      this.actitiesForm= this.formBuilder.group({
+    
+        aInfo:  this.formBuilder.array([
+          this.formBuilder.group({ 
+            activity:'' ,
+        
+          })
+        ]
+          
+          )
+      })
+
+    //   this.addressForm = this.formBuilder.group({
+    //     address:  this.formBuilder.array([
+    //       this.formBuilder.group({
+ 
+    //         address: {
+    //         address: '',
+    //         buildingNumber: '',
+    //         effectiveDate: '',
+    //         email: '',
+    //         fax: '',
+    //         mobile: '',
+    //         officeType: '',
+    //         phone: '',
+    //         poBox: '',
+    //         shehia: '',
+    //       //  })}
+    //       },
+      
+    //     taxType:{
+    //       calculationMethod: '',
+    //       exempt: '',
+    //       filingCurrency: '',
+    //       filingPeriod: '',
+    //       filingType: '',
+    //       infrastructure: '',
+    //       localRate: '',
+    //       taxId: ''
+    //       // })
+    //       }
+    //     //  })
+    //     })
+         
+         
+    //    ])
+        
+    // })
+      //     address: this.formBuilder.group({
+      //     address: '',
+      //     buildingNumber: '',
+      //     effectiveDate: '',
+      //     email: '',
+      //     fax: '',
+      //     mobile: '',
+      //     officeType: '',
+      //     phone: '',
+      //     poBox: '',
+      //     shehia: '',
+      //    }),
+
+      // taxType: this.formBuilder.group({
+      //   calculationMethod: '',
+      //   exempt: '',
+      //   filingCurrency: '',
+      //   filingPeriod: '',
+      //   filingType: '',
+      //   infrastructure: true,
+      //   localRate: '',
+      //   taxId: ''
+      // })
+
+      
+      // })
+      
+
+    this.arrayItems = [];
+
     this.taxPayerRegistrationForm = this.formBuilder.group({
       'firstName': new FormControl('', Validators.required),
       'lastName': new FormControl('', Validators.required),
@@ -217,6 +390,21 @@ export class TaxpayerRegistrationComponent implements OnInit {
     })
 
 
+    
+    // "annualTurnover": 0,
+    // "applicationType": 0,
+    // "businessCategory": "Soleproprietor",
+    // "businessName": '',
+    // "businessRegNumber": '',
+    // "businessType": 0,
+    // "commencementDate": "2021-11-19T21:11:34.235Z",
+    // "location": '',
+    // "taxpayerType": "Consultant",
+    // "tinNumber": '',
+    // "znumber": ''
+
+   
+
     this.verifyZNumberForm = this.formBuilder.group({
       'ZNumber': new FormControl('', Validators.required),
     })
@@ -243,8 +431,37 @@ export class TaxpayerRegistrationComponent implements OnInit {
     // setTimeout(() => {
     //   this.spinner.hide();
     // }, 2000);
+    // this.businessForm = this._formBuilder.group({
+ 
+    // })
+
+    this.businessForm  = this.formBuilder.group({
+      // firstCtrl: [''],
+      // 'firstCtrl': new FormControl('', Validators.required),
+
+
+      'annualTurnover': new FormControl(''),
+      'applicationType': new FormControl(''),
+      'businessCategory': new FormControl(''),
+      'businessName': new FormControl(''),
+      'businessRegNumber': new FormControl(''),
+      'businessType': new FormControl(''),
+      'commencementDate': new FormControl(''),
+      'location': new FormControl(''),
+      'taxpayerType': new FormControl(''),
+      'tinNumber': new FormControl(''),
+      'znumber': new FormControl(''),
+ 
+
+    });
+    this.secondFormGroup = this.formBuilder.group({
+      // secondCtrl: [''],
+      'secondCtrl': new FormControl('', Validators.required),
+    });
 
   }
+
+
 
   showSpinner() {
     this.spinner.show();
@@ -301,6 +518,7 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
   selectedFood1: string = '';
   selectedTaxpayer: string = '';
+  selectedBusinessCategory: string = '';
   selectedTaxType: string = '';
   selectedRegion: string = '';
   selectedDistrict: string = '';
@@ -308,11 +526,17 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
 
   foods = [
-    { value: 'soleapropriate-0', viewValue: 'Soleapropriate' },
-    { value: 'partner-1', viewValue: 'Partner' },
-    { value: 'company-2', viewValue: 'Company' },
-    { value: 'consultant-2', viewValue: 'Consultant' },
-    { value: 'NGOs-2', viewValue: 'NGOs' }
+    { value: 'Soleproprietor', viewValue: 'Soleproprietor' },
+    { value: 'Partenership', viewValue: 'Partenership' },
+    { value: 'Company', viewValue: 'Company' },
+    { value: 'Consultant', viewValue: 'Consultant' },
+    { value: 'Ngos', viewValue: 'Ngos' }
+  ];
+
+  taxpayerTypes = [
+    { value: 'Consultant', viewValue: 'Consultant' },
+    { value: 'Preparer', viewValue: 'Preparer' },
+    { value: 'Taxpayer', viewValue: 'Taxpayer' },
   ];
 
   // public regions: Regions[] = REGIONS_DATA;
@@ -322,7 +546,23 @@ export class TaxpayerRegistrationComponent implements OnInit {
   districts: Districts[] = [];
   wards: Wards[] = []
 
-  onFoodSelection2() {
+  onBusinessCategorySelection() {
+
+    console.log(this. selectedBusinessCategory);
+
+    if (this.selectedTaxpayer == 'NGOs-2') {
+      this.isNGO = true
+      this.isOther = false
+    }
+    else {
+      this.isNGO = false
+      this.isOther = true
+    }
+
+  }
+
+
+  onTaxPayerTypeSelection() {
 
     console.log(this.selectedTaxpayer);
 
@@ -336,6 +576,7 @@ export class TaxpayerRegistrationComponent implements OnInit {
     }
 
   }
+
 
   onTaxType() {
 
@@ -412,7 +653,6 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
   fetchBusinessInfoButtonPress() {
 
-
     console.log(this.fetchBusinessInfoForm.value);
     this.verifying = true;
     // this.dataFetchedFromTRA=false;
@@ -422,4 +662,154 @@ export class TaxpayerRegistrationComponent implements OnInit {
     this.isBusinessDataFetched = true;
 
   }
+
+
+  // addPhone(): void {
+  //   (this.userForm.get('phones') as FormArray).push(
+  //     this.fb.control(null)
+  //   );
+  // }
+
+  // removePhone(index:any) {
+  //   (this.userForm.get('phones') as FormArray).removeAt(index);
+  // }
+
+  // getPhonesFormControls(): AbstractControl[] {
+  //   return (<FormArray> this.userForm.get('phones')  as FormArray).controls 
+  // }
+
+  // send(values:any) {
+  //   console.log(values);
+  // }
+
+  //another
+
+//   get demoArray() {
+//     return this.demoForm.get('demoArray') as FormArray;
+//  }
+//  addItem(item:any) {
+//     this.arrayItems.push(item);
+//     this.demoArray.push(this._formBuilder.control(false));
+//  }
+//  removeItem() {
+//     this.arrayItems.pop();
+//     this.demoArray.removeAt(this.demoArray.length - 1);
+//  }
+
+
+
+get sellingPoints() {
+  return this.addressForm.get('address') as FormArray;
+}
+
+/////// This is new /////////////////
+
+addSellingPoint() {
+  this.sellingPoints.push(
+    this.formBuilder.group({
+      
+      address: '',
+      buildingNumber: '',
+      effectiveDate: '',
+      email: '',
+      fax: '',
+      mobile: '',
+      officeType: '',
+      phone: '',
+      poBox: '',
+      shehia: '',
+      calculationMethod: '',
+       exempt: '',
+    filingCurrency: '',
+    filingPeriod: '',
+    filingType: '',
+    infrastructure: '',
+    localRate: '',
+    taxId: ''
+    
+    })
+
+  );
+
+}
+
+deleteSellingPoint(index:any) {
+  this.sellingPoints.removeAt(index);
+}
+
+get bankInfo() {
+  return this.bankForm.get('bInfo') as FormArray;
+}
+
+/////// This is new /////////////////
+
+addBankInfo() {
+  this.bankInfo.push(
+    this.formBuilder.group({ 
+      accountName:'' ,
+      accountNumber:'',
+      accountType: '',
+      bankId: '',
+      currency:'',
+      swiftCode: ''
+  
+    })
+
+  );
+
+}
+
+deleteBankInfo(index:any) {
+  this.bankInfo.removeAt(index);
+}
+
+
+
+get activityInfo() {
+  return this.actitiesForm.get('aInfo') as FormArray;
+}
+
+/////// This is new /////////////////
+
+addActivityInfo() {
+  this.activityInfo.push(
+    this.formBuilder.group({ 
+   
+      activity: '',
+   
+  
+    })
+
+  );
+
+}
+
+deleteActivityInfo(index:any) {
+  this.activityInfo.removeAt(index);
+}
+
+
+submitProductionForm(){
+
+  console.log('businessForm.=>',this.businessForm.value);
+  console.log('addressForm=>',this.addressForm.value);
+  console.log('bankForm=>',this.bankForm.value);
+  console.log('actitiesForm=>',this.actitiesForm.value);
+  // const person= this.personForm.value;
+  // const address = this.addressForm.value;
+  // const obj3 = {address ,person}
+
+  // addressForm: FormGroup= new FormGroup({});
+
+  // bankForm: FormGroup= new FormGroup({});
+
+  // actitiesForm: FormGroup= new FormGroup({});
+const obj3 =[{"address": {}, "taxType": {} }]
+for (let x = 0; x < this.addressForm.value['address'].length; x++) { obj3[x]['address']=this.addressForm.value['address']; obj3[x]['taxType']=this.addressForm.value['address']}
+
+  console.log('obj3=>', obj3);
+}
+
+
+
 }

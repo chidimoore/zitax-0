@@ -27,10 +27,12 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {NgSelectModule, NgOption} from '@ng-select/ng-select';
+import {MatStepperModule} from '@angular/material/stepper';
 // import { MatWgs84InputModule } from 'mat-wgs84-input';
 import { ReactiveFormsModule,FormsModule} from '@angular/forms';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NgxSpinnerModule } from "ngx-spinner";
+import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY} from '@angular/material/snack-bar';
 
 @NgModule({
   exports: [
@@ -66,9 +68,14 @@ import { NgxSpinnerModule } from "ngx-spinner";
     FormsModule,
     NgxMatSelectSearchModule,
     NgSelectModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatSnackBarModule,
+    MatStepperModule
     // NgOption
     // MatWgs84InputModule
+  ],
+  providers:[
+    {provide:MAT_SNACK_BAR_DEFAULT_OPTIONS,useValue:{duration:4000}}
   ]
 })
 export class MaterialModule { }
