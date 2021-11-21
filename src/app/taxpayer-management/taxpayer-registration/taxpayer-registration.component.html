@@ -5,6 +5,31 @@
 >
 </ngx-spinner> -->
 
+<!-- <h1>Edit Product</h1>
+
+<form [formGroup]="productForm">
+
+  <label>
+    Title: <input formControlName="title" />
+  </label>
+  <h2>Selling Points</h2>
+
+  <div formArrayName="selling_points">
+    <div *ngFor="let item of sellingPointsS.controls; let pointIndex=index" [formGroupName]="pointIndex">
+    <label>
+      Selling Point: <input formControlName="point" />
+    </label>
+    <button type="button" (click)="deleteSellingPointS(pointIndex)">Delete Selling Point</button>
+    </div>
+    <button type="button" (click)="addSellingPointS()">Add Selling Point</button>
+	<button type="button" (click)="submitProductionForm()"> Subm</button>
+  </div>
+
+</form>
+
+{{ this.productForm.value | json }}
+ -->
+
 <h1>TaxPayer Registration</h1>
 
 	
@@ -30,9 +55,9 @@
 		  
 		  <mat-stepper linear #stepper>
 			<mat-step [stepControl]="businessForm " [editable]="!isEditable">
-			  <form [formGroup]="businessForm " >
+			 
 				<ng-template matStepLabel>Business Information</ng-template>
-
+				<form [formGroup]="businessForm " >
 			
 				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
     
@@ -187,30 +212,87 @@
 					</mat-form-field>
 			
 				
-					<button
-					class="upload-button"
-					fxFlex color="accent"
-					type="button" 
-					mat-raised-button 
-					(click)="fileInput.click()"
-					fxFlex color="accent">	
-					Attachment
-				   </button>
-  
-				   <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+					
 				</div>
 
 			
-
-
-				<div>
-				  <!-- <button mat-button matStepperNext>Next</button> -->
-
-				  <button class="stepper-button" mat-raised-button color="primary" matStepperNext >Next</button>
-				</div>
+				
+			
 			  </form>
 
 
+			  <form [formGroup]="consultantForm" >
+				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+			
+				  <mat-form-field appearance="outline" fxFlex color="accent">	
+					  <mat-label>Consultant ZNumber.</mat-label>
+					  <input matInput placeholder="Business Name." formControlName="consultantZNumber">
+					  <mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+					  <mat-error *ngIf="consultantForm.controls['consultantZNumber'].errors && consultantForm.controls['consultantZNumber'].hasError('required')">
+						  Consultant ZNumber is required
+					  </mat-error>
+				  </mat-form-field>
+			
+				  <mat-form-field appearance="outline" fxFlex color="accent">	
+					  <mat-label>Description</mat-label>
+					  <input matInput placeholder="Description Name." formControlName="description">
+					  <mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+					  <mat-error *ngIf="consultantForm.controls['description'].errors && consultantForm.controls['description'].hasError('required')">
+						  Description is required
+					  </mat-error>
+				  </mat-form-field>
+				  
+				  <button
+				  class="upload-button"
+				  fxFlex color="accent"
+				  type="button" 
+				  mat-raised-button 
+				  (click)="fileInput.click()"
+				  fxFlex color="accent">	
+				  Attachment
+				 </button>
+			
+				 <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+			
+			  </div>
+			
+			</form>
+            <form [formGroup]="attachmentForm"  >
+				<div formArrayName="attachment">
+
+			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+				<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
+					<mat-label>File</mat-label>
+					<input matInput placeholder="Business Name." formControlName="businessName">
+					<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+					<mat-error *ngIf="attachmentForm.controls['businessName'].errors && attachmentForm.controls['businessName'].hasError('required')">
+					  File is required
+					</mat-error>
+				</mat-form-field> -->
+		
+				<button
+				class="upload-button"
+				fxFlex color="accent"
+				type="button" 
+				mat-raised-button 
+				(click)="fileInput.click()"
+				fxFlex color="accent">	
+				File
+			   </button>
+		  
+			   <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+		  
+		
+			</div>
+		    </div>
+			</form>
+
+			<div>
+				<!-- <button mat-button matStepperNext>Next</button> -->
+				<button class="stepper-button" mat-raised-button color="primary" (click)="submitProductionForm()">Submit</button>
+				<button class="stepper-button" mat-raised-button color="primary" matStepperNext >Next</button>
+			  </div>
 			</mat-step>
 
 			<mat-step [stepControl]="addressForm" [editable]="!isEditable">
@@ -402,7 +484,7 @@
 
 				<div>
 			
-				
+			
 				  <button class="stepper-button" mat-raised-button color="primary" matStepperNext>Next</button>
 				  <button class="stepper-button" mat-raised-button color="primary" matStepperPrevious>Back</button>
 				</div>
@@ -624,7 +706,7 @@
 	  </form> -->
 
 	  		
-		<form [formGroup]="fetchBusinessInfoForm" (submit)="fetchBusinessInfoButtonPress()" *ngIf="isZNumberVefied">
+		<!-- <form [formGroup]="fetchBusinessInfoForm" (submit)="fetchBusinessInfoButtonPress()" *ngIf="isZNumberVefied">
 
 		
 	
@@ -643,7 +725,7 @@
 				  <button class="example-full-button " mat-raised-button color="primary" [disabled]="!fetchBusinessInfoForm.valid">Fetch Business Info.</button>
 	
 		  </div>
-		</form>
+		</form> -->
 		
 	<div *ngIf="isBusinessDataFetched">
 <!-- 

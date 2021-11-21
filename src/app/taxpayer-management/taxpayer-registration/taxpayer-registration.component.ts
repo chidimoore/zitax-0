@@ -1,8 +1,12 @@
+import { object } from '@amcharts/amcharts4/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators , FormArray, AbstractControl } from '@angular/forms';
 import { NgSelectModule, NgOption } from '@ng-select/ng-select';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ControllerService } from 'src/app/services/controller.service';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { finalize } from "rxjs/operators";
 // import { MatSnackBar } from '@angular/material/snack-bar';
 // import { VERSION } from '@angular/material';
 import { ReplaySubject, Subject } from 'rxjs';
@@ -10,10 +14,44 @@ import { take, takeUntil } from 'rxjs/operators';
 
 import { BANKS } from 'src/app/material/shared-functions';
 
+
+// export interface Addressable {
+//   address: string[{
+//     interface address
+//         {  
+//           address:string,
+       
+//         }, 
+//      axType: string
+//         {
+//           calculationMethod: 4,
+        
+//         } ];
+// }
+
 export interface Regions {
   value: string;
   viewValue: string;
 }
+
+
+
+// export interface obj3 {
+//   [
+//     {
+//     address: 
+//         {  
+//           ddress: "",
+       
+//         }, 
+//      taxType: 
+//         {
+//           calculationMethod: 4,
+       
+//         } 
+//     }
+//     ]
+// }
 
 const REGIONS_DATA: Regions[] = [
   { value: 'region-0', viewValue: 'Kaskazini Unguja' },
@@ -170,7 +208,6 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
   addUserForm: FormGroup = new FormGroup({});
 
-  businessForm: FormGroup = new FormGroup({});
 
   taxPayerRegistrationForm: FormGroup = new FormGroup({});
   verifyZNumberForm: FormGroup = new FormGroup({});
@@ -189,10 +226,18 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
   actitiesForm: FormGroup= new FormGroup({});
 
+  attachmentForm :FormGroup= new FormGroup({});
+
+  businessForm: FormGroup = new FormGroup({});
+
+  consultantForm: FormGroup = new FormGroup({});
+
   constructor(
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
     private _formBuilder: FormBuilder,
+    private controllerService:ControllerService,
+    private _snackBar: MatSnackBar
     // private fb: FormBuilder
     // private fb: FormBuilder
     
@@ -217,28 +262,34 @@ export class TaxpayerRegistrationComponent implements OnInit {
    
       /* Initiate the form structure */
   
+         /* Initiate the form structure */
+    this.productForm = this.formBuilder.group({
+      title: [],
+      selling_points: this.formBuilder.array([this.formBuilder.group({point:''})])
+    })
+
       this.addressForm = this.formBuilder.group({
     
         address:  this.formBuilder.array([
           this.formBuilder.group({ 
-            address: '',
-            buildingNumber: '',
-            effectiveDate: '',
-            email: '',
-            fax: '',
-            mobile: '',
-            officeType: '',
-            phone: '',
-            poBox: '',
-            shehia: '',
-            calculationMethod: '',
-            exempt: '',
-            filingCurrency: '',
-            filingPeriod: '',
-            filingType: '',
-            infrastructure: '',
-            localRate: '',
-            taxId: ''
+                "address": "string",
+                "buildingNumber": "string",
+                "effectiveDate": "2021-11-21T06:10:52.130Z",
+                "email": "string",
+                "fax": "string",
+                "mobile": "string",
+                "officeType": "HO",
+                "phone": "string",
+                "poBox": "string",
+                "shehia": 3,
+                "calculationMethod": 4,
+                "exempt": true,
+                "filingCurrency": "TZS",
+                "filingPeriod": 0,
+                "filingType": "string",
+                "infrastructure": true,
+                "localRate": "string",
+                "taxId": 0
         
           })
         ]
@@ -251,12 +302,12 @@ export class TaxpayerRegistrationComponent implements OnInit {
     
         bInfo:  this.formBuilder.array([
           this.formBuilder.group({ 
-            accountName:'' ,
-            accountNumber:'',
-            accountType: '',
-            bankId: '',
-            currency:'',
-            swiftCode: ''
+            "accountName": "string",
+            "accountNumber": "string",
+            "accountType": "Local",
+            "bankId": 0,
+            "currency": "TZS",
+            "swiftCode": "string"
         
           })
         ]
@@ -268,11 +319,21 @@ export class TaxpayerRegistrationComponent implements OnInit {
     
         aInfo:  this.formBuilder.array([
           this.formBuilder.group({ 
-            activity:'' ,
+            activity:1 ,
         
           })
         ]
           
+          )
+      })
+
+      this.attachmentForm= this.formBuilder.group({
+    
+        attachment:  this.formBuilder.array([
+          this.formBuilder.group({ 
+            "file": "string"
+          })
+        ]
           )
       })
 
@@ -436,24 +497,29 @@ export class TaxpayerRegistrationComponent implements OnInit {
     // })
 
     this.businessForm  = this.formBuilder.group({
-      // firstCtrl: [''],
-      // 'firstCtrl': new FormControl('', Validators.required),
+      "annualTurnover": 0,
+      "applicationType": 0,
+      "businessCategory": "Soleproprietor",
+      "businessName": "string",
+      "businessRegNumber": "string",
+      "businessType": 0,
+      "commencementDate": "2021-11-21T06:10:52.130Z",
+      "location": "string",
+      "taxpayerType": "Consultant",
+      "tinNumber": "string",
+      "znumber": "Z55"
+    });
 
 
-      'annualTurnover': new FormControl(''),
-      'applicationType': new FormControl(''),
-      'businessCategory': new FormControl(''),
-      'businessName': new FormControl(''),
-      'businessRegNumber': new FormControl(''),
-      'businessType': new FormControl(''),
-      'commencementDate': new FormControl(''),
-      'location': new FormControl(''),
-      'taxpayerType': new FormControl(''),
-      'tinNumber': new FormControl(''),
-      'znumber': new FormControl(''),
+    this.consultantForm  = this.formBuilder.group({
+
  
+      'consultantAttachment': this.formBuilder.array([this.formBuilder.group({"file": "string"})]),
+      "consultantZNumber": "string",
+      "description": "string"
 
     });
+
     this.secondFormGroup = this.formBuilder.group({
       // secondCtrl: [''],
       'secondCtrl': new FormControl('', Validators.required),
@@ -697,6 +763,20 @@ export class TaxpayerRegistrationComponent implements OnInit {
 //  }
 
 
+get sellingPointsS() {
+  return this.productForm.get('selling_points') as FormArray;
+}
+
+/////// This is new /////////////////
+
+addSellingPointS() {
+  this.sellingPointsS.push(this.formBuilder.group({point:''}));
+}
+
+deleteSellingPointS(index:any) {
+  this.sellingPointsS.removeAt(index);
+}
+
 
 get sellingPoints() {
   return this.addressForm.get('address') as FormArray;
@@ -706,27 +786,25 @@ get sellingPoints() {
 
 addSellingPoint() {
   this.sellingPoints.push(
-    this.formBuilder.group({
-      
-      address: '',
-      buildingNumber: '',
-      effectiveDate: '',
-      email: '',
-      fax: '',
-      mobile: '',
-      officeType: '',
-      phone: '',
-      poBox: '',
-      shehia: '',
-      calculationMethod: '',
-       exempt: '',
-    filingCurrency: '',
-    filingPeriod: '',
-    filingType: '',
-    infrastructure: '',
-    localRate: '',
-    taxId: ''
-    
+    this.formBuilder.group({ 
+      "address": "string",
+      "buildingNumber": "string",
+      "effectiveDate": "2021-11-21T06:10:52.130Z",
+      "email": "string",
+      "fax": "string",
+      "mobile": "string",
+      "officeType": "HO",
+      "phone": "string",
+      "poBox": "string",
+      "shehia": 3,
+      "calculationMethod": 4,
+      "exempt": true,
+      "filingCurrency": "TZS",
+      "filingPeriod": 0,
+      "filingType": "string",
+      "infrastructure": true,
+      "localRate": "string",
+      "taxId": 0
     })
 
   );
@@ -746,12 +824,12 @@ get bankInfo() {
 addBankInfo() {
   this.bankInfo.push(
     this.formBuilder.group({ 
-      accountName:'' ,
-      accountNumber:'',
-      accountType: '',
-      bankId: '',
-      currency:'',
-      swiftCode: ''
+      "accountName": "string",
+      "accountNumber": "string",
+      "accountType": "Local",
+      "bankId": 0,
+      "currency": "TZS",
+      "swiftCode": "string"
   
     })
 
@@ -775,7 +853,7 @@ addActivityInfo() {
   this.activityInfo.push(
     this.formBuilder.group({ 
    
-      activity: '',
+      activity: '1',
    
   
     })
@@ -789,26 +867,146 @@ deleteActivityInfo(index:any) {
 }
 
 
+
+get attachmentInfo() {
+  return this.attachmentForm.get('attachment') as FormArray;
+}
+
+/////// This is new /////////////////
+
+addAttachmentInfo() {
+  this.attachmentInfo.push(
+    this.formBuilder.group({ 
+   
+      file: '',
+   
+  
+    })
+
+  );
+
+}
+
+deleteAttachmentInfo(index:any) {
+  this.attachmentInfo.removeAt(index);
+}
+
+// submitProductionForm(){
+
+// }
+
 submitProductionForm(){
 
-  console.log('businessForm.=>',this.businessForm.value);
-  console.log('addressForm=>',this.addressForm.value);
-  console.log('bankForm=>',this.bankForm.value);
-  console.log('actitiesForm=>',this.actitiesForm.value);
-  // const person= this.personForm.value;
-  // const address = this.addressForm.value;
-  // const obj3 = {address ,person}
+ 
+let obj3 =[]
 
-  // addressForm: FormGroup= new FormGroup({});
+for (let x = 0; x < this.addressForm.value['address'].length; x++) { 
 
-  // bankForm: FormGroup= new FormGroup({});
+  var d  = {
+    "address" : {
+        "address": this.addressForm.value['address'][x]['address'],
+        "buildingNumber": this.addressForm.value['address'][x]['buildingNumber'],
+        "effectiveDate": this.addressForm.value['address'][x]['effectiveDate'],
+        "email": this.addressForm.value['address'][x]['email'],
+        "fax": this.addressForm.value['address'][x]['fax'],
+        "mobile": this.addressForm.value['address'][x]['mobile'],
+        "officeType":this.addressForm.value['address'][x]['officeType'],
+        "phone": this.addressForm.value['address'][x]['phone'],
+        "poBox": this.addressForm.value['address'][x]['poBox'],
+        "shehia": this.addressForm.value['address'][x]['shehia'],
+    },
+    "taxType" : {
+        "calculationMethod":this.addressForm.value['address'][x]['calculationMethod'],
+        "exempt":this.addressForm.value['address'][x]['exempt'],
+        "filingCurrency": this.addressForm.value['address'][x]['filingCurrency'],
+        "filingPeriod": this.addressForm.value['address'][x]['filingPeriod'],
+        "filingType": this.addressForm.value['address'][x]['filingType'],
+        "infrastructure": this.addressForm.value['address'][x]['infrastructure'],
+        "localRate":this.addressForm.value['address'][x]['localRate'],
+        "taxId":this.addressForm.value['address'][x]['taxId'],
+    }
 
-  // actitiesForm: FormGroup= new FormGroup({});
-const obj3 =[{"address": {}, "taxType": {} }]
-for (let x = 0; x < this.addressForm.value['address'].length; x++) { obj3[x]['address']=this.addressForm.value['address']; obj3[x]['taxType']=this.addressForm.value['address']}
+    }
 
-  console.log('obj3=>', obj3);
+    obj3.push(d);
+
+
 }
+
+console.log('this.businessForm.value =>',this.businessForm.value);
+
+const registrationData ={
+  "activity": this.actitiesForm.value['aInfo'],
+  "address":obj3,
+  "attachment":this.attachmentForm.value['attachment'],
+  "bankAccount": this.bankForm.value['bInfo'],
+  "business":this.businessForm.value,
+  "consultant": this.consultantForm.value
+}
+
+
+  // const registrationData ={
+  //   "activity": this.actitiesForm.value,
+  //   "address": obj3,
+  //   "attachment": this.attachmentForm.value,
+  //   "bankAccount": this.bankForm.value,
+  //   "business": this.businessForm.value,
+  //   "consultant": this.consultantForm.value
+  // }
+
+  // console.log('registrationData  =>',registrationData);
+
+
+  this.controllerService.submitRegistration(registrationData).pipe(
+    finalize(() => {
+      this.spinner.hide();
+     
+      this.verifying=false;
+      this.submittingRegistrationData=false;
+      // this.verifyZNumberForm.controls.res
+      // this.verifyZNumberForm.reset();
+    })).subscribe(data=>{
+    console.log("Taxpayer Registration Successfully Sumitted=> ",data);
+    // this._snackBar.open("Z Number requested successfully",{
+    //   duration: 2000,
+    //   panelClass: [className]
+    // });
+if(data==null){
+  this._snackBar.open('Sorry! NIDA data does not exist', 'Close',{
+    panelClass: ['red-snackbar']
+
+  });
+}
+else{
+
+  this.isZNumberVefied=true;
+  this._snackBar.open('Institution Z Number Application Successfull', 'Close',{
+    panelClass: ['red-snackbar']
+
+  });
+}
+   
+    
+    },err=>{  
+
+    this._snackBar.open(err.message)
+    
+    }
+
+    )
+  
+
+    this.verifying=true;
+    this.dataFetchedFromTRA=false;
+    this.showSpinner();
+  
+// }
+
+// if()
+
+
+}
+
 
 
 
