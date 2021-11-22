@@ -49,7 +49,7 @@
 						  </mat-select>
 						
 						
-							<mat-icon class="matIcon" matSuffix>select_all</mat-icon>
+							<mat-icon class="matIcon" matSuffix>text_snippet</mat-icon>
 						
 						  </mat-form-field>
 						
@@ -57,7 +57,7 @@
 						  <mat-form-field appearance="outline" fxFlex color="accent" *ngIf="isNIDA">
 							<mat-label>NIDA</mat-label>
 							<input matInput placeholder="NIDA" formControlName="NIDA">
-							<mat-icon class="matIcon" matSuffix>credit_card</mat-icon>
+							<mat-icon class="matIcon" matSuffix>tag</mat-icon>
 							<mat-error *ngIf="verifyZNumberForm.controls['NIDA'].errors && verifyZNumberForm.controls['NIDA'].hasError('required')">
 							  NIDA Number* is required
 							</mat-error>
@@ -89,8 +89,8 @@
 				
 						<mat-form-field appearance="outline" fxFlex color="accent">	
 							<mat-label>Date of Birth*</mat-label>
-							<input matInput placeholder="Mobile Number*" formControlName="dateBirth">
-							<mat-icon class="matIcon" matSuffix>phone</mat-icon>
+							<input matInput placeholder="Mobile Number*" type="date" formControlName="dateBirth">
+							<mat-icon class="matIcon" matSuffix>date_range</mat-icon>
 							<mat-error *ngIf="personForm.controls['dateBirth'].errors && personForm.controls['dateBirth'].hasError('required')">
 							  dateBirth Number* is required
 							</mat-error>
@@ -100,7 +100,7 @@
 						  <mat-form-field appearance="outline" fxFlex color="accent">	
 							  <mat-label>Email*</mat-label>
 							  <input matInput placeholder="Mobile Number*" formControlName="email">
-							  <mat-icon class="matIcon" matSuffix>phone</mat-icon>
+							  <mat-icon class="matIcon" matSuffix>email</mat-icon>
 							  <mat-error *ngIf="personForm.controls['email'].errors && personForm.controls['email'].hasError('required')">
 								Email * is required
 							  </mat-error>
@@ -109,8 +109,8 @@
 					  
 							<mat-form-field appearance="outline" fxFlex color="accent">	
 							  <mat-label>Full Name*</mat-label>
-							  <input matInput placeholder="Mobile Number*" formControlName="fullName">
-							  <mat-icon class="matIcon" matSuffix>phone</mat-icon>
+							  <input matInput placeholder="Full Name*" formControlName="fullName">
+							  <mat-icon class="matIcon" matSuffix>badge</mat-icon>
 							  <mat-error *ngIf="personForm.controls['fullName'].errors && personForm.controls['fullName'].hasError('required')">
 								Full Name is required
 							  </mat-error>
@@ -131,14 +131,14 @@
 					<mat-form-field appearance="outline" fxFlex color="accent">	
 						<mat-label>Id Number*</mat-label>
 						<input matInput placeholder="Mobile Number*" formControlName="idNumber">
-						<mat-icon class="matIcon" matSuffix>phone</mat-icon>
+						<mat-icon class="matIcon" matSuffix>tag</mat-icon>
 						<mat-error *ngIf="personForm.controls['idNumber'].errors && personForm.controls['idNumber'].hasError('required')">
 							Id Number is required
 						</mat-error>
 					
 					  </mat-form-field>
 			  
-					  <mat-form-field appearance="outline" fxFlex color="accent">	
+					  <!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 						<mat-label>Id Type *</mat-label>
 						<input matInput placeholder="Mobile Number*" formControlName="idType">
 						<mat-icon class="matIcon" matSuffix>phone</mat-icon>
@@ -146,7 +146,25 @@
 							Id Type is required
 						</mat-error>
 					
+					  </mat-form-field> -->
+
+					  <mat-form-field appearance="outline" fxFlex color="accent" >
+						<mat-label>Id Type</mat-label>
+						<mat-select
+						placeholder="Id Type"
+
+						formControlName="idType"
+					  >
+						<mat-option  *ngFor="let listOfIdType of listOfIdTypes" [value]="listOfIdType.id">
+						  {{ listOfIdType.typeName}}
+						</mat-option>
+					  </mat-select>
+					
+					
+						<mat-icon class="matIcon" matSuffix>credit_card</mat-icon>
+					
 					  </mat-form-field>
+
 			  
 					  <mat-form-field appearance="outline" fxFlex color="accent">	
 						<mat-label>Mobile Number*</mat-label>
@@ -169,7 +187,7 @@
 				  
 				
 				
-				
+<!-- 				
 					<mat-form-field appearance="outline" fxFlex color="accent">	
 						<mat-label>Gender</mat-label>
 						<input matInput placeholder="Mobile Number*" formControlName="gender">
@@ -178,8 +196,26 @@
 						  Gender is required
 						</mat-error>
 					  
-					  </mat-form-field>
+					  </mat-form-field> -->
+
+					  
 				
+					  <mat-form-field appearance="outline" fxFlex color="accent" >
+						<mat-label>Gender</mat-label>
+						<mat-select
+									placeholder="Gender"
+								
+									formControlName="gender"
+								  >
+									<mat-option  *ngFor="let genderr of gender" [value]="genderr.value">
+									  {{ genderr.value}}
+									</mat-option>
+								  </mat-select>
+					
+					
+						<mat-icon class="matIcon" matSuffix>account_circle</mat-icon>
+					
+					  </mat-form-field>
 				
 				<!-- <mat-form-field fxFlex color="accent">
 				  <input matInput type="text" placeholder="Type of Business Activities" formControlName="lastName">
@@ -214,7 +250,7 @@ Address
 		  <mat-form-field appearance="outline" fxFlex color="accent">	
 			<mat-label>Building Number*</mat-label>
 			<input matInput placeholder="Building Number*" formControlName="buildingNumber">
-			<mat-icon class="matIcon" matSuffix>phone</mat-icon>
+			<mat-icon class="matIcon" matSuffix>apartment</mat-icon>
 			<mat-error *ngIf="addressForm.controls['buildingNumber'].errors && addressForm.controls['buildingNumber'].hasError('required')">
 				Building Number is required
 			</mat-error>
@@ -223,8 +259,8 @@ Address
 
 		  <mat-form-field appearance="outline" fxFlex color="accent">	
 			<mat-label>Effective Date*</mat-label>
-			<input matInput placeholder="Effective Date*" formControlName="effectiveDate">
-			<mat-icon class="matIcon" matSuffix>phone</mat-icon>
+			<input matInput placeholder="Effective Date*" formControlName="effectiveDate" type="date">
+			<!-- <mat-icon class="matIcon" matSuffix>date_range</mat-icon> -->
 			<mat-error *ngIf="addressForm.controls['effectiveDate'].errors && addressForm.controls['effectiveDate'].hasError('required')">
 				Effective Date is required
 			</mat-error>
@@ -255,7 +291,7 @@ Address
 	  <mat-form-field appearance="outline" fxFlex color="accent">	
 		<mat-label>Fax*</mat-label>
 		<input matInput placeholder="Fax*" formControlName="fax">
-		<mat-icon class="matIcon" matSuffix>phone</mat-icon>
+		<mat-icon class="matIcon" matSuffix>fax</mat-icon>
 		<mat-error *ngIf="addressForm.controls['fax'].errors && addressForm.controls['fax'].hasError('required')">
 			Fax is required
 		</mat-error>
@@ -280,41 +316,101 @@ Address
 
 <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 
-	<mat-form-field appearance="outline" fxFlex color="accent">	
-		<mat-label>Person Id*</mat-label>
-		<input matInput placeholder="Person Id*" formControlName="person_id">
-		<mat-icon class="matIcon" matSuffix>phone</mat-icon>
-		<mat-error *ngIf="addressForm.controls['person_id'].errors && addressForm.controls['person_id'].hasError('required')">
-			Person Id* is required
-		</mat-error>
-	  
-	  </mat-form-field>
-
 	  <mat-form-field appearance="outline" fxFlex color="accent">	
 		<mat-label>Phone Number*</mat-label>
 		<input matInput placeholder="Phone Number*" formControlName="phone">
-		<mat-icon class="matIcon" matSuffix>phone</mat-icon>
+		<mat-icon class="matIcon" matSuffix>call_end</mat-icon>
 		<mat-error *ngIf="addressForm.controls['phone'].errors && addressForm.controls['phone'].hasError('required')">
 			Phone Number is required
 		</mat-error>
 	
 	  </mat-form-field>
 
-	  <mat-form-field appearance="outline" fxFlex color="accent">	
-		<mat-label>Ward*</mat-label>
-		<input matInput placeholder="Ward*" formControlName="shehia">
-		<mat-icon class="matIcon" matSuffix>phone</mat-icon>
-		<mat-error *ngIf="addressForm.controls['shehia'].errors && addressForm.controls['shehia'].hasError('required')">
-			Ward is required
-		</mat-error>
+	  <mat-form-field appearance="outline" fxFlex color="accent" >
+		<mat-label>Region</mat-label>
+		<mat-select
+		placeholder="Region"
+		[(ngModel)]="selectedRegion"
+		(ngModelChange)="onRegionSection()"
+		formControlName="region"
+	  >
+		<mat-option  *ngFor="let region of listOfRegions" [value]="region.regionId">
+		  {{region.regionName}}
+		</mat-option>
+	  </mat-select>
+	
+	
+		<mat-icon class="matIcon" matSuffix>place</mat-icon>
 	
 	  </mat-form-field>
+
+	  <mat-form-field appearance="outline" fxFlex color="accent" >
+		<mat-label>District</mat-label>
+		<mat-select
+		placeholder="District"
+		[(ngModel)]="selectedDistrict"
+		(ngModelChange)="onDistrictSection()"
+		formControlName="district"
+	  >
+		<mat-option  *ngFor="let districts of listOfDistricts" [value]="districts.districtId">
+		  {{districts.districtName}}
+		</mat-option>
+	  </mat-select>
+	
+	
+		<mat-icon class="matIcon" matSuffix>place</mat-icon>
+	
+	  </mat-form-field>
+
+
+</div>
+
+<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+
+
+	<mat-form-field appearance="outline" fxFlex color="accent" >
+		<mat-label>Ward</mat-label>
+		<mat-select
+		placeholder="Ward"
+		[(ngModel)]="selectedDocumentType"
+		(ngModelChange)="onDocumentTypeSelection()"
+		formControlName="region"
+	  >
+		<mat-option  *ngFor="let ward of listOfWards" [value]="ward.wardId">
+		  {{ward.wardName}}
+		</mat-option>
+	  </mat-select>
+	
+	
+		<mat-icon class="matIcon" matSuffix>place</mat-icon>
+	
+	  </mat-form-field>
+
+	  <!-- <mat-form-field appearance="outline" fxFlex color="accent" >
+		<mat-label>Shehia</mat-label>
+		<mat-select
+		placeholder="Region"
+		[(ngModel)]="selectedDocumentType"
+		(ngModelChange)="onDocumentTypeSelection()"
+		formControlName="region"
+	  >
+		<mat-option  *ngFor="let region of listOfRegions" [value]="region.regionId">
+		  {{region.regionName}}
+		</mat-option>
+	  </mat-select>
+	
+	
+		<mat-icon class="matIcon" matSuffix>credit_card</mat-icon>
+	
+	  </mat-form-field> -->
+
 
 <!-- <mat-form-field fxFlex color="accent">
   <input matInput type="text" placeholder="Type of Business Activities" formControlName="lastName">
 </mat-form-field> -->
   
 </div>
+
 
   <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 <!-- 		
@@ -353,8 +449,8 @@ Address
     
         <mat-form-field appearance="outline" fxFlex color="accent">	
             <mat-label>Commencement Date*</mat-label>
-            <input matInput placeholder="Commencement Date*" formControlName="commencementDate">
-            <mat-icon class="matIcon" matSuffix>email</mat-icon>
+            <input matInput placeholder="Commencement Date*" type='date' formControlName="commencementDate">
+            <mat-icon class="matIcon" matSuffix>date_range</mat-icon>
             <mat-error *ngIf="institutionForm.controls['commencementDate'].errors && institutionForm.controls['commencementDate'].hasError('required')">
                 Commencement Date is required
             </mat-error>
@@ -366,16 +462,43 @@ Address
 		  <mat-form-field appearance="outline" fxFlex color="accent">	
             <mat-label>Full Name*</mat-label>
             <input matInput placeholder="Full Name*" formControlName="fullName">
-            <mat-icon class="matIcon" matSuffix>email</mat-icon>
+            <mat-icon class="matIcon" matSuffix>badge</mat-icon>
             <mat-error *ngIf="institutionForm.controls['fullName'].errors && institutionForm.controls['fullName'].hasError('required')">
                 Full Name is required
             </mat-error>
         
           </mat-form-field>
     
-        
-    
-		  <mat-form-field appearance="outline" fxFlex color="accent">	
+		  <!-- <label>Your first ng-select</label>
+		  <mat-form-field>
+			<ng-select ngSelectMat [items]="reportTo"
+					   bindLabel="viewValue"
+					   placeholder="Select city"
+					   [(ngModel)]="selectedDocumentType"
+					   >
+			</ng-select>
+			</mat-form-field> -->
+
+
+		  <mat-form-field appearance="outline" fxFlex color="accent" >
+			<mat-label>Report To</mat-label>
+			<mat-select
+			placeholder="Report To"
+			[(ngModel)]="selectedDocumentType"
+			(ngModelChange)="onDocumentTypeSelection()"
+			formControlName="reportTo"
+		  >
+			<mat-option  *ngFor="let reportToD of reportTo" [value]="reportToD.value">
+			  {{ reportToD.viewValue}}
+			</mat-option>
+		  </mat-select>
+		
+		
+			<mat-icon class="matIcon" matSuffix>meeting_room</mat-icon>
+		
+		  </mat-form-field>
+
+		  <!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 			<mat-label>Report To*</mat-label>
 			<input matInput placeholder="Report To" formControlName="reportTo">
 			<mat-icon class="matIcon" matSuffix>email</mat-icon>
@@ -383,7 +506,7 @@ Address
 				Report Tois required
 			</mat-error>
 		
-		  </mat-form-field>
+		  </mat-form-field> -->
     
         <!-- <mat-form-field fxFlex color="accent">
           <input matInput type="text" placeholder="Type of Business Activities" formControlName="lastName">
@@ -398,7 +521,7 @@ Address
 		<mat-form-field appearance="outline" fxFlex color="accent">	
 			<mat-label>Short Name*</mat-label>
 			<input matInput placeholder="Short Name*" formControlName="shortName">
-			<mat-icon class="matIcon" matSuffix>email</mat-icon>
+			<mat-icon class="matIcon" matSuffix>badge</mat-icon>
 			<mat-error *ngIf="institutionForm.controls['shortName'].errors && institutionForm.controls['shortName'].hasError('required')">
 				Short Name is required
 			</mat-error>
@@ -410,7 +533,7 @@ Address
 		  <mat-form-field appearance="outline" fxFlex color="accent">	
 			<mat-label>TIN Number*</mat-label>
 			<input matInput placeholder="TIN Number*" formControlName="tinNumber">
-			<mat-icon class="matIcon" matSuffix>email</mat-icon>
+			<mat-icon class="matIcon" matSuffix>tag</mat-icon>
 			<mat-error *ngIf="institutionForm.controls['tinNumber'].errors && institutionForm.controls['tinNumber'].hasError('required')">
 				TIN Number is required
 			</mat-error>

@@ -10,6 +10,45 @@ export interface DocumentType {
   viewValue: string;
 }
 
+export interface ReportTo {
+  value: number;
+  viewValue: string;
+}
+
+
+const REPORT_TO_DATA: ReportTo[] = [
+  {value: 1, viewValue: 'Wizara ya Fedha'},
+  {value: 2, viewValue: 'Wizara ya Afya'},
+];
+
+
+export interface Gender {
+  value: string;
+  // viewValue: string;
+}
+
+
+const GENDER_DATA: Gender[] = [
+  {value:'Male'},
+  {value:'Female'},
+  {value:'Others'},
+];
+
+
+// export interface  IdTypes {
+//   totalItems: number,
+//   totalPage: number,
+//   IdentityList: any,
+//   currentPage: number
+// }
+
+
+// const REPORT_TO_DATA: ReportTo[] = [
+//   {value: 1, viewValue: 'Wizara ya Fedha'},
+//   {value: 2, viewValue: 'Wizara ya Afya'},
+// ];
+
+
 const DOCUMENT_TYPE_DATA: DocumentType[] = [
   {value: 'documentType-0', viewValue: 'NIDA'},
   {value: 'documentType-1', viewValue: 'Passport'},
@@ -24,9 +63,20 @@ export class KYCComponent implements OnInit {
   
   documentType = new FormControl();
 
+  listOfIdTypes:any=[];
+  listOfRegions:any=[];
+  listOfDistricts:any=[];
+  listOfWards:any=[];
+  listOfShehia:any=[];
+
+  gender:Gender[]=GENDER_DATA;
   /** list of regions */
   // protected regions: Regions[] = REGIONS_DATA
   public documentTypes:DocumentType[]=DOCUMENT_TYPE_DATA;
+
+  public reportTo:ReportTo[]=REPORT_TO_DATA;
+
+
   // public taxTypes: TaxTypes[] = TAX_TYPES_DATA
   /** control for the selected region */
   // public regionCtrl: FormControl = new FormControl();
@@ -42,7 +92,7 @@ export class KYCComponent implements OnInit {
   dataFetchedFromTRA:Boolean=false;
   submittingRegistrationData:Boolean=false;
   verifying:Boolean=true;
-  isZNumberVefied: Boolean = false;
+  isZNumberVefied: Boolean = true;
 
   addUserForm: FormGroup  = new FormGroup({});
   applyForZNumberForm: FormGroup  = new FormGroup({});
@@ -60,30 +110,63 @@ export class KYCComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.controllerService.listIdTypes().subscribe(data=>{
+
+     
+      this.listOfIdTypes=data.IdentityList
+      // this.listOfIdTypes=data.get; 
+
+      console.log('listOfIdTypes=>',this.listOfIdTypes);
+
+
+    })
+
+    this.controllerService.listIdRegions().subscribe(data=>{
+
+     
+      this.listOfRegions=data.regionList
+      // this.listOfIdTypes=data.get; 
+
+      console.log('listOfRegions=>',this.listOfRegions);
+
+
+    })
+
+
     this.addressForm=this.formBuilder.group({
 
-        "address":  new FormControl('',Validators.required),
-        "buildingNumber":  new FormControl('',Validators.required),
-        "effectiveDate": new FormControl('',Validators.required),
-        "email": new FormControl('',Validators.required),
-        "fax": new FormControl('',Validators.required),
-        "mobile": new FormControl('',Validators.required),
-        "person_id": new FormControl('',Validators.required),
-        "phone": new FormControl('',Validators.required),
-        "shehia": new FormControl('',Validators.required),
+        "address": "string",
+        "buildingNumber": "string",
+        "effectiveDate": "2021-11-21T11:58:53.852Z",
+        "email": "string",
+        "fax": "string",
+        "mobile": "string",
+        "person_id": 0,
+        "phone": "string",
+        "region": '1',
+        "district": '1',
+        "ward": '1',
+        "shehia": '1'
 
     })
 
     this.personForm=this.formBuilder.group({
 
-        "dateBirth": new FormControl('',Validators.required),
-        "email":new FormControl('',Validators.required),
-        "fullName": new FormControl('',Validators.required),
-        "gender":new FormControl('',Validators.required),
-        "idNumber":new FormControl('',Validators.required),
-        "idType":new FormControl('',Validators.required),
-        "mobile": new FormControl('',Validators.required)
+        // "dateBirth": new FormControl('',Validators.required),
+        // "email":new FormControl('',Validators.required),
+        // "fullName": new FormControl('',Validators.required),
+        // "gender":new FormControl('',Validators.required),
+        // "idNumber":new FormControl('',Validators.required),
+        // "idType":new FormControl('',Validators.required),
+        // "mobile": new FormControl('',Validators.required)
 
+        "dateBirth": "2021-11-21T11:58:53.852Z",
+    "email": "string",
+    "fullName": "string",
+    "gender": "Male",
+    "idNumber": "string",
+    "idType": 0,
+    "mobile": "string"
   })
   
   this.institutionForm=this.formBuilder.group({
@@ -179,7 +262,8 @@ export class KYCComponent implements OnInit {
 
 
   selectedDocumentType: string='';
-
+  selectedRegion: string='';
+  selectedDistrict: string='';
 
   onDocumentTypeSelection() {
     console.log('nida this.selectedDocumentType=>',this.selectedDocumentType);
@@ -211,6 +295,46 @@ export class KYCComponent implements OnInit {
           break;
   }
 }
+
+
+onRegionSection() {
+  console.log('this.selectedRegion=>',this.selectedRegion);
+
+
+  this.controllerService.getDistrictByRegionId(this.selectedRegion).subscribe(data=>{
+
+     
+    this.listOfDistricts=data
+    // this.listOfIdTypes=data.get; 
+
+    console.log('listOfDistricts=>',this.listOfDistricts);
+
+
+  })
+      
+}
+
+onDistrictSection() {
+
+  console.log('this.selectedDistrict>',this.selectedDistrict);
+
+
+  this.controllerService.getWardByDistrictId(this.selectedDistrict).subscribe(data=>{
+
+     
+    this.listOfWards=data
+    // this.listOfIdTypes=data.get; 
+
+    console.log('listOfDistricts=>',this.listOfWards);
+
+
+  })
+      
+}
+
+
+
+
 verifyZNumberButtonPress() {
 
   console.log('nida number=>',this.verifyZNumberForm.value['NIDA']);
@@ -340,26 +464,32 @@ applyForZNumber() {
         // this.verifyZNumberForm.controls.res
         // this.verifyZNumberForm.reset();
       })).subscribe(data=>{
-      console.log("Z Number Application Successfull=> ",data);
+      console.log("Application for Z number successfull=> ",data);
+
+      this._snackBar.open('Z Number requested successfully', 'Close',{
+        panelClass: ['red-snackbar']
+  
+      });
+
       // this._snackBar.open("Z Number requested successfully",{
       //   duration: 2000,
       //   panelClass: [className]
       // });
-  if(data==null){
-    this._snackBar.open('Sorry! NIDA data does not exist', 'Close',{
-      panelClass: ['red-snackbar']
-
-    });
-  }
-  else{
-
-    this.isZNumberVefied=true;
-    this._snackBar.open('NIDA Data fetched successfully', 'Close',{
-      panelClass: ['red-snackbar']
-
-    });
-  }
-     
+      if(data==null){
+        this._snackBar.open('Sorry! NIDA data does not exist', 'Close',{
+          panelClass: ['red-snackbar']
+    
+        });
+      }
+      else{
+    
+        this.isZNumberVefied=true;
+        this._snackBar.open('NIDA Data fetched successfully', 'Close',{
+          panelClass: ['red-snackbar']
+    
+        });
+      }
+         
       
       },err=>{  
   
@@ -385,6 +515,7 @@ applyForZNumber() {
 
 institutionApplyForZNumber() {
 
+ console.log('this.institutionForm.value=>',this.institutionForm.value);
  
     this.controllerService.institutionApplyForZNumber(this.institutionForm.value).pipe(
       finalize(() => {
