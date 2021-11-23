@@ -57,6 +57,17 @@
 			<mat-step [stepControl]="businessForm " [editable]="!isEditable">
 			 
 				<ng-template matStepLabel>Business Information</ng-template>
+
+				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+					<p fxFlex color="accent">
+						<mat-toolbar >
+						  <span>Business</span>
+						</mat-toolbar>
+					  </p>
+			
+				</div>
+
 				<form [formGroup]="businessForm " >
 			
 				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
@@ -64,12 +75,12 @@
 					<mat-form-field appearance="outline" fxFlex color="accent">	
 						<mat-label> Annual Turnover.</mat-label>
 						<input matInput placeholder=" Annual Turnover." formControlName="annualTurnover">
-						<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+						<mat-icon class="matIcon"  matSuffix>money</mat-icon>
 						<mat-error *ngIf="businessForm.controls['annualTurnover'].errors && businessForm.controls['annualTurnover'].hasError('required')">
 						  Annual Turnover is required
 						</mat-error>
 					</mat-form-field>
-			
+<!-- 			
 					<mat-form-field appearance="outline" fxFlex color="accent">	
 						<mat-label> Application Type.</mat-label>
 						<input matInput placeholder=" Application Type." formControlName="applicationType">
@@ -77,7 +88,24 @@
 						<mat-error *ngIf="businessForm.controls['applicationType'].errors && businessForm.controls['applicationType'].hasError('required')">
 						  Application Type is required
 						</mat-error>
-					</mat-form-field>
+					</mat-form-field> -->
+
+					<mat-form-field appearance="outline" fxFlex color="accent" >
+						<mat-label>Application Type</mat-label>
+						<mat-select
+									placeholder="Application Type"
+								
+									formControlName="applicationType"
+								  >
+									<mat-option  *ngFor="let applicationType of applicationTypes" [value]="applicationType.value">
+									  {{ applicationType.viewValue}}
+									</mat-option>
+								  </mat-select>
+					
+					
+						<mat-icon class="matIcon" matSuffix>format_align_justify</mat-icon>
+					
+					  </mat-form-field>
 			
 					<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 						<mat-label>Business Category.</mat-label>
@@ -113,7 +141,7 @@
 					<mat-form-field appearance="outline" fxFlex color="accent">	
 						<mat-label>Business Name.</mat-label>
 						<input matInput placeholder="Business Name." formControlName="businessName">
-						<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+						<mat-icon class="matIcon"  matSuffix>business</mat-icon>
 						<mat-error *ngIf="businessForm.controls['businessName'].errors && businessForm.controls['businessName'].hasError('required')">
 						  Business Name is required
 						</mat-error>
@@ -143,8 +171,8 @@
     
 					<mat-form-field appearance="outline" fxFlex color="accent">	
 						<mat-label>Commencement Date.</mat-label>
-						<input matInput placeholder="Commencement Date." formControlName="commencementDate">
-						<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+						<input matInput type="date" placeholder="Commencement Date." formControlName="commencementDate">
+						<!-- <mat-icon class="matIcon"  matSuffix>business_center</mat-icon> -->
 						<mat-error *ngIf="businessForm.controls['commencementDate'].errors && businessForm.controls['commencementDate'].hasError('required')">
 						  commencement Date is required
 						</mat-error>
@@ -153,7 +181,7 @@
 					<mat-form-field appearance="outline" fxFlex color="accent">	
 						<mat-label>Location.</mat-label>
 						<input matInput placeholder="Location." formControlName="location">
-						<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+						<mat-icon class="matIcon"  matSuffix>place</mat-icon>
 						<mat-error *ngIf="businessForm.controls['location'].errors && businessForm.controls['location'].hasError('required')">
 						  location is required
 						</mat-error>
@@ -196,7 +224,7 @@
 					<mat-form-field appearance="outline" fxFlex color="accent">	
 						<mat-label>Tin Number.</mat-label>
 						<input matInput placeholder="Tin Number." formControlName="tinNumber">
-						<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+						<mat-icon class="matIcon"  matSuffix>tag</mat-icon>
 						<mat-error *ngIf="businessForm.controls['tinNumber'].errors && businessForm.controls['tinNumber'].hasError('required')">
 						  Tin Number is required
 						</mat-error>
@@ -205,7 +233,7 @@
 					<mat-form-field appearance="outline" fxFlex color="accent">	
 						<mat-label>Z number.</mat-label>
 						<input matInput placeholder="Z number." formControlName="znumber">
-						<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+						<mat-icon class="matIcon"  matSuffix>tag</mat-icon>
 						<mat-error *ngIf="businessForm.controls['znumber'].errors && businessForm.controls['znumber'].hasError('required')">
 						  Z number is required
 						</mat-error>
@@ -219,24 +247,50 @@
 				
 			
 			  </form>
-
-
+			  <div *ngIf="showConsultantForm">
+				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+					<p fxFlex color="accent">
+						<mat-toolbar >
+						  <span>Consultant</span>
+						</mat-toolbar>
+					  </p>
+			
+				</div>
 			  <form [formGroup]="consultantForm" >
 				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 			
-				  <mat-form-field appearance="outline" fxFlex color="accent">	
-					  <mat-label>Consultant ZNumber.</mat-label>
+				  <!-- <mat-form-field appearance="outline" fxFlex color="accent">	
+					  <mat-label>Consultant Z Number.</mat-label>
 					  <input matInput placeholder="Business Name." formControlName="consultantZNumber">
-					  <mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+					  <mat-icon class="matIcon"  matSuffix>tag</mat-icon>
 					  <mat-error *ngIf="consultantForm.controls['consultantZNumber'].errors && consultantForm.controls['consultantZNumber'].hasError('required')">
 						  Consultant ZNumber is required
 					  </mat-error>
+				  </mat-form-field> -->
+
+				  <mat-form-field appearance="outline" fxFlex color="accent" >
+					<mat-label>Consultant</mat-label>
+					<mat-select
+					placeholder="Consultant"
+				
+					formControlName="consultantZNumber"
+				  >
+					<mat-option  *ngFor="let consultant of consultants" [value]="consultant.id">
+					  {{consultant.businessName}}
+					</mat-option>
+				  </mat-select>
+				
+				
+					<mat-icon class="matIcon" matSuffix>accessibility_new</mat-icon>
+				
 				  </mat-form-field>
+
 			
 				  <mat-form-field appearance="outline" fxFlex color="accent">	
 					  <mat-label>Description</mat-label>
 					  <input matInput placeholder="Description Name." formControlName="description">
-					  <mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+					  <mat-icon class="matIcon"  matSuffix>description</mat-icon>
 					  <mat-error *ngIf="consultantForm.controls['description'].errors && consultantForm.controls['description'].hasError('required')">
 						  Description is required
 					  </mat-error>
@@ -249,7 +303,7 @@
 				  mat-raised-button 
 				  (click)="fileInput.click()"
 				  fxFlex color="accent">	
-				  Attachment
+				  Consultant Attachment
 				 </button>
 			
 				 <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
@@ -257,6 +311,18 @@
 			  </div>
 			
 			</form>
+
+</div>
+
+<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+	<p fxFlex color="accent">
+		<mat-toolbar >
+		  <span>Attachments</span>
+		</mat-toolbar>
+	  </p>
+
+</div>
             <form [formGroup]="attachmentForm"  >
 				<div formArrayName="attachment">
 
@@ -278,7 +344,7 @@
 				mat-raised-button 
 				(click)="fileInput.click()"
 				fxFlex color="accent">	
-				File
+				Attachments
 			   </button>
 		  
 			   <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
@@ -290,7 +356,7 @@
 
 			<div>
 				<!-- <button mat-button matStepperNext>Next</button> -->
-				<button class="stepper-button" mat-raised-button color="primary" (click)="submitProductionForm()">Submit</button>
+				<!-- <button class="stepper-button" mat-raised-button color="primary" (click)="submitProductionForm()">Submit</button> -->
 				<button class="stepper-button" mat-raised-button color="primary" matStepperNext >Next</button>
 			  </div>
 			</mat-step>
@@ -300,81 +366,180 @@
 				
 			  <form [formGroup]="addressForm"  >
 				<ng-template matStepLabel>Address Information</ng-template>
-
+			
 				<div formArrayName="address">
 
 					<div *ngFor="let item of sellingPoints.controls; let pointIndex=index" [formGroupName]="pointIndex">
-						
+						<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+							<p fxFlex color="accent">
+								<mat-toolbar >
+								  <span>Address</span>
+								</mat-toolbar>
+							  </p>
+					
+						</div>
 						<!-- <form [formGroup]="address"> -->
 						<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 							<!-- <div [formGroup]="address"> -->
-							<mat-form-field appearance="outline" fxFlex color="accent">	
+
+								<mat-form-field appearance="outline" fxFlex color="accent" >
+									<mat-label>Address</mat-label>
+									<textarea matInput
+											  cdkTextareaAutosize
+											  #autosize="cdkTextareaAutosize"
+											  cdkAutosizeMinRows="1"
+											  cdkAutosizeMaxRows="5"
+											  formControlName="address">
+									</textarea>
+									<mat-icon class="matIcon" matSuffix>gps_fixed</mat-icon>
+									<!-- <mat-error *ngIf="addressForm.controls['address'].errors && addressForm.controls['address'].hasError('required')">
+									  Phone Number* is required
+									</mat-error> -->
+									
+								  </mat-form-field>
+
+
+							<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 								<mat-label>Address</mat-label>
 								<input matInput placeholder="Address" formControlName="address">
 								<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 							
-							</mat-form-field>
+							</mat-form-field> -->
 
 							<mat-form-field appearance="outline" fxFlex color="accent">	
 								<mat-label>Building Number</mat-label>
 								<input matInput placeholder="Building Number" formControlName="buildingNumber">
-								<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+								<mat-icon class="matIcon"  matSuffix>appartment</mat-icon>
 							
 							</mat-form-field>
 
-							<mat-form-field appearance="outline" fxFlex color="accent">	
+							<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 								<mat-label>Effective Date</mat-label>	
 								<input matInput placeholder="Effective Date" formControlName="effectiveDate">
 								<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 						
-							</mat-form-field>
+							</mat-form-field> -->
+
+							<mat-form-field appearance="outline" fxFlex color="accent">	
+								<mat-label>Effective Date*</mat-label>
+								<input matInput placeholder="Effective Date*"  formControlName="effectiveDate" type="date">
+								<!-- <mat-icon class="matIcon" matSuffix>date_range</mat-icon> -->
+								<!-- <mat-error *ngIf="addressForm.controls['effectiveDate'].errors && addressForm.controls['effectiveDate'].hasError('required')">
+									Effective Date is required
+								</mat-error> -->
+							
+							  </mat-form-field>
 
 						</div>
 
 						<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
     
-							<mat-form-field appearance="outline" fxFlex color="accent">	
+							<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 								<mat-label>Email</mat-label>
 								<input matInput placeholder="Email" formControlName="email">
 								<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 							
-							</mat-form-field>
+							</mat-form-field> -->
 
 							<mat-form-field appearance="outline" fxFlex color="accent">	
+								<mat-label>Email*</mat-label>
+								<input matInput placeholder="Email*" formControlName="email">
+								<mat-icon class="matIcon" matSuffix>email</mat-icon>
+								<!-- <mat-error *ngIf="addressForm.controls['email'].errors && addressForm.controls['email'].hasError('required')">
+									Email is required
+								</mat-error> -->
+							
+							  </mat-form-field>
+
+							<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 								<mat-label>Fax</mat-label>
 								<input matInput placeholder="Fax" formControlName="fax">
 								<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 							
-							</mat-form-field>
+							</mat-form-field> -->
+
 
 							<mat-form-field appearance="outline" fxFlex color="accent">	
+								<mat-label>Fax*</mat-label>
+								<input matInput placeholder="Fax*" formControlName="fax">
+								<mat-icon class="matIcon" matSuffix>fax</mat-icon>
+								<!-- <mat-error *ngIf="addressForm.controls['fax'].errors && addressForm.controls['fax'].hasError('required')">
+									Fax is required
+								</mat-error> -->
+							
+							</mat-form-field>
+
+							<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 								<mat-label>Mobile</mat-label>	
 								<input matInput placeholder="Mobile" formControlName="mobile">
 								<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 						
-							</mat-form-field>
+							</mat-form-field> -->
+
+
+							<mat-form-field appearance="outline" fxFlex color="accent">	
+								<mat-label>Mobile Number*</mat-label>
+								<input matInput placeholder="Mobile Number*" formControlName="mobile">
+								<mat-icon class="matIcon" matSuffix>phone</mat-icon>
+								<!-- <mat-error *ngIf="addressForm.controls['mobile'].errors && addressForm.controls['mobile'].hasError('required')">
+									Mobile is required
+								</mat-error> -->
+							
+							  </mat-form-field>
 
 						</div>
 
 						<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-    
+<!--     
 							<mat-form-field appearance="outline" fxFlex color="accent">	
 								<mat-label>Office Type</mat-label>
 								<input matInput placeholder="Office Type" formControlName="officeType">
 								<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 							</mat-form-field>
+ -->
 
-							<mat-form-field appearance="outline" fxFlex color="accent">	
+							<mat-form-field appearance="outline" fxFlex color="accent" >
+								<mat-label>Office Type</mat-label>
+								<mat-select
+								placeholder="Office Type"
+							
+							
+								formControlName="officeType"
+							  >
+								<mat-option *ngFor="let officeType of officeTypes" [value]="officeType.value">
+								  {{ officeType.viewValue }}
+								</mat-option>
+							  </mat-select>
+							  <mat-icon class="matIcon"  matSuffix>format_align_justify</mat-icon>
+							  <mat-error *ngIf="taxPayerRegistrationForm.controls['taxType'].errors && taxPayerRegistrationForm.controls['taxType'].hasError('required')">
+								taxType is required
+							  </mat-error>
+							</mat-form-field>
+
+
+							<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 								<mat-label>Phone</mat-label>
 								<input matInput placeholder="Phone" formControlName="phone">
 								<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 							
+							</mat-form-field> -->
+
+
+							<mat-form-field appearance="outline" fxFlex color="accent">	
+								<mat-label>Phone Number*</mat-label>
+								<input matInput placeholder="Phone Number*" formControlName="phone">
+								<mat-icon class="matIcon" matSuffix>call_end</mat-icon>
+								<!-- <mat-error *ngIf="addressForm.controls['phone'].errors && addressForm.controls['phone'].hasError('required')">
+									Phone Number is required
+								</mat-error>
+							 -->
 							</mat-form-field>
 
 							<mat-form-field appearance="outline" fxFlex color="accent">	
 								<mat-label>P.O.Box</mat-label>	
 								<input matInput placeholder="P.O.Box" formControlName="poBox">
-								<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+								<mat-icon class="matIcon"  matSuffix>drafts</mat-icon>
 						
 							</mat-form-field>
 
@@ -382,80 +547,267 @@
 
 						<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
     
-							<mat-form-field appearance="outline" fxFlex color="accent">	
-								<mat-label>Ward</mat-label>
-								<input matInput placeholder="Ward" formControlName="shehia">
-								<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+						
+
+							<mat-form-field appearance="outline" fxFlex color="accent" >
+								<mat-label>Region</mat-label>
+								<mat-select
+								placeholder="Region"
+								[(ngModel)]="selectedRegion"
+								(ngModelChange)="onRegionSection()"
+								formControlName="region"
+							  >
+								<mat-option  *ngFor="let region of listOfRegions" [value]="region.regionId">
+								  {{region.regionName}}
+								</mat-option>
+							  </mat-select>
 							
-							</mat-form-field>
+							
+								<mat-icon class="matIcon" matSuffix>place</mat-icon>
+							
+							  </mat-form-field>
+							  <mat-form-field appearance="outline" fxFlex color="accent" >
+								<mat-label>District</mat-label>
+								<mat-select
+								placeholder="District"
+								[(ngModel)]="selectedDistrict"
+								(ngModelChange)="onDistrictSection()"
+								formControlName="district"
+							  >
+								<mat-option  *ngFor="let districts of listOfDistricts" [value]="districts.districtId">
+								  {{districts.districtName}}
+								</mat-option>
+							  </mat-select>
+							
+							
+								<mat-icon class="matIcon" matSuffix>place</mat-icon>
+							
+							  </mat-form-field>
+							  <mat-form-field appearance="outline" fxFlex color="accent" >
+								<mat-label>Ward</mat-label>
+								<mat-select
+								placeholder="Ward"
+								[(ngModel)]="selectedWard"
+								(ngModelChange)="onWardSelection()"
+								formControlName="ward"
+							  >
+								<mat-option  *ngFor="let ward of listOfWards" [value]="ward.wardId">
+								  {{ward.wardName}}
+								</mat-option>
+							  </mat-select>
+							
+							
+								<mat-icon class="matIcon" matSuffix>place</mat-icon>
+							
+							  </mat-form-field>
+
 
 						
 						</div>
 
 						<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
     
-							<mat-form-field appearance="outline" fxFlex color="accent">	
+						
+
+							<mat-form-field appearance="outline" fxFlex color="accent" >
+								<mat-label>Shehia</mat-label>
+								<mat-select
+								placeholder="Shehia"
+								[(ngModel)]="selectedShehia"
+								(ngModelChange)="onShehiaSelection()"
+								formControlName="shehia"
+							  >
+								<mat-option  *ngFor="let shehia of listOfShehia" [value]="shehia.shehiaId">
+								  {{shehia.shehiaName}}
+								</mat-option>
+							  </mat-select>
+							
+							
+								<mat-icon class="matIcon" matSuffix>place</mat-icon>
+							
+							  </mat-form-field>
+							
+						
+						</div>
+						<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+							<p fxFlex color="accent">
+								<mat-toolbar >
+								  <span>Tax</span>
+								</mat-toolbar>
+							  </p>
+					
+						</div>
+						<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+							<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 								<mat-label>calculationMethod</mat-label>
 								<input matInput placeholder="calculationMethod" formControlName="calculationMethod">
 								<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 							
-							</mat-form-field>
-						
-							<mat-form-field appearance="outline" fxFlex color="accent">	
+							</mat-form-field> -->
+
+							<mat-form-field appearance="outline" fxFlex color="accent" >
+								<mat-label>Calculation Method</mat-label>
+								<mat-select
+								placeholder="Calculation Method"
+							
+								formControlName="calculationMethod"
+							  >
+								<mat-option  *ngFor="let calculationMethod of calculationMethods" [value]="calculationMethod.id">
+								  {{calculationMethod.methodName}}
+								</mat-option>
+							  </mat-select>
+							
+							
+								<mat-icon class="matIcon" matSuffix>plus_one</mat-icon>
+							
+							  </mat-form-field>
+
+
+							
+							  <mat-form-field appearance="outline" fxFlex color="accent" >
+								<mat-label>Exempted?</mat-label>
+								<mat-select
+								placeholder="Exempted?"
+							
+								formControlName="exempt"
+							  >
+								<mat-option  *ngFor="let exempt of exempts" [value]="exempt.value">
+								  {{exempt.viewValue}}
+								</mat-option>
+							  </mat-select>
+							
+							
+								<mat-icon class="matIcon" matSuffix>volunteer_activism</mat-icon>
+							
+							  </mat-form-field>
+
+							<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 								<mat-label>exempt</mat-label>
 								<input matInput placeholder="exempt" formControlName="exempt">
 								<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 							
-							</mat-form-field>
+							</mat-form-field> -->
+							<mat-form-field appearance="outline" fxFlex color="accent" >
+								<mat-label>Filing Currency</mat-label>
+								<mat-select
+								placeholder="Filing Currency"
 							
-							<mat-form-field appearance="outline" fxFlex color="accent">	
+								formControlName="filingCurrency"
+							  >
+								<mat-option  *ngFor="let  currency of currencies" [value]="currency.viewValue">
+								  {{currency.viewValue}}
+								</mat-option>
+							  </mat-select>
+							
+							
+								<mat-icon class="matIcon" matSuffix>money</mat-icon>
+							
+							  </mat-form-field>
+
+							<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 								<mat-label>filingCurrency</mat-label>
 								<input matInput placeholder="filingCurrency" formControlName="filingCurrency">
 								<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 							
-							</mat-form-field>
+							</mat-form-field> -->
 						
 						</div>
+
+
 						<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 							
+
+							<mat-form-field appearance="outline" fxFlex color="accent" >
+								<mat-label>Filing Period</mat-label>
+								<mat-select
+								placeholder="Filing Period"
+							
+								formControlName="filingPeriod"
+							  >
+								<mat-option  *ngFor="let filingPeriod of filingPeriods" [value]="filingPeriod.id">
+								  {{filingPeriod.fillingName}}
+								</mat-option>
+							  </mat-select>
+							
+							
+								<mat-icon class="matIcon" matSuffix>date_range</mat-icon>
+							
+							  </mat-form-field>
+
+						<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
+							<mat-label>fFling Period</mat-label>
+							<input matInput placeholder="Filing Period" formControlName="filingPeriod">
+							<mat-icon class="matIcon"  matSuffix>help</mat-icon>
+						
+						</mat-form-field> -->
+						
 						<mat-form-field appearance="outline" fxFlex color="accent">	
-							<mat-label>filingPeriod</mat-label>
-							<input matInput placeholder="filingPeriod" formControlName="filingPeriod">
-							<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+							<mat-label>Filing type</mat-label>
+							<input matInput placeholder="Filing type" formControlName="filingType">
+							<mat-icon class="matIcon"  matSuffix>help</mat-icon>
 						
 						</mat-form-field>
+
+						<mat-form-field appearance="outline" fxFlex color="accent" >
+							<mat-label>Infrastructure?</mat-label>
+							<mat-select
+							placeholder="Infrastructure?"
 						
-						<mat-form-field appearance="outline" fxFlex color="accent">	
-							<mat-label>filingType</mat-label>
-							<input matInput placeholder="filingType" formControlName="filingType">
-							<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+							formControlName="infrastructure"
+						  >
+							<mat-option  *ngFor="let exempt of exempts" [value]="exempt.value">
+							  {{exempt.viewValue}}
+							</mat-option>
+						  </mat-select>
 						
-						</mat-form-field>
 						
-						<mat-form-field appearance="outline" fxFlex color="accent">	
+							<mat-icon class="matIcon" matSuffix>location_city</mat-icon>
+						
+						  </mat-form-field>
+
+						<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 							<mat-label>infrastructure</mat-label>
 							<input matInput placeholder="infrastructure" formControlName="infrastructure">
 							<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 						
-						</mat-form-field>
+						</mat-form-field> -->
 						</div>
 						
 						<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 							
 						<mat-form-field appearance="outline" fxFlex color="accent">	
-							<mat-label>localRate</mat-label>
-							<input matInput placeholder="localRate" formControlName="localRate">
-							<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+							<mat-label>Local Rate</mat-label>
+							<input matInput placeholder="Local Rate" formControlName="localRate">
+							<mat-icon class="matIcon"  matSuffix>help</mat-icon>
 						
 						</mat-form-field>
+
+						<mat-form-field appearance="outline" fxFlex color="accent" >
+							<mat-label>Tax Type</mat-label>
+							<mat-select
+							placeholder="Tax Type"
 						
-						<mat-form-field appearance="outline" fxFlex color="accent">	
+							formControlName="taxId"
+						  >
+							<mat-option  *ngFor="let taxType of taxTypes" [value]="taxType.id">
+							  {{taxType.taxTypeName}}
+							</mat-option>
+						  </mat-select>
+						
+						
+							<mat-icon class="matIcon" matSuffix>meeting_room</mat-icon>
+						
+						  </mat-form-field>
+
+						<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 							<mat-label>taxId</mat-label>
 							<input matInput placeholder="taxId" formControlName="taxId">
 							<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 						
 						</mat-form-field>
-						
+						 -->
 						
 						
 						</div>
@@ -505,49 +857,93 @@
 						<!-- <form [formGroup]="address"> -->
 						<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 							<!-- <div [formGroup]="address"> -->
+								
 								<mat-form-field appearance="outline" fxFlex color="accent">	
-									<mat-label>accountName</mat-label>
-									<input matInput placeholder="accountName" formControlName="accountName">
-									<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+									<mat-label>Account Name</mat-label>
+									<input matInput placeholder="Account Name" formControlName="accountName">
+									<mat-icon class="matIcon"  matSuffix>badge</mat-icon>
 								
 								</mat-form-field>
 			
 								<mat-form-field appearance="outline" fxFlex color="accent">	
-									<mat-label>accountNumber</mat-label>
-									<input matInput placeholder="accountNumber" formControlName="accountNumber">
-									<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+									<mat-label>Account Number</mat-label>
+									<input matInput placeholder="Account Number" formControlName="accountNumber">
+									<mat-icon class="matIcon"  matSuffix>tag</mat-icon>
 								
 								</mat-form-field>
 			
-								<mat-form-field appearance="outline" fxFlex color="accent">	
-									<mat-label>accountType</mat-label>
-									<input matInput placeholder="accountType" formControlName="accountType">
-									<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+
+								<mat-form-field appearance="outline" fxFlex color="accent" >
+									<mat-label>Account Type</mat-label>
+									<mat-select
+									placeholder="Account Type"
 								
-								</mat-form-field>
+									formControlName="accountType"
+								  >
+									<mat-option  *ngFor="let  accountType of accountTypes" [value]="accountType.value">
+									  {{accountType.value}}
+									</mat-option>
+								  </mat-select>
+								
+								
+									<mat-icon class="matIcon" matSuffix>account_balance_wallet</mat-icon>
+								
+								  </mat-form-field>
+
+								
 			
 						</div>
 			
+					
+
 							<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 				
-								<mat-form-field appearance="outline" fxFlex color="accent">	
-									<mat-label>bankId</mat-label>
-									<input matInput placeholder="bankId" formControlName="bankId">
-									<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+								<mat-form-field appearance="outline" fxFlex color="accent" >
+									<mat-label>Bank</mat-label>
+									<mat-select
+									placeholder="Bank"
 								
-								</mat-form-field>
+									formControlName="bankId"
+								  >
+									<mat-option  *ngFor="let bankId of bankIds" [value]="bankId.bankId">
+									  {{bankId.bankName}}
+									</mat-option>
+								  </mat-select>
+								
+								
+									<mat-icon class="matIcon" matSuffix>account_balance</mat-icon>
+								
+								  </mat-form-field>
 				
-								<mat-form-field appearance="outline" fxFlex color="accent">	
+								<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 									<mat-label>currency</mat-label>
 									<input matInput placeholder="currency" formControlName="currency">
 									<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 								
-								</mat-form-field>
+								</mat-form-field> -->
+
+								<mat-form-field appearance="outline" fxFlex color="accent" >
+									<mat-label>Currency</mat-label>
+									<mat-select
+									placeholder="Currency"
+								
+									formControlName="currency"
+								  >
+									<mat-option  *ngFor="let  currency of currencies" [value]="currency.viewValue">
+									  {{currency.viewValue}}
+									</mat-option>
+								  </mat-select>
+								
+								
+									<mat-icon class="matIcon" matSuffix>money</mat-icon>
+								
+								  </mat-form-field>
+
 				
 								<mat-form-field appearance="outline" fxFlex color="accent">	
-									<mat-label>swiftCode</mat-label>
-									<input matInput placeholder="swiftCode" formControlName="swiftCode">
-									<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+									<mat-label>Swift Code</mat-label>
+									<input matInput placeholder="Swift Code" formControlName="swiftCode">
+									<mat-icon class="matIcon"  matSuffix>vpn_key</mat-icon>
 								
 								</mat-form-field>
 				
@@ -591,15 +987,31 @@
 					
 					<!-- <form [formGroup]="address"> -->
 					
-		
+					
 					<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-		
-						<mat-form-field appearance="outline" fxFlex color="accent">	
+						<mat-form-field appearance="outline" fxFlex color="accent" >
+							<mat-label>Activity</mat-label>
+							<mat-select
+							placeholder="Activity"
+						
+							formControlName="activity"
+						  >
+							<mat-option  *ngFor="let activity of activities" [value]="activity.id">
+							  {{activity.description}}
+							</mat-option>
+						  </mat-select>
+						
+						
+							<mat-icon class="matIcon" matSuffix>work</mat-icon>
+						
+						  </mat-form-field>
+
+						<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
 							<mat-label>activity</mat-label>
 							<input matInput placeholder="activity" formControlName="activity">
 							<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
 						
-						</mat-form-field>
+						</mat-form-field> -->
 		
 		
 					</div>

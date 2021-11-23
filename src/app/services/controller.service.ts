@@ -21,6 +21,29 @@ export class ControllerService {
     return this.http.get(this.baseUrl+'uaa/region/?pageNo=0&pageSize=10&search=0')
   }
 
+  listCalculationMethods():Observable<any>{
+    return this.http.get(this.baseUrl+'uaa/method/?pageNo=0&pageSize=10&search=0')
+  }
+
+  listConsultants():Observable<any>{
+    return this.http.get(this.baseUrl+'registration/business/consultant/?pageNo=0&pageSize=10&search=0')
+  }
+
+  listBankIds():Observable<any>{
+    return this.http.get(this.baseUrl+'uaa/bank/?pageNo=0&pageSize=10&search=0')
+  }
+
+  listActivities():Observable<any>{
+    return this.http.get(this.baseUrl+'uaa/activities/?pageNo=0&pageSize=10&search=0')
+  }
+
+  listFilingPeriods():Observable<any>{
+    return this.http.get(this.baseUrl+'uaa/fillingperiod/?pageNo=0&pageSize=10&search=0')
+  }
+
+  listTaxTypes():Observable<any>{
+    return this.http.get(this.baseUrl+'uaa/taxtype/?pageNo=0&pageSize=10&search=0')
+  }
 
    getDistrictByRegionId(id:string){
     return this.http.get(this.baseUrl+'uaa/district/region/'+id)
@@ -29,10 +52,15 @@ export class ControllerService {
   getWardByDistrictId(id:string){
     return this.http.get(this.baseUrl+'uaa/ward/district/'+id)
   }
-
+  // listIdRegions()
   getShehiaByWardId(id:string){
     return this.http.get(this.baseUrl+'uaa/shehia/ward/'+id)
   }
+
+  // listShehias():Observable<any>{
+  //   // return this.http.get(this.baseUrl+'uaa/shehia/?pageNo=0&pageSize=10&search=0')
+  // }
+
 
   getNidaInformation(id:string){
     return this.http.get(this.baseUrl+'mock/nida/'+id)

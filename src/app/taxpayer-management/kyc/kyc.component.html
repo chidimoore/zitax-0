@@ -29,7 +29,15 @@
 			<mat-tab label="Person"> 
 
 				<br>
-
+				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+					<p fxFlex color="accent">
+						<mat-toolbar >
+						  <span>Tax Type</span>
+						</mat-toolbar>
+					  </p>
+			
+				</div>
 				<form [formGroup]="verifyZNumberForm" (submit)="verifyZNumberButtonPress()">
 
 		
@@ -226,7 +234,15 @@
 				</form>
 				
 				
-Address
+				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+					<p fxFlex color="accent">
+						<mat-toolbar >
+						  <span>Address</span>
+						</mat-toolbar>
+					  </p>
+			
+				</div>
 <form [formGroup]="addressForm" (submit)="applyForZNumber()" *ngIf="isZNumberVefied">
 
     <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
@@ -259,7 +275,7 @@ Address
 
 		  <mat-form-field appearance="outline" fxFlex color="accent">	
 			<mat-label>Effective Date*</mat-label>
-			<input matInput placeholder="Effective Date*" formControlName="effectiveDate" type="date">
+			<input matInput placeholder="Effective Date*"  formControlName="effectiveDate" type="date">
 			<!-- <mat-icon class="matIcon" matSuffix>date_range</mat-icon> -->
 			<mat-error *ngIf="addressForm.controls['effectiveDate'].errors && addressForm.controls['effectiveDate'].hasError('required')">
 				Effective Date is required
@@ -374,7 +390,7 @@ Address
 		placeholder="Ward"
 		[(ngModel)]="selectedDocumentType"
 		(ngModelChange)="onDocumentTypeSelection()"
-		formControlName="region"
+		formControlName="ward"
 	  >
 		<mat-option  *ngFor="let ward of listOfWards" [value]="ward.wardId">
 		  {{ward.wardName}}
@@ -426,7 +442,7 @@ Address
         </mat-form-field> -->
 
 
-		<button class="example-full-button " mat-raised-button color="primary" [disabled]="!addressForm.valid || !personForm.valid">Apply</button>
+		<button class="example-full-button " mat-raised-button color="primary" [disabled]="!addressForm.valid || !personForm.valid">Submit</button>
 
 
 </div>

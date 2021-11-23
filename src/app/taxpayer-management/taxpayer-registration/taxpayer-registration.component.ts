@@ -15,19 +15,9 @@ import { take, takeUntil } from 'rxjs/operators';
 import { BANKS } from 'src/app/material/shared-functions';
 
 
-// export interface Addressable {
-//   address: string[{
-//     interface address
-//         {  
-//           address:string,
-       
-//         }, 
-//      axType: string
-//         {
-//           calculationMethod: 4,
-        
-//         } ];
-// }
+import {AccountType,ACCOUNT_TYPES_DATA,Currencies, CURRENCY_DATA,EXEMPTS_DATA,Expemts, Params, ApplicationTypes,APPLICATION_TYPES_DATA,OfficeType,OFFICE_TYPES_DATA } from 'src/app/Main/shared';
+
+
 
 export interface Regions {
   value: string;
@@ -67,21 +57,6 @@ export interface TaxTypes {
   viewValue: string;
 }
 
-const TAX_TYPES_DATA: TaxTypes[] = [
-  { value: 'taxType-0', viewValue: 'VAT' },
-  { value: 'taxType-1', viewValue: 'Hotel levy' },
-  { value: 'taxType-2', viewValue: 'Restaurant levy' },
-  { value: 'taxType-0', viewValue: 'Tour Operation levy' },
-  { value: 'taxType-1', viewValue: 'Land Lease' },
-  { value: 'taxType-2', viewValue: 'Public Services' },
-  { value: 'taxType-0', viewValue: 'Excercise Duty' },
-  { value: 'taxType-1', viewValue: 'Petroleum levy' },
-  { value: 'taxType-2', viewValue: 'Airport Service Charge' },
-  { value: 'taxType-0', viewValue: 'Airport Safety fee' },
-  { value: 'taxType-1', viewValue: 'Seaport Service Charge' },
-  { value: 'taxType-2', viewValue: 'Airport Transport Charge' },
-  { value: 'taxType-2', viewValue: 'Tax consultant licences' },
-];
 
 export interface Districts {
   value: string;
@@ -144,7 +119,8 @@ const WARDS_DATA_THREE: Wards[] = [
 
 export class TaxpayerRegistrationComponent implements OnInit {
 
-  
+  // selectedRegion: string='';
+
   arrayItems: {
     id: number;
     title: string;
@@ -178,7 +154,18 @@ export class TaxpayerRegistrationComponent implements OnInit {
   /** list of regions */
   protected regions: Regions[] = REGIONS_DATA
 
-  public taxTypes: TaxTypes[] = TAX_TYPES_DATA
+  // public taxTypes: TaxTypes[] =[]
+
+  public officeTypes: OfficeType[] = OFFICE_TYPES_DATA
+
+  public exempts: Expemts[] = EXEMPTS_DATA
+
+  public currencies: Currencies[] = CURRENCY_DATA
+
+  public accountTypes: AccountType[] = ACCOUNT_TYPES_DATA
+
+  public applicationTypes: ApplicationTypes[] = APPLICATION_TYPES_DATA
+
   /** control for the selected region */
   // public regionCtrl: FormControl = new FormControl();
 
@@ -191,8 +178,15 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
   selectedDay: string = '';
   isNGO: Boolean = false;
+  isConsultant: Boolean = true;
+
+  showConsultantForm :Boolean = false;
   isZNumberVefied: Boolean = false;
   isBusinessDataFetched: Boolean = false;
+
+  isNotConsultant: Boolean = false;
+
+
   isOther: Boolean = true
   dataFetchedFromTRA: Boolean = false;
   submittingRegistrationData: Boolean = false;
@@ -231,12 +225,13 @@ export class TaxpayerRegistrationComponent implements OnInit {
   businessForm: FormGroup = new FormGroup({});
 
   consultantForm: FormGroup = new FormGroup({});
-
+  // sharedFunction = new Params()
   constructor(
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
     private _formBuilder: FormBuilder,
     private controllerService:ControllerService,
+    public shared:Params,
     private _snackBar: MatSnackBar
     // private fb: FormBuilder
     // private fb: FormBuilder
@@ -262,6 +257,73 @@ export class TaxpayerRegistrationComponent implements OnInit {
    
       /* Initiate the form structure */
   
+    // this.listOfRegions=this.shared.listIdRegions()
+
+    // console.log('this.listOfRegions All=>',this.listOfRegions);
+
+
+    this.controllerService.listIdRegions().subscribe(data=>{
+
+      this.listOfRegions=data.regionList
+      // console.log('this.listOfRegions from this =>',data);
+
+
+    })
+    
+
+    this.controllerService.listCalculationMethods().subscribe(data=>{
+
+      this.calculationMethods=data.MethodList
+      console.log('data.reMethodList =>',data.MethodList);
+
+
+    })
+
+    this.controllerService.listConsultants().subscribe(data=>{
+
+      this.consultants=data.consultant
+      console.log('data.reMethodList =>',data.consultant);
+
+
+    })
+
+
+    this.controllerService.listFilingPeriods().subscribe(data=>{
+
+      this.filingPeriods=data.fillingPeriod
+      console.log('data.reMethodList =>',data.fillingPeriod);
+
+
+    })
+
+
+
+    this.controllerService.listBankIds().subscribe(data=>{
+
+      this.bankIds=data.bankList
+      console.log('data.reMethodList =>',data.bankList);
+
+
+    })
+
+    this.controllerService.listActivities().subscribe(data=>{
+
+      this.activities=data.Activities
+      console.log('this.activities =>',data.Activities);
+
+
+    })
+
+    this.controllerService.listTaxTypes().subscribe(data=>{
+
+      this.taxTypes=data.taxtypeList
+      // console.log('data.reMethodList =>',data.MethodList);
+
+
+    })
+    
+    
+
          /* Initiate the form structure */
     this.productForm = this.formBuilder.group({
       title: [],
@@ -281,7 +343,11 @@ export class TaxpayerRegistrationComponent implements OnInit {
                 "officeType": "HO",
                 "phone": "string",
                 "poBox": "string",
-                "shehia": 3,
+                "region": '1',
+                "district": '1',
+                "ward": '',
+                "shehia": 1,
+                // "shehia": 3,
                 "calculationMethod": 4,
                 "exempt": true,
                 "filingCurrency": "TZS",
@@ -290,6 +356,8 @@ export class TaxpayerRegistrationComponent implements OnInit {
                 "infrastructure": true,
                 "localRate": "string",
                 "taxId": 0
+                
+        
         
           })
         ]
@@ -589,8 +657,21 @@ export class TaxpayerRegistrationComponent implements OnInit {
   selectedRegion: string = '';
   selectedDistrict: string = '';
   selectedWard: string = '';
+  selectedShehia:string = '';
 
-
+  listOfIdTypes:any=[];
+  listOfRegions:any=[];
+  calculationMethods:any=[];
+  consultants:any=[];
+  bankIds:any=[];
+  activities:any=[];
+  taxTypes:any=[];
+  filingPeriods:any=[];
+  // taxTypes:any=[];
+  listOfDistricts:any=[];
+  listOfWards:any=[];
+  listOfShehia:any=[];
+  
   foods = [
     { value: 'Soleproprietor', viewValue: 'Soleproprietor' },
     { value: 'Partenership', viewValue: 'Partenership' },
@@ -630,18 +711,34 @@ export class TaxpayerRegistrationComponent implements OnInit {
 
   onTaxPayerTypeSelection() {
 
-    console.log(this.selectedTaxpayer);
+    console.log("Taxpayer=>",this.selectedTaxpayer);
+    console.log("isConsultant=>",this.isConsultant);
 
-    if (this.selectedTaxpayer == 'NGOs-2') {
-      this.isNGO = true
-      this.isOther = false
+    // { value: 'Preparer', viewValue: 'Preparer' },
+    // { value: 'Taxpayer', viewValue: 'Taxpayer' },
+
+    if (this.selectedTaxpayer == 'Taxpayer') {
+
+    //   this.isNotConsultant=false
+    //   this.isNGO = true
+    //   this.isOther = true
+      this.isConsultant=true
+      this.showConsultantForm=true
+
+    console.log("now isConsultant=>",true);
     }
+   
     else {
-      this.isNGO = false
-      this.isOther = true
-    }
+    //   this.isNGO = false
+    //   this.isOther = true
+    //   this.isConsultant=true
+    this.showConsultantForm=false
+    this.isConsultant=false
+    console.log("now isConsultant=>",false);
+
 
   }
+}
 
 
   onTaxType() {
@@ -796,7 +893,10 @@ addSellingPoint() {
       "officeType": "HO",
       "phone": "string",
       "poBox": "string",
-      "shehia": 3,
+      "region": '1',
+      "district": '1',
+      "ward": '',
+      "shehia": 1,
       "calculationMethod": 4,
       "exempt": true,
       "filingCurrency": "TZS",
@@ -893,7 +993,70 @@ deleteAttachmentInfo(index:any) {
 
 // submitProductionForm(){
 
-// }
+
+  onRegionSection() {
+    console.log('this.selectedRegion=>',this.selectedRegion);
+  
+  
+    this.controllerService.getDistrictByRegionId(this.selectedRegion).subscribe(data=>{
+  
+       
+      this.listOfDistricts=data
+      // this.listOfIdTypes=data.get; 
+  
+      console.log('listOfDistricts=>',this.listOfDistricts);
+  
+  
+    })
+        
+  }
+  
+  onDistrictSection() {
+  
+    console.log('this.selectedDistrict>',this.selectedDistrict);
+  
+  
+    this.controllerService.getWardByDistrictId(this.selectedDistrict).subscribe(data=>{
+  
+       
+      this.listOfWards=data
+      // this.listOfIdTypes=data.get; 
+  
+      console.log('listOfDistricts=>',this.listOfWards);
+  
+  
+    })
+        
+  }
+  
+  onWardSelection() {
+  
+    console.log('this.selectedWard',this.selectedWard);
+  
+  
+    this.controllerService.getShehiaByWardId(this.selectedWard).subscribe(data=>{
+  
+       
+      this.listOfShehia=data
+      // this.listOfIdTypes=data.get; 
+  
+      console.log('this.listOfShehia',this.listOfShehia);
+  
+  
+    })
+        
+  }
+
+
+  onShehiaSelection() {
+  
+    console.log('this.selectedWard',this.selectedShehia);
+  
+    console.log('this.addressForm',this.addressForm.value['shehia']);
+    // this.controllerService.getShehiaByWardId(this.selectedWard).subscribe(data=>{
+        
+  }
+
 
 submitProductionForm(){
 
@@ -933,7 +1096,7 @@ for (let x = 0; x < this.addressForm.value['address'].length; x++) {
 
 }
 
-console.log('this.businessForm.value =>',this.businessForm.value);
+// console.log('this.businessForm.value =>',this.businessForm.value);
 
 const registrationData ={
   "activity": this.actitiesForm.value['aInfo'],
@@ -954,7 +1117,7 @@ const registrationData ={
   //   "consultant": this.consultantForm.value
   // }
 
-  // console.log('registrationData  =>',registrationData);
+  console.log('registrationData  =>',registrationData);
 
 
   this.controllerService.submitRegistration(registrationData).pipe(

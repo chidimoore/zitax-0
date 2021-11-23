@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+// import { KYCComponent } from './kyc/kyc/kyc.component';
+import { KYCComponent } from './taxpayer-management/kyc/kyc.component';
 const routes: Routes = [
+  {path:'outerKYC',
+  component:KYCComponent},
   {
     path:'',
     loadChildren: () => import('./Main/main.module').then(m => m.MainModule)

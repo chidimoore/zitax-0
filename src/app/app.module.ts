@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainModule } from './Main/main.module';
 import { MaterialModule } from './material/material.module';
 import { FormsModule } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+// import { MaterialModule } from '../material/material.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -18,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     MainModule,
     MaterialModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatFormFieldModule
   ],
   providers: [
   ],
