@@ -32,7 +32,56 @@
 
 <h1>TaxPayer Registration</h1>
 
+<mat-card *ngIf="applicationNumberVerified">
+	<form [formGroup]="verifyApplicationNumberForm" (submit)="verifyApplicationNumber()" >
+		<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px" style="padding-top: 10px;">
+			<!-- <mat-form-field fxFlex color="accent">
+				<input matInput type="text" placeholder="applicationNumber" formControlName="applicationNumber">
+			</mat-form-field> -->
 	
+			<mat-form-field appearance="outline" fxFlex color="accent">	
+				<mat-label>Application Number</mat-label>
+				<input matInput placeholder="Application Number" formControlName="applicationNumber">
+				<mat-icon class="matIcon"  matSuffix>money</mat-icon>
+				<mat-error *ngIf="verifyApplicationNumberForm.controls['applicationNumber'].errors && verifyApplicationNumberForm.controls['applicationNumber'].hasError('required')">
+					Application Number is required
+				</mat-error>
+			</mat-form-field>
+	
+			<button class="example-full-button " mat-raised-button color="primary">Verify</button>
+	
+		</div>
+	</form>
+  </mat-card>
+
+  <mat-card *ngIf="BPRANumberVerified">
+	<form [formGroup]="verifyBPRANumberForm" (submit)="verifyBPRANumber()" >
+		<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px" style="padding-top: 10px;">
+			<!-- <mat-form-field fxFlex color="accent">
+				<input matInput type="text" placeholder="BPRANumber" formControlName="BPRANumber">
+			</mat-form-field> -->
+	
+			<mat-form-field appearance="outline" fxFlex color="accent">	
+				<mat-label>BPRA Number</mat-label>
+				<input matInput placeholder="BPRA Number" formControlName="BPRANumber">
+				<mat-icon class="matIcon"  matSuffix>money</mat-icon>
+				<mat-error *ngIf="verifyBPRANumberForm.controls['BPRANumber'].errors && verifyBPRANumberForm.controls['BPRANumber'].hasError('required')">
+					BPRA Number is required
+				</mat-error>
+			</mat-form-field>
+	
+			<button class="example-full-button " mat-raised-button color="primary">Verify</button>
+	
+		</div>
+	</form>
+	
+  </mat-card>
+
+
+
+
+
+
 
 <!-- {{ this.productForm.value | json }} -->
 
@@ -53,16 +102,16 @@
 			{{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
 		  </button> -->
 		  
-		  <mat-stepper linear #stepper>
+		  <mat-stepper linear #stepper *ngIf="showRegistrationForm">
 			<mat-step [stepControl]="businessForm " [editable]="!isEditable">
 			 
-				<ng-template matStepLabel>Business Information</ng-template>
+				<ng-template matStepLabel>Step 1</ng-template>
 
 				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
     
 					<p fxFlex color="accent">
 						<mat-toolbar >
-						  <span>Business</span>
+						  <span>Business Information</span>
 						</mat-toolbar>
 					  </p>
 			
@@ -314,45 +363,7 @@
 
 </div>
 
-<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-    
-	<p fxFlex color="accent">
-		<mat-toolbar >
-		  <span>Attachments</span>
-		</mat-toolbar>
-	  </p>
 
-</div>
-            <form [formGroup]="attachmentForm"  >
-				<div formArrayName="attachment">
-
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-    
-				<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>File</mat-label>
-					<input matInput placeholder="Business Name." formControlName="businessName">
-					<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
-					<mat-error *ngIf="attachmentForm.controls['businessName'].errors && attachmentForm.controls['businessName'].hasError('required')">
-					  File is required
-					</mat-error>
-				</mat-form-field> -->
-		
-				<button
-				class="upload-button"
-				fxFlex color="accent"
-				type="button" 
-				mat-raised-button 
-				(click)="fileInput.click()"
-				fxFlex color="accent">	
-				Attachments
-			   </button>
-		  
-			   <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
-		  
-		
-			</div>
-		    </div>
-			</form>
 
 			<div>
 				<!-- <button mat-button matStepperNext>Next</button> -->
@@ -365,7 +376,7 @@
 
 				
 			  <form [formGroup]="addressForm"  >
-				<ng-template matStepLabel>Address Information</ng-template>
+				<ng-template matStepLabel>Step 2</ng-template>
 			
 				<div formArrayName="address">
 
@@ -374,7 +385,7 @@
     
 							<p fxFlex color="accent">
 								<mat-toolbar >
-								  <span>Address</span>
+								  <span>Address Information</span>
 								</mat-toolbar>
 							  </p>
 					
@@ -633,7 +644,7 @@
     
 							<p fxFlex color="accent">
 								<mat-toolbar >
-								  <span>Tax</span>
+								  <span>Tax Information</span>
 								</mat-toolbar>
 							  </p>
 					
@@ -849,11 +860,19 @@
 
 			<mat-step [stepControl]="bankForm" [editable]="!isEditable">
 				<form [formGroup]="bankForm"  >
-				  <ng-template matStepLabel>Bank Information</ng-template>
+				  <ng-template matStepLabel>Step 3</ng-template>
 				  <div formArrayName="bInfo">
 			
 					<div *ngFor="let item of bankInfo.controls; let pointIndex=index" [formGroupName]="pointIndex">
-						
+						<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+							<p fxFlex color="accent">
+								<mat-toolbar >
+								  <span>Bank Information</span>
+								</mat-toolbar>
+							  </p>
+					
+						</div>
 						<!-- <form [formGroup]="address"> -->
 						<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 							<!-- <div [formGroup]="address"> -->
@@ -980,9 +999,17 @@
 			  <mat-step [stepControl]="actitiesForm" [editable]="!isEditable">
 				<form [formGroup]="actitiesForm"  >
 				
-			  <ng-template matStepLabel>Activities</ng-template>
+			  <ng-template matStepLabel>Step 4</ng-template>
 			  <div formArrayName="aInfo">
-			
+				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+					<p fxFlex color="accent">
+						<mat-toolbar >
+						  <span>Activities</span>
+						</mat-toolbar>
+					  </p>
+				
+				</div>
 				<div *ngFor="let item of activityInfo.controls; let pointIndex=index" [formGroupName]="pointIndex">
 					
 					<!-- <form [formGroup]="address"> -->
@@ -1028,6 +1055,8 @@
 					</div>
 				  
 				</div>
+
+				
 				<!-- <button type="button" (click)="addSellingPoint()">Add Selling Point</button> -->
 				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 						
@@ -1039,6 +1068,47 @@
 			</div>
 
 		</form>
+<br>	
+		<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+			<p fxFlex color="accent">
+				<mat-toolbar >
+				  <span>Attachments</span>
+				</mat-toolbar>
+			  </p>
+		
+		</div>
+					<form [formGroup]="attachmentForm"  >
+						<div formArrayName="attachment">
+		
+					<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+			
+						<!-- <mat-form-field appearance="outline" fxFlex color="accent">	
+							<mat-label>File</mat-label>
+							<input matInput placeholder="Business Name." formControlName="businessName">
+							<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+							<mat-error *ngIf="attachmentForm.controls['businessName'].errors && attachmentForm.controls['businessName'].hasError('required')">
+							  File is required
+							</mat-error>
+						</mat-form-field> -->
+				
+						<button
+						class="upload-button"
+						fxFlex color="accent"
+						type="button" 
+						mat-raised-button 
+						(click)="fileInput.click()"
+						fxFlex color="accent">	
+						Attachments
+					   </button>
+				  
+					   <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+				  
+				
+					</div>
+					</div>
+					</form>
+
 			  <div>
 				<button class="stepper-button" mat-raised-button color="primary" (click)="submitProductionForm()">Submit</button>
 				  <button class="stepper-button" mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
@@ -1049,720 +1119,7 @@
 		  </mat-stepper>
 
 		  
-<div class="container" fxLayout="row" fxLayoutAlign="center none">
-	<div fxFlex="100%">
-  
-	  <mat-card>
-		<mat-card-content>
-		  <!-- <h2>Register Taxpayer</h2> -->
-		<!-- <mat-tab-group mat-stretch-tabs>
-		  <mat-tab label="Signup">
-			<ng-template mat-tab-label>
-			  <mat-icon class="matIcon" >person_outline</mat-icon>
-			  &nbsp; Citizen
-			</ng-template>
-			<form [formGroup]="verifyTINForm" (submit)="verifyTIN()">
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px" style="padding-top: 10px;">
-				<mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="TIN" formControlName="TIN">
-				</mat-form-field>
-				<button class="example-full-button " mat-raised-button color="primary">Verify</button>
 
-			</div>
-		</form>
-
-		  </mat-tab>
-  
-  
-  
-  
-		  <mat-tab label="Signup">
-			<ng-template mat-tab-label>
-	   
-			  <mat-icon class="matIcon" >person</mat-icon>
-			  &nbsp;Foreigner
-			</ng-template>
-			<form [formGroup]="verifyTINForm" (submit)="verifyTIN()">
-				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px" style="padding-top: 10px;">
-					<mat-form-field fxFlex color="accent">
-						<input matInput type="text" placeholder="Passport Number" formControlName="TIN">
-					</mat-form-field>
-					<button class="example-full-button " mat-raised-button color="primary">Verify</button>
-	
-				</div>
-			</form>
-		  </mat-tab>
-
-		
-		</mat-tab-group> -->
-  
-		<!-- <form [formGroup]="verifyZNumberForm" (submit)="verifyZNumberButtonPress()">
-
-		
-	
-		  <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-			
-			<mat-form-field appearance="outline" fxFlex color="accent">	
-				<mat-label>Z Number</mat-label>
-				<input matInput placeholder="Z Number" formControlName="ZNumber">
-				<mat-icon class="matIcon"  matSuffix>key</mat-icon>
-				<mat-error *ngIf="verifyZNumberForm.controls['ZNumber'].errors && verifyZNumberForm.controls['ZNumber'].hasError('required')">
-				  TIN is required
-				</mat-error>	
-						
-			  </mat-form-field>
-  
-				<button class="example-full-button " mat-raised-button color="primary" [disabled]="!verifyZNumberForm.valid">Verify</button>
-  
-		</div>
-	  </form> -->
-
-	  		
-		<!-- <form [formGroup]="fetchBusinessInfoForm" (submit)="fetchBusinessInfoButtonPress()" *ngIf="isZNumberVefied">
-
-		
-	
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-			  
-			  <mat-form-field appearance="outline" fxFlex color="accent">	
-				  <mat-label>BPRA Number</mat-label>
-				  <input matInput placeholder="BPRA Number" formControlName="BPRANumber">
-				  <mat-icon class="matIcon"  matSuffix>business</mat-icon>
-				  <mat-error *ngIf="fetchBusinessInfoForm.controls['BPRANumber'].errors && fetchBusinessInfoForm.controls['BPRANumber'].hasError('required')">
-					TIN is required
-				  </mat-error>	
-						  
-				</mat-form-field>
-	
-				  <button class="example-full-button " mat-raised-button color="primary" [disabled]="!fetchBusinessInfoForm.valid">Fetch Business Info.</button>
-	
-		  </div>
-		</form> -->
-		
-	<div *ngIf="isBusinessDataFetched">
-<!-- 
-
-		<h1 fxHide fxShow.xs>Information from TRA</h1>
-		<h1 fxHide fxShow.sm>Information from TRA</h1>
-		<h1 fxHide fxShow.md>Information from TRA</h1>
-		<h1 fxHide fxShow.lg>Information from TRA</h1>
-		<h1 fxHide fxShow.xl>Information from TRA</h1> -->
-
-
-		<form [formGroup]="taxPayerRegistrationForm" (submit)="registerTaxPayer()">
-		<!-- <div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="10px" ngClass.gt-xs="ml-10"> -->
-		  <!-- <mat-card fxFlex.sm="0 1 calc(50%-10px)" fxFlex.md="0 1 calc(33%-10px)" fxFlex.gt-md="0 1 calc(25%-10px)" style="height: 235	px;"> -->
-
-           <!-- <img mat-card-image src="https://kakiseni.org/wp-content/uploads/2018/03/250X250.png" class="image"> -->
-			<!-- <p>content of card 1 </p> -->
-			<!-- <mat-card-content>Primary card content. Intended for blocks of text</mat-card-content>
-			<mat-card-actions>Container for buttons at the bottom of the card</mat-card-actions> -->
-		  <!-- </mat-card> -->
-		  
-		  <!-- <mat-card fxFlex.sm="0 1 calc(75%-10px)" fxFlex.md="0 1 calc(75%-10px)" fxFlex.gt-md="0 1 calc(75%-10px)" style="height: 235px;"> -->
-			<!-- <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-			
-				  <mat-form-field fxFlex color="accent">
-					<mat-select
-					  placeholder="Taxpayer Type"
-					  [(ngModel)]="selectedTaxpayer"
-					  (ngModelChange)="onBusinessCategorySelection()"
-					  [ngModelOptions]="{standalone: true}"
-					>
-					  <mat-option *ngFor="let food of foods" [value]="food.value">
-						{{ food.viewValue }}
-					  </mat-option>
-					</mat-select>
-					<mat-hint>Eg: Soleapropriate</mat-hint>
-				  </mat-form-field>
-	
-			
-				<mat-form-field fxFlex color="accent" >
-					<input matInput type="text" placeholder="NIDA/Zan ID" formControlName="NIDAZan ID">
-				</mat-form-field>
-			
-					
-			</div>
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-				<mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="Full Name" formControlName="firstName">
-				</mat-form-field>
-				<mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="Business Name" formControlName="lastName">
-				</mat-form-field>
-			
-					
-			</div> -->
-			<!-- <div fxLayout="row" fxLayout.lt-sm="col	umn" fxLayoutGap="16px">
-				<mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="Business Reg, Number" formControlName="firstName">
-				</mat-form-field>
-				<mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="Type of application" formControlName="lastName">
-				</mat-form-field>			
-					
-			</div> -->
-
-			<!-- <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-				<mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="Business Reg, Number" formControlName="firstName">
-				</mat-form-field>
-				
-				<mat-form-field fxFlex color="accent">
-					<mat-select
-					  placeholder="Type of application"
-					  [(ngModel)]="selectedTaxpayer"
-					  (ngModelChange)="onBusinessCategorySelection()"
-					  [ngModelOptions]="{standalone: true}"
-					>
-					  <mat-option *ngFor="let food of foods" [value]="food.value">
-						{{ food.viewValue }}
-					  </mat-option>
-					</mat-select>
-					<mat-hint>Eg: Soleapropriate</mat-hint>
-				  </mat-form-field>
-			</div>
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-				<mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="Address" formControlName="firstName">
-				</mat-form-field>
-				<mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="Place of business" formControlName="lastName">
-				</mat-form-field>
-				
-			</div> -->
-			<!-- <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-				<mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="Tax type" formControlName="firstName">
-				</mat-form-field>
-			
-					<button
-					 class="example-full-button "
-					 fxFlex color="accent"
-					 type="button" 
-					 mat-raised-button 
-					 (click)="fileInput.click()"
-					 >
-					 Choose File
-					</button>
-
-					<input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
-
-			
-					
-			</div> -->
-		  <!-- </mat-card> -->
-		
-	  
-		  <!-- <mat-card fxFlex.sm="0 1 calc(100%-10px)" fxFlex.md="0 1 calc(100%-10px)" fxFlex.gt-md="0 1 calc(100%-10px)" > -->
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-				
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>Type of application</mat-label>
-					<mat-select
-					placeholder="Type of application"
-					[(ngModel)]="selectedTaxpayer"
-					(ngModelChange)="onBusinessCategorySelection()"
-					formControlName="typeOfApplication"
-					>
-					<mat-option *ngFor="let food of foods" [value]="food.value">
-					  {{ food.viewValue }}
-					</mat-option>
-					</mat-select>
-					<mat-icon class="matIcon"  matSuffix>format_align_justify</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['selectedTaxpayer'].errors && taxPayerRegistrationForm.controls['selectedTaxpayer'].hasError('required')">
-					  selectedTaxpayer is required
-					</mat-error>
-				</mat-form-field>
-
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>Business Name.</mat-label>
-					<input matInput placeholder="Business Name." formControlName="businessName">
-					<mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['businessName'].errors && taxPayerRegistrationForm.controls['businessName'].hasError('required')">
-					  businessName is required
-					</mat-error>
-				</mat-form-field>
-
-			
-
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>Company Name</mat-label>
-					<input matInput placeholder="Company Name" formControlName="companyName">
-					<mat-icon class="matIcon"  matSuffix>compare</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['companyName'].errors && taxPayerRegistrationForm.controls['companyName'].hasError('required')">
-					  companyName is required
-					</mat-error>
-				</mat-form-field>
-
-			
-
-			
-			</div>
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-				
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>Business/Category type</mat-label>
-					<input matInput placeholder="Business/Category type" formControlName="businessCategoryType">
-					<mat-icon class="matIcon"  matSuffix>category</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['businessCategoryType'].errors && taxPayerRegistrationForm.controls['businessCategoryType'].hasError('required')">
-					  businessCategoryType is required
-					</mat-error>
-				</mat-form-field>
-
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>Registered date</mat-label>
-					<input matInput placeholder="Registered date" formControlName="registeredDate">
-					<mat-icon class="matIcon"  matSuffix>calendar_today</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['registeredDate'].errors && taxPayerRegistrationForm.controls['registeredDate'].hasError('required')">
-					  registeredDate is required
-					</mat-error>
-				</mat-form-field>
-
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>Business Reg. No</mat-label>
-					<input matInput placeholder="Business Reg. No" formControlName="businessRegNo">
-					<mat-icon class="matIcon"  matSuffix>confirmation_number</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['businessRegNo'].errors && taxPayerRegistrationForm.controls['businessRegNo'].hasError('required')">
-					  businessRegNo is required
-					</mat-error>
-				</mat-form-field>	
-
-			
-
-			
-
-
-					
-			</div>
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>NIDA/Zan ID</mat-label>
-					<input matInput placeholder="NIDA/Zan ID" formControlName="NIDAZanID">
-					<mat-icon class="matIcon"  matSuffix>perm_identity</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['NIDAZanID'].errors && taxPayerRegistrationForm.controls['NIDAZanID'].hasError('required')">
-					  NIDAZanID is required
-					</mat-error>
-				</mat-form-field>
-
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>TIN</mat-label>
-					<input matInput placeholder="TIN" formControlName="TIN">
-					<mat-icon class="matIcon"  matSuffix>perm_identity</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['TIN'].errors && taxPayerRegistrationForm.controls['TIN'].hasError('required')">
-					  TIN is required
-					</mat-error>
-				</mat-form-field>
-
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>Type of Application</mat-label>
-					<input matInput placeholder="Type of Application" formControlName="typeOfApplication">
-					<mat-icon class="matIcon"  matSuffix>format_align_justify</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['typeOfApplication'].errors && taxPayerRegistrationForm.controls['typeOfApplication'].hasError('required')">
-					  typeOfApplication is required
-					</mat-error>
-				</mat-form-field>
-					
-			</div>
-
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-				
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>Address</mat-label>
-					<input matInput placeholder="Address" formControlName="address">
-					<mat-icon class="matIcon"  matSuffix>my_location</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['address'].errors && taxPayerRegistrationForm.controls['address'].hasError('required')">
-					  address is required
-					</mat-error>
-				</mat-form-field>
-
-				
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>Place of Business</mat-label>
-					<input matInput placeholder="Place of Business" formControlName="placeOfBusiness">
-					<mat-icon class="matIcon"  matSuffix>near_me</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['placeOfBusiness'].errors && taxPayerRegistrationForm.controls['placeOfBusiness'].hasError('required')">
-					  placeOfBusiness is required
-					</mat-error>
-				</mat-form-field>
-
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>Full Name</mat-label>
-					<input matInput placeholder="Full Name" formControlName="fullName">
-					<mat-icon class="matIcon"  matSuffix>card_membership</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['fullName'].errors && taxPayerRegistrationForm.controls['fullName'].hasError('required')">
-					  fullName is required
-					</mat-error>
-				</mat-form-field>
-					
-			</div>
-
-
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-				<p >
-					<strong>Location:</strong>
-				</p>
-			
-
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>Latitude</mat-label>
-					<input matInput placeholder="Latitude" formControlName="latitude">
-					<mat-icon class="matIcon"  matSuffix>keyboard_arrow_up</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['latitude'].errors && taxPayerRegistrationForm.controls['latitude'].hasError('required')">
-					  latitude is required
-					</mat-error>
-				</mat-form-field>
-
-				<mat-form-field appearance="outline" fxFlex color="accent">	
-					<mat-label>Longitude</mat-label>
-					<input matInput placeholder="Longitude" formControlName="longitude">
-					<mat-icon class="matIcon"  matSuffix>keyboard_arrow_right</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['longitude'].errors && taxPayerRegistrationForm.controls['longitude'].hasError('required')">
-					  longitude is required
-					</mat-error>
-				</mat-form-field>
-
-				
-			</div>
-			 
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-			
-
-				<mat-form-field appearance="outline" fxFlex color="accent" *ngIf="isNGO">
-					<mat-label>Z Number</mat-label>
-					<input matInput placeholder="Z Number" formControlName="zNumber">
-					<mat-icon class="matIcon"  matSuffix>key</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['zNumber'].errors && taxPayerRegistrationForm.controls['zNumber'].hasError('required')">
-					  zNumber is required
-					</mat-error>
-				</mat-form-field>
-				
-
-
-				<mat-form-field appearance="outline" fxFlex color="accent" *ngIf="isOther">
-					<mat-label>Estimated turn annual over</mat-label>
-					<input matInput placeholder="Estimated turn annual over" formControlName="estimatedTurnAnnualOver">
-					<mat-icon class="matIcon"  matSuffix>money</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['estimatedTurnAnnualOver'].errors && taxPayerRegistrationForm.controls['estimatedTurnAnnualOver'].hasError('required')">
-					  estimatedTurnAnnualOver is required
-					</mat-error>
-				</mat-form-field>
-
-
-			
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Contact Number</mat-label>
-					<input matInput placeholder="Contact Number" formControlName="contactNumber">
-					<mat-icon class="matIcon"  matSuffix>contact_phone</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['contactNumber'].errors && taxPayerRegistrationForm.controls['contactNumber'].hasError('required')">
-					  contactNumber is required
-					</mat-error>
-				</mat-form-field>
-
-
-			
-
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Email</mat-label>
-					<input matInput placeholder="Email" formControlName="email">
-					<mat-icon class="matIcon"  matSuffix> contact_mail</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['email'].errors && taxPayerRegistrationForm.controls['email'].hasError('required')">
-					  email is required
-					</mat-error>
-				</mat-form-field>
-
-					
-			</div>
-	
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-				
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Region Information</mat-label>
-					<input matInput placeholder="Region Information" formControlName="regionInformation">
-					<mat-icon class="matIcon"  matSuffix>location_on</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['regionInformation'].errors && taxPayerRegistrationForm.controls['regionInformation'].hasError('required')">
-					  regionInformation is required
-					</mat-error>
-				</mat-form-field>
-
-
-				 
-
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Region</mat-label>
-					<mat-select
-					  placeholder="Region"
-					  [(ngModel)]="selectedRegion"
-					  (ngModelChange)="onRegionSelection()"
-				
-					  [formControl]="region"
-					>
-					  <mat-option>
-						<ngx-mat-select-search
-						  [formControl]="regionFilterCtrl"
-						></ngx-mat-select-search>
-					  </mat-option>
-				  
-					  <mat-option *ngFor="let region of filteredRegions | async" [value]="region.value">
-						{{ region.viewValue}}
-					  </mat-option>
-					</mat-select>
-					<mat-icon class="matIcon"  matSuffix>location_on</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['region'].errors && taxPayerRegistrationForm.controls['region'].hasError('required')">
-					  region is required
-					</mat-error>
-				</mat-form-field>
-
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>District</mat-label>
-					<mat-select
-					  placeholder="District"
-					  [(ngModel)]="selectedDistrict"
-					  (ngModelChange)="onDistrictSelection()"
-					
-					  [formControl]="district"
-					>
-					  <mat-option *ngFor="let district of districts" [value]="district.value">
-						{{ district.viewValue }}
-					  </mat-option>
-					</mat-select>
-					<mat-icon class="matIcon"  matSuffix>location_on</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['district'].errors && taxPayerRegistrationForm.controls['district'].hasError('required')">
-					  district is required
-					</mat-error>
-				</mat-form-field>
-
-
-
-				  <!-- <mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="Type of Business Activities" formControlName="lastName">
-				</mat-form-field> -->
-					
-			</div>
-		
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-					  <!-- <mat-form-field fxFlex color="accent"> -->
-
-					<!-- <mat-select
-					  placeholder="Ward"
-					  [(ngModel)]="selectedTaxpayer"
-					  (ngModelChange)="onBusinessCategorySelection()"
-					  [ngModelOptions]="{standalone: true}"
-					>
-					  
-					  <mat-option *ngFor="let food of foods" [value]="food.value">
-						{{ food.viewValue }}
-					  </mat-option>
-					</mat-select> -->
-				
-					<!-- <mat-form-field fxFlex color="accent"> -->
-					<!-- <ng-select 
-					ngSelectMat
-	
-					placeholder="Ward"
-					[(ngModel)]="selectedTaxpayer"
-					(ngModelChange)="onBusinessCategorySelection()"
-					[ngModelOptions]="{standalone: true}"
-					 >
-						<ng-option *ngFor="let food of foods" [value]="food.value">
-							{{ food.viewValue }}
-						</ng-option>
-					 </ng-select> -->
-					<!-- </mat-form-field>	 -->
-					
-					<mat-form-field appearance="outline" fxFlex color="accent" >
-						<mat-label>Ward</mat-label>
-						<mat-select
-						  placeholder="Ward"
-						  [(ngModel)]="selectedWard"
-					
-						 
-						  [formControl]="ward"
-						>
-						  <mat-option *ngFor="let ward of wards" [value]="ward.value">
-							{{ ward.viewValue }}
-						  </mat-option>
-						</mat-select>
-						<mat-icon class="matIcon"  matSuffix>location_on</mat-icon>
-						<mat-error *ngIf="taxPayerRegistrationForm.controls['ward'].errors && taxPayerRegistrationForm.controls['ward'].hasError('required')">
-						  ward is required
-						</mat-error>
-					</mat-form-field>
-					  <!-- <mat-form-field fxFlex color="accent">
-						<input matInput type="text" placeholder="Type of Business Activities" formControlName="lastName">
-					</mat-form-field> -->
-
-				<!-- <mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="Type of Business Activities" formControlName="lastName">
-				</mat-form-field> -->
-
-
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Type of Business Activities</mat-label>
-					<mat-select
-					  placeholder="Type of Business Activities"
-					  [(ngModel)]="selectedTaxpayer"
-					  (ngModelChange)="onBusinessCategorySelection()"
-				
-					  [formControl]="typeofBusinessActivities"
-					>
-					  <mat-option *ngFor="let food of foods" [value]="food.value">
-						{{ food.viewValue }}
-					  </mat-option>
-					</mat-select>
-					<mat-icon class="matIcon"  matSuffix>format_align_justify</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['typeofBusinessActivities'].errors && taxPayerRegistrationForm.controls['typeofBusinessActivities'].hasError('required')">
-					  typeofBusinessActivities is required
-					</mat-error>
-				</mat-form-field>
-
-
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Date of commencing Business</mat-label>
-					<input matInput placeholder="Date of commencing Business" formControlName="dateOfCommencingBusiness">
-					<mat-icon class="matIcon"  matSuffix>calendar_today</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['dateOfCommencingBusiness'].errors && taxPayerRegistrationForm.controls['dateOfCommencingBusiness'].hasError('required')">
-					  dateOfCommencingBusiness is required
-					</mat-error>
-				</mat-form-field>
-					
-			</div>
-	
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-				<!-- <mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="Tax type" formControlName="firstName">
-				</mat-form-field> -->
-			
-				  
-				  <mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Tax type</mat-label>
-					<mat-select
-					placeholder="Tax type"
-					[(ngModel)]="selectedTaxType"
-					(ngModelChange)="onTaxType()"
-				
-					[formControl]="taxType"
-				  >
-					<mat-option *ngFor="let taxType of taxTypes" [value]="taxType.value">
-					  {{ taxType.viewValue }}
-					</mat-option>
-				  </mat-select>
-				  <mat-icon class="matIcon"  matSuffix>format_align_justify</mat-icon>
-				  <mat-error *ngIf="taxPayerRegistrationForm.controls['taxType'].errors && taxPayerRegistrationForm.controls['taxType'].hasError('required')">
-					taxType is required
-				  </mat-error>
-				</mat-form-field>
-
-				  <button
-				  class="example-full-button "
-				  fxFlex color="accent"
-				  type="button" 
-				  mat-raised-button 
-				  (click)="fileInput.click()"
-				  >
-				  Attachment
-				 </button>
-
-				 <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
-				<!-- <mat-form-field fxFlex color="accent">
-					<input matInput type="text" placeholder="Attachment" formControlName="lastName">
-				</mat-form-field> -->
-			
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Responsible Person</mat-label>
-					<input matInput placeholder="Responsible Person" formControlName="responsiblePerson">
-					<mat-icon class="matIcon"  matSuffix>person</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['responsiblePerson'].errors && taxPayerRegistrationForm.controls['responsiblePerson'].hasError('required')">
-					  responsiblePerson is required
-					</mat-error>
-				</mat-form-field>
-					
-			</div>
-		
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-			
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Declaration</mat-label>
-					<input matInput placeholder="Declaration" formControlName="declaration">
-					<mat-icon class="matIcon"  matSuffix>edit</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['declaration'].errors && taxPayerRegistrationForm.controls['declaration'].hasError('required')">
-					  declaration is required
-					</mat-error>
-				</mat-form-field>
-
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Tax Consultant</mat-label>
-					<input matInput placeholder="Tax Consultant" formControlName="taxConsultant">
-					<mat-icon class="matIcon"  matSuffix>person</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['taxConsultant'].errors && taxPayerRegistrationForm.controls['taxConsultant'].hasError('required')">
-					  taxConsultant is required
-					</mat-error>
-				</mat-form-field>
-			
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Finger Print</mat-label>
-					<input matInput placeholder="Responsible Person" formControlName="fingerPrint">
-					<mat-icon class="matIcon"  matSuffix>fingerprint</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['fingerPrint'].errors && taxPayerRegistrationForm.controls['fingerPrint'].hasError('required')">
-					  fingerPrint is required
-					</mat-error>
-				</mat-form-field>
-					
-			</div>
-	
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-				
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Designation</mat-label>
-					<input matInput placeholder="Designation" formControlName="designation">
-					<mat-icon class="matIcon"  matSuffix>account_circle</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['designation'].errors && taxPayerRegistrationForm.controls['designation'].hasError('required')">
-					  designation is required
-					</mat-error>
-				</mat-form-field>
-			
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Date of Verification</mat-label>
-					<input matInput placeholder="Date of Verification" formControlName="dateOfVerification">
-					<mat-icon class="matIcon"  matSuffix>account_circle</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['dateOfVerification'].errors && taxPayerRegistrationForm.controls['dateOfVerification'].hasError('required')">
-					  dateOfVerification Number is required
-					</mat-error>
-				</mat-form-field>
-			
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Approved Officer Name</mat-label>
-					<input matInput placeholder="Approved Officer Name" formControlName="approvedOfficerName">
-					<mat-icon class="matIcon"  matSuffix>lock</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['TIN'].errors && taxPayerRegistrationForm.controls['TIN'].hasError('required')">
-					  TIN is required
-					</mat-error>
-				</mat-form-field>
-					
-			</div>
-			<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-			
-				<mat-form-field appearance="outline" fxFlex color="accent" >
-					<mat-label>Title</mat-label>
-					<input matInput placeholder="Title" formControlName="title">
-					<mat-icon class="matIcon"  matSuffix>account_circle</mat-icon>
-					<mat-error *ngIf="taxPayerRegistrationForm.controls['title'].errors && taxPayerRegistrationForm.controls['title'].hasError('required')">
-					  title Number is required
-					</mat-error>
-				</mat-form-field>
-				<button class="example-full-button " mat-raised-button color="primary" >Sumbit</button>
-	
-			</div>
-		  <!-- </mat-card> -->
-		<!-- </div> -->
-	</form>
-	
-	</div>
-	  </mat-card-content>
-	</mat-card>
-  
-  </div>
-  </div>
   
   
 

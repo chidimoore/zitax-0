@@ -1,0 +1,886 @@
+<!-- <ngx-spinner
+  bdColor="rgba(0, 0, 0, 1)"
+  template="<img src='../../assets/ezgif.com-gif-maker.gif' />"
+  
+>
+</ngx-spinner> -->
+
+<!-- <h1>Edit Product</h1>
+
+<form [formGroup]="productForm">
+
+  <label>
+    Title: <input formControlName="title" />
+  </label>
+  <h2>Selling Points</h2>
+
+  <div formArrayName="selling_points">
+    <div *ngFor="let item of sellingPointsS.controls; let pointIndex=index" [formGroupName]="pointIndex">
+    <label>
+      Selling Point: <input formControlName="point" />
+    </label>
+    <button type="button" (click)="deleteSellingPointS(pointIndex)">Delete Selling Point</button>
+    </div>
+    <button type="button" (click)="addSellingPointS()">Add Selling Point</button>
+	<button type="button" (click)="submitProductionForm()"> Subm</button>
+  </div>
+
+</form>
+
+{{ this.productForm.value | json }}
+ -->
+
+ <h1>Withholding Agent Registration</h1>
+ <mat-card *ngIf="applicationNumberVerified">
+
+     <form [formGroup]="verifyApplicationNumberForm" (submit)="verifyApplicationNumber()" >
+         <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px" style="padding-top: 10px;">
+          
+     
+             <mat-form-field appearance="outline" fxFlex color="accent">	
+                 <mat-label>Application Number</mat-label>
+                 <input matInput placeholder="Application Number" formControlName="applicationNumber">
+                 <mat-icon class="matIcon"  matSuffix>money</mat-icon>
+                 <mat-error *ngIf="verifyApplicationNumberForm.controls['applicationNumber'].errors && verifyApplicationNumberForm.controls['applicationNumber'].hasError('required')">
+                     Application Number is required
+                 </mat-error>
+             </mat-form-field>
+     
+             <button class="example-full-button " mat-raised-button color="primary">Verify</button>
+     
+         </div>
+     </form>
+   </mat-card>
+  <!-- <mat-card *ngIf="applicationNumberVerified">
+   <mat-card *ngIf="BPRANumberVerified">
+     <form [formGroup]="verifyBPRANumberForm" (submit)="verifyBPRANumber()" >
+         <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px" style="padding-top: 10px;">
+           
+             <mat-form-field appearance="outline" fxFlex color="accent">	
+                 <mat-label>BPRA Number</mat-label>
+                 <input matInput placeholder="BPRA Number" formControlName="BPRANumber">
+                 <mat-icon class="matIcon"  matSuffix>money</mat-icon>
+                 <mat-error *ngIf="verifyBPRANumberForm.controls['BPRANumber'].errors && verifyBPRANumberForm.controls['BPRANumber'].hasError('required')">
+                     BPRA Number is required
+                 </mat-error>
+             </mat-form-field>
+     
+             <button class="example-full-button " mat-raised-button color="primary">Verify</button>
+     
+         </div>
+     </form>
+     
+   </mat-card> -->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <!-- {{ this.productForm.value | json }} -->
+ 
+ <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "762B12" type = "timer" [fullScreen] = "true">
+     <br>
+     <br>
+     <p *ngIf="verifying" style="color: white" >Verifying... </p>
+     <p *ngIf="submittingRegistrationData" style="color: white" >Uploading data... </p>
+ </ngx-spinner>
+ <!-- 
+         <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+             <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+             <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+           </svg> -->
+           
+ <!-- 		  
+           <button mat-raised-button (click)="isEditable = !isEditable">
+             {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
+           </button> -->
+           
+           <mat-stepper linear #stepper *ngIf="showRegistrationForm">
+            <!-- <mat-stepper linear #stepper> -->
+             <mat-step [stepControl]="businessForm " [editable]="!isEditable">
+              
+                 <ng-template matStepLabel>Step 1</ng-template>
+ 
+                 <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+     
+                     <p fxFlex color="accent">
+                         <mat-toolbar >
+                           <span>Withholding Information</span>
+                         </mat-toolbar>
+                       </p>
+             
+                 </div>
+ 
+                 <form [formGroup]="businessForm " >
+             
+                 <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+     
+                  <mat-form-field appearance="outline" fxFlex color="accent">	
+                    <mat-label>Responsible Person ZNumber</mat-label>
+                    <input matInput placeholder="Responsible Person ZNumber" formControlName="responsiblePersonZNumber">
+                    <mat-icon class="matIcon"  matSuffix>tag</mat-icon>
+                    <mat-error *ngIf="businessForm.controls['responsiblePersonZNumber'].errors && businessForm.controls['responsiblePersonZNumber'].hasError('required')">
+                      Responsible Person ZNumber is required
+                    </mat-error>
+                </mat-form-field>
+
+ 
+                <mat-form-field appearance="outline" fxFlex color="accent">	
+                  <mat-label>Responsible Person Position</mat-label>
+                  <input matInput placeholder="Responsible Person Position" formControlName="responsiblePosition">
+                  <mat-icon class="matIcon"  matSuffix>person</mat-icon>
+                  <mat-error *ngIf="businessForm.controls['responsiblePosition'].errors && businessForm.controls['responsiblePosition'].hasError('required')">
+                    Responsible Person Position is required
+                  </mat-error>
+              </mat-form-field>
+                 </div>
+ 
+                 <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+     
+                 
+             
+                  <mat-form-field appearance="outline" fxFlex color="accent">	
+                    <mat-label>Responsible Person Fingerprint</mat-label>
+                    <input matInput placeholder="Responsible Person Fingerprint" formControlName="responsibleFingerprint">
+                    <mat-icon class="matIcon"  matSuffix>fingerprint</mat-icon>
+                    <mat-error *ngIf="businessForm.controls['responsibleFingerprint'].errors && businessForm.controls['responsibleFingerprint'].hasError('required')">
+                      Annual Turnover is required
+                    </mat-error>
+                </mat-form-field>
+             
+                <!-- <mat-form-field appearance="outline" fxFlex color="accent">	
+                  <mat-label>Responsible Person Fingerprint</mat-label>
+                  <input matInput placeholder="Responsible Person Fingerprint" formControlName="responsibleFingerprint">
+                  <mat-icon class="matIcon"  matSuffix>money</mat-icon>
+                  <mat-error *ngIf="businessForm.controls['responsibleFingerprint'].errors && businessForm.controls['responsibleFingerprint'].hasError('required')">
+                    Annual Turnover is required
+                  </mat-error>
+              </mat-form-field> -->
+             
+                 </div>
+ 
+                
+             
+                 
+             
+               </form>
+               <div *ngIf="showConsultantForm">
+                 <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+     
+                     <p fxFlex color="accent">
+                         <mat-toolbar >
+                           <span>Consultant</span>
+                         </mat-toolbar>
+                       </p>
+             
+                 </div>
+               <form [formGroup]="consultantForm" >
+                 <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+            
+                   <mat-form-field appearance="outline" fxFlex color="accent" >
+                     <mat-label>Consultant</mat-label>
+                     <mat-select
+                     placeholder="Consultant"
+                 
+                     formControlName="consultantZNumber"
+                   >
+                     <mat-option  *ngFor="let consultant of consultants" [value]="consultant.id">
+                       {{consultant.businessName}}
+                     </mat-option>
+                   </mat-select>
+                 
+                 
+                     <mat-icon class="matIcon" matSuffix>accessibility_new</mat-icon>
+                 
+                   </mat-form-field>
+ 
+             
+                   <mat-form-field appearance="outline" fxFlex color="accent">	
+                       <mat-label>Description</mat-label>
+                       <input matInput placeholder="Description Name." formControlName="description">
+                       <mat-icon class="matIcon"  matSuffix>description</mat-icon>
+                       <mat-error *ngIf="consultantForm.controls['description'].errors && consultantForm.controls['description'].hasError('required')">
+                           Description is required
+                       </mat-error>
+                   </mat-form-field>
+                   
+                   <button
+                   class="upload-button"
+                   fxFlex color="accent"
+                   type="button" 
+                   mat-raised-button 
+                   (click)="fileInput.click()"
+                   fxFlex color="accent">	
+                   Consultant Attachment
+                  </button>
+             
+                  <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+             
+               </div>
+             
+             </form>
+ 
+ </div>
+ 
+ 
+ 
+             <div>
+                
+                 <button class="stepper-button" mat-raised-button color="primary" matStepperNext >Next</button>
+               </div>
+             </mat-step>
+ 
+             <mat-step [stepControl]="addressForm" [editable]="!isEditable">
+ 
+                 
+               <form [formGroup]="addressForm"  >
+                 <ng-template matStepLabel>Step 2</ng-template>
+             
+                 <div formArrayName="address">
+ 
+                     <div *ngFor="let item of sellingPoints.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                     
+                      <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+     
+                        <p fxFlex color="accent">
+                            <mat-toolbar >
+                              <span>Address Information</span>
+                            </mat-toolbar>
+                          </p>
+                
+                    </div>
+            
+                         <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+                     
+ 
+                                 <mat-form-field appearance="outline" fxFlex color="accent" >
+                                     <mat-label>Address</mat-label>
+                                     <textarea matInput
+                                               cdkTextareaAutosize
+                                               #autosize="cdkTextareaAutosize"
+                                               cdkAutosizeMinRows="1"
+                                               cdkAutosizeMaxRows="5"
+                                               formControlName="address">
+                                     </textarea>
+                                     <mat-icon class="matIcon" matSuffix>gps_fixed</mat-icon>
+                           
+                                   </mat-form-field>
+ 
+ 
+ 
+                             <mat-form-field appearance="outline" fxFlex color="accent">	
+                                 <mat-label>Building Number</mat-label>
+                                 <input matInput placeholder="Building Number" formControlName="buildingNumber">
+                                 <mat-icon class="matIcon"  matSuffix>appartment</mat-icon>
+                             
+                             </mat-form-field>
+ 
+ 
+                             <mat-form-field appearance="outline" fxFlex color="accent">	
+                                 <mat-label>Effective Date*</mat-label>
+                                 <input matInput placeholder="Effective Date*"  formControlName="effectiveDate" type="date">
+                     
+                               </mat-form-field>
+ 
+                         </div>
+ 
+                         <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+     
+                  
+                             <mat-form-field appearance="outline" fxFlex color="accent">	
+                                 <mat-label>Email*</mat-label>
+                                 <input matInput placeholder="Email*" formControlName="email">
+                                 <mat-icon class="matIcon" matSuffix>email</mat-icon>
+                 
+                               </mat-form-field>
+ 
+               
+ 
+                             <mat-form-field appearance="outline" fxFlex color="accent">	
+                                 <mat-label>Fax*</mat-label>
+                                 <input matInput placeholder="Fax*" formControlName="fax">
+                                 <mat-icon class="matIcon" matSuffix>fax</mat-icon>
+                     
+                             </mat-form-field>
+ 
+ 
+ 
+                             <mat-form-field appearance="outline" fxFlex color="accent">	
+                                 <mat-label>Mobile Number*</mat-label>
+                                 <input matInput placeholder="Mobile Number*" formControlName="mobile">
+                                 <mat-icon class="matIcon" matSuffix>phone</mat-icon>
+                 
+                               </mat-form-field>
+ 
+                         </div>
+ 
+                         <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+
+                             <mat-form-field appearance="outline" fxFlex color="accent" >
+                                 <mat-label>Office Type</mat-label>
+                                 <mat-select
+                                 placeholder="Office Type"
+                             
+                             
+                                 formControlName="officeType"
+                               >
+                                 <mat-option *ngFor="let officeType of officeTypes" [value]="officeType.value">
+                                   {{ officeType.viewValue }}
+                                 </mat-option>
+                               </mat-select>
+                               <mat-icon class="matIcon"  matSuffix>format_align_justify</mat-icon>
+                               <mat-error *ngIf="taxPayerRegistrationForm.controls['taxType'].errors && taxPayerRegistrationForm.controls['taxType'].hasError('required')">
+                                 taxType is required
+                               </mat-error>
+                             </mat-form-field>
+ 
+ 
+                             <mat-form-field appearance="outline" fxFlex color="accent">	
+                                 <mat-label>Phone Number*</mat-label>
+                                 <input matInput placeholder="Phone Number*" formControlName="phone">
+                                 <mat-icon class="matIcon" matSuffix>call_end</mat-icon>
+             
+                             </mat-form-field>
+ 
+                             <mat-form-field appearance="outline" fxFlex color="accent">	
+                                 <mat-label>P.O.Box</mat-label>	
+                                 <input matInput placeholder="P.O.Box" formControlName="poBox">
+                                 <mat-icon class="matIcon"  matSuffix>drafts</mat-icon>
+                         
+                             </mat-form-field>
+ 
+                         </div>
+ 
+                         <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+     
+                         
+ 
+                             <mat-form-field appearance="outline" fxFlex color="accent" >
+                                 <mat-label>Region</mat-label>
+                                 <mat-select
+                                 placeholder="Region"
+                                 [(ngModel)]="selectedRegion"
+                                 (ngModelChange)="onRegionSection()"
+                                 formControlName="region"
+                               >
+                                 <mat-option  *ngFor="let region of listOfRegions" [value]="region.regionId">
+                                   {{region.regionName}}
+                                 </mat-option>
+                               </mat-select>
+                             
+                             
+                                 <mat-icon class="matIcon" matSuffix>place</mat-icon>
+                             
+                               </mat-form-field>
+                               <mat-form-field appearance="outline" fxFlex color="accent" >
+                                 <mat-label>District</mat-label>
+                                 <mat-select
+                                 placeholder="District"
+                                 [(ngModel)]="selectedDistrict"
+                                 (ngModelChange)="onDistrictSection()"
+                                 formControlName="district"
+                               >
+                                 <mat-option  *ngFor="let districts of listOfDistricts" [value]="districts.districtId">
+                                   {{districts.districtName}}
+                                 </mat-option>
+                               </mat-select>
+                             
+                             
+                                 <mat-icon class="matIcon" matSuffix>place</mat-icon>
+                             
+                               </mat-form-field>
+                               <mat-form-field appearance="outline" fxFlex color="accent" >
+                                 <mat-label>Ward</mat-label>
+                                 <mat-select
+                                 placeholder="Ward"
+                                 [(ngModel)]="selectedWard"
+                                 (ngModelChange)="onWardSelection()"
+                                 formControlName="ward"
+                               >
+                                 <mat-option  *ngFor="let ward of listOfWards" [value]="ward.wardId">
+                                   {{ward.wardName}}
+                                 </mat-option>
+                               </mat-select>
+                             
+                             
+                                 <mat-icon class="matIcon" matSuffix>place</mat-icon>
+                             
+                               </mat-form-field>
+ 
+ 
+                         
+                         </div>
+ 
+                         <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+     
+                         
+ 
+                             <mat-form-field appearance="outline" fxFlex color="accent" >
+                                 <mat-label>Shehia</mat-label>
+                                 <mat-select
+                                 placeholder="Shehia"
+                                 [(ngModel)]="selectedShehia"
+                                 (ngModelChange)="onShehiaSelection()"
+                                 formControlName="shehia"
+                               >
+                                 <mat-option  *ngFor="let shehia of listOfShehia" [value]="shehia.shehiaId">
+                                   {{shehia.shehiaName}}
+                                 </mat-option>
+                               </mat-select>
+                             
+                             
+                                 <mat-icon class="matIcon" matSuffix>place</mat-icon>
+                             
+                               </mat-form-field>
+                             
+                         
+                         </div>
+                         <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+     
+                             <p fxFlex color="accent">
+                                 <mat-toolbar >
+                                   <span>Tax Information</span>
+                                 </mat-toolbar>
+                               </p>
+                     
+                         </div>
+                         <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+     
+                             <!-- <mat-form-field appearance="outline" fxFlex color="accent">	
+                                 <mat-label>calculationMethod</mat-label>
+                                 <input matInput placeholder="calculationMethod" formControlName="calculationMethod">
+                                 <mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+                             
+                             </mat-form-field> -->
+ 
+                             <mat-form-field appearance="outline" fxFlex color="accent" >
+                                 <mat-label>Calculation Method</mat-label>
+                                 <mat-select
+                                 placeholder="Calculation Method"
+                             
+                                 formControlName="calculationMethod"
+                               >
+                                 <mat-option  *ngFor="let calculationMethod of calculationMethods" [value]="calculationMethod.id">
+                                   {{calculationMethod.methodName}}
+                                 </mat-option>
+                               </mat-select>
+                             
+                             
+                                 <mat-icon class="matIcon" matSuffix>plus_one</mat-icon>
+                             
+                               </mat-form-field>
+ 
+ 
+                             
+                               <mat-form-field appearance="outline" fxFlex color="accent" >
+                                 <mat-label>Exempted?</mat-label>
+                                 <mat-select
+                                 placeholder="Exempted?"
+                             
+                                 formControlName="exempt"
+                               >
+                                 <mat-option  *ngFor="let exempt of exempts" [value]="exempt.value">
+                                   {{exempt.viewValue}}
+                                 </mat-option>
+                               </mat-select>
+                             
+                             
+                                 <mat-icon class="matIcon" matSuffix>volunteer_activism</mat-icon>
+                             
+                               </mat-form-field>
+ 
+                             <!-- <mat-form-field appearance="outline" fxFlex color="accent">	
+                                 <mat-label>exempt</mat-label>
+                                 <input matInput placeholder="exempt" formControlName="exempt">
+                                 <mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+                             
+                             </mat-form-field> -->
+                             <mat-form-field appearance="outline" fxFlex color="accent" >
+                                 <mat-label>Filing Currency</mat-label>
+                                 <mat-select
+                                 placeholder="Filing Currency"
+                             
+                                 formControlName="filingCurrency"
+                               >
+                                 <mat-option  *ngFor="let  currency of currencies" [value]="currency.viewValue">
+                                   {{currency.viewValue}}
+                                 </mat-option>
+                               </mat-select>
+                             
+                             
+                                 <mat-icon class="matIcon" matSuffix>money</mat-icon>
+                             
+                               </mat-form-field>
+ 
+                             <!-- <mat-form-field appearance="outline" fxFlex color="accent">	
+                                 <mat-label>filingCurrency</mat-label>
+                                 <input matInput placeholder="filingCurrency" formControlName="filingCurrency">
+                                 <mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+                             
+                             </mat-form-field> -->
+                         
+                         </div>
+ 
+ 
+                         <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+                             
+ 
+                             <mat-form-field appearance="outline" fxFlex color="accent" >
+                                 <mat-label>Filing Period</mat-label>
+                                 <mat-select
+                                 placeholder="Filing Period"
+                             
+                                 formControlName="filingPeriod"
+                               >
+                                 <mat-option  *ngFor="let filingPeriod of filingPeriods" [value]="filingPeriod.id">
+                                   {{filingPeriod.fillingName}}
+                                 </mat-option>
+                               </mat-select>
+                             
+                             
+                                 <mat-icon class="matIcon" matSuffix>date_range</mat-icon>
+                             
+                               </mat-form-field>
+ 
+                         <!-- <mat-form-field appearance="outline" fxFlex color="accent">	
+                             <mat-label>fFling Period</mat-label>
+                             <input matInput placeholder="Filing Period" formControlName="filingPeriod">
+                             <mat-icon class="matIcon"  matSuffix>help</mat-icon>
+                         
+                         </mat-form-field> -->
+                         
+                         <mat-form-field appearance="outline" fxFlex color="accent">	
+                             <mat-label>Filing type</mat-label>
+                             <input matInput placeholder="Filing type" formControlName="filingType">
+                             <mat-icon class="matIcon"  matSuffix>help</mat-icon>
+                         
+                         </mat-form-field>
+ 
+                         <mat-form-field appearance="outline" fxFlex color="accent" >
+                             <mat-label>Infrastructure?</mat-label>
+                             <mat-select
+                             placeholder="Infrastructure?"
+                         
+                             formControlName="infrastructure"
+                           >
+                             <mat-option  *ngFor="let exempt of exempts" [value]="exempt.value">
+                               {{exempt.viewValue}}
+                             </mat-option>
+                           </mat-select>
+                         
+                         
+                             <mat-icon class="matIcon" matSuffix>location_city</mat-icon>
+                         
+                           </mat-form-field>
+ 
+                         <!-- <mat-form-field appearance="outline" fxFlex color="accent">	
+                             <mat-label>infrastructure</mat-label>
+                             <input matInput placeholder="infrastructure" formControlName="infrastructure">
+                             <mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+                         
+                         </mat-form-field> -->
+                         </div>
+                         
+                         <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+                             
+                         <mat-form-field appearance="outline" fxFlex color="accent">	
+                             <mat-label>Local Rate</mat-label>
+                             <input matInput placeholder="Local Rate" formControlName="localRate">
+                             <mat-icon class="matIcon"  matSuffix>help</mat-icon>
+                         
+                         </mat-form-field>
+ 
+                         <mat-form-field appearance="outline" fxFlex color="accent" >
+                             <mat-label>Tax Type</mat-label>
+                             <mat-select
+                             placeholder="Tax Type"
+                         
+                             formControlName="taxId"
+                           >
+                             <mat-option  *ngFor="let taxType of taxTypes" [value]="taxType.id">
+                               {{taxType.taxTypeName}}
+                             </mat-option>
+                           </mat-select>
+                         
+                         
+                             <mat-icon class="matIcon" matSuffix>meeting_room</mat-icon>
+                         
+                           </mat-form-field>
+ 
+                         <!-- <mat-form-field appearance="outline" fxFlex color="accent">	
+                             <mat-label>taxId</mat-label>
+                             <input matInput placeholder="taxId" formControlName="taxId">
+                             <mat-icon class="matIcon"  matSuffix>business_center</mat-icon>
+                         
+                         </mat-form-field>
+                          -->
+                         
+                         
+                         </div>
+                     
+                     <!-- </form> -->
+                       <!-- <button type="button" (click)="deleteSellingPoint(pointIndex)">Delete Selling Point 2</button> -->
+                     
+                       <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+                             
+                         <button class="stepper-button" mat-raised-button color="primary"(click)="deleteSellingPoint(pointIndex)"><mat-icon>remove_circle</mat-icon></button>
+                         
+                         
+                         </div>
+                       
+                     </div>
+                     <!-- <button type="button" (click)="addSellingPoint()">Add Selling Point</button> -->
+                     <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+                             
+                         <button class="stepper-button" mat-raised-button color="primary"  (click)="addSellingPoint()"><mat-icon>add_circle</mat-icon></button>
+                         
+                         
+                         </div>
+                     
+                 </div>
+ 
+ 
+                 <div>
+             
+             
+                   <button class="stepper-button" mat-raised-button color="primary" matStepperNext>Next</button>
+                   <button class="stepper-button" mat-raised-button color="primary" matStepperPrevious>Back</button>
+                 </div>
+ 
+                 <!-- <button class="example-full-button " mat-raised-button color="primary">Verify</button> -->
+ 
+               </form>
+ 
+             </mat-step>
+<!--  
+             <mat-step [stepControl]="bankForm" [editable]="!isEditable">
+                 <form [formGroup]="bankForm"  >
+                   <ng-template matStepLabel>Bank Information</ng-template>
+                   <div formArrayName="bInfo">
+             
+                     <div *ngFor="let item of bankInfo.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                         
+                         
+                         <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+                          
+                                 
+                                 <mat-form-field appearance="outline" fxFlex color="accent">	
+                                     <mat-label>Account Name</mat-label>
+                                     <input matInput placeholder="Account Name" formControlName="accountName">
+                                     <mat-icon class="matIcon"  matSuffix>badge</mat-icon>
+                                 
+                                 </mat-form-field>
+             
+                                 <mat-form-field appearance="outline" fxFlex color="accent">	
+                                     <mat-label>Account Number</mat-label>
+                                     <input matInput placeholder="Account Number" formControlName="accountNumber">
+                                     <mat-icon class="matIcon"  matSuffix>tag</mat-icon>
+                                 
+                                 </mat-form-field>
+             
+ 
+                                 <mat-form-field appearance="outline" fxFlex color="accent" >
+                                     <mat-label>Account Type</mat-label>
+                                     <mat-select
+                                     placeholder="Account Type"
+                                 
+                                     formControlName="accountType"
+                                   >
+                                     <mat-option  *ngFor="let  accountType of accountTypes" [value]="accountType.value">
+                                       {{accountType.value}}
+                                     </mat-option>
+                                   </mat-select>
+                                 
+                                 
+                                     <mat-icon class="matIcon" matSuffix>account_balance_wallet</mat-icon>
+                                 
+                                   </mat-form-field>
+ 
+                                 
+             
+                         </div>
+             
+                     
+ 
+                             <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+                 
+                                 <mat-form-field appearance="outline" fxFlex color="accent" >
+                                     <mat-label>Bank</mat-label>
+                                     <mat-select
+                                     placeholder="Bank"
+                                 
+                                     formControlName="bankId"
+                                   >
+                                     <mat-option  *ngFor="let bankId of bankIds" [value]="bankId.bankId">
+                                       {{bankId.bankName}}
+                                     </mat-option>
+                                   </mat-select>
+                                 
+                                 
+                                     <mat-icon class="matIcon" matSuffix>account_balance</mat-icon>
+                                 
+                                   </mat-form-field>
+                 
+                            
+ 
+                                 <mat-form-field appearance="outline" fxFlex color="accent" >
+                                     <mat-label>Currency</mat-label>
+                                     <mat-select
+                                     placeholder="Currency"
+                                 
+                                     formControlName="currency"
+                                   >
+                                     <mat-option  *ngFor="let  currency of currencies" [value]="currency.viewValue">
+                                       {{currency.viewValue}}
+                                     </mat-option>
+                                   </mat-select>
+                                 
+                                 
+                                     <mat-icon class="matIcon" matSuffix>money</mat-icon>
+                                 
+                                   </mat-form-field>
+ 
+                 
+                                 <mat-form-field appearance="outline" fxFlex color="accent">	
+                                     <mat-label>Swift Code</mat-label>
+                                     <input matInput placeholder="Swift Code" formControlName="swiftCode">
+                                     <mat-icon class="matIcon"  matSuffix>vpn_key</mat-icon>
+                                 
+                                 </mat-form-field>
+                 
+                             </div>
+             
+                   
+                       <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+                             
+                         <button class="stepper-button" mat-raised-button color="primary"(click)="deleteBankInfo(pointIndex)"><mat-icon>remove_circle</mat-icon></button>
+                         
+                         
+                         </div>
+                       
+                     </div>
+                       <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+                             
+                         <button class="stepper-button" mat-raised-button color="primary"  (click)="addBankInfo()"><mat-icon>add_circle</mat-icon></button>
+                         
+                         
+                         </div>
+                     
+                 </div>
+                   <div>
+                     <button class="stepper-button" mat-raised-button color="primary" matStepperNext>Next</button>
+                     <button class="stepper-button" mat-raised-button color="primary" matStepperPrevious>Back</button>
+                   </div>
+                 </form>
+               </mat-step> -->
+ 
+               <mat-step [stepControl]="actitiesForm" [editable]="!isEditable">
+                 <form [formGroup]="actitiesForm"  >
+                 
+               <ng-template matStepLabel>Step 3</ng-template>
+               <div formArrayName="aInfo">
+                 <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+     
+                     <p fxFlex color="accent">
+                         <mat-toolbar >
+                           <span>Activities Information</span>
+                         </mat-toolbar>
+                       </p>
+                 
+                 </div>
+                 <div *ngFor="let item of activityInfo.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                     
+                 
+                     
+                     
+                     <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+                         <mat-form-field appearance="outline" fxFlex color="accent" >
+                             <mat-label>Activity</mat-label>
+                             <mat-select
+                             placeholder="Activity"
+                         
+                             formControlName="activity"
+                           >
+                             <mat-option  *ngFor="let activity of activities" [value]="activity.id">
+                               {{activity.description}}
+                             </mat-option>
+                           </mat-select>
+                         
+                         
+                             <mat-icon class="matIcon" matSuffix>work</mat-icon>
+                         
+                           </mat-form-field>
+ 
+                  
+         
+         
+                     </div>
+         
+                   <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+                         
+                     <button class="stepper-button" mat-raised-button color="primary"(click)="deleteActivityInfo(pointIndex)"><mat-icon>remove_circle</mat-icon></button>
+                     
+                     
+                     </div>
+                   
+                 </div>
+                    <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+                         
+                     <button class="stepper-button" mat-raised-button color="primary"  (click)="addActivityInfo()"><mat-icon>add_circle</mat-icon></button>
+                     
+                     
+                     </div>
+                 
+             </div>
+ 
+         </form>
+ <br>	
+         <!-- <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+     
+             <p fxFlex color="accent">
+                 <mat-toolbar >
+                   <span>Attachments</span>
+                 </mat-toolbar>
+               </p>
+         
+         </div> -->
+                     <!-- <form [formGroup]="attachmentForm"  >
+                         <div formArrayName="attachment">
+         
+                     <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+            
+                 
+                         <button
+                         class="upload-button"
+                         fxFlex color="accent"
+                         type="button" 
+                         mat-raised-button 
+                         (click)="fileInput.click()"
+                         fxFlex color="accent">	
+                         Attachments
+                        </button>
+                   
+                        <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+                   
+                 
+                     </div>
+                     </div>
+                     </form> -->
+ 
+               <div>
+                 <button class="stepper-button" mat-raised-button color="primary" (click)="submitProductionForm()">Submit</button>
+                   <button class="stepper-button" mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+                   <button class="stepper-button" mat-raised-button color="primary" matStepperPrevious>Back</button>
+               </div>
+             </mat-step>
+ 
+           </mat-stepper>
+ 
+           
+ 
+   
+   
+ 
+   

@@ -7,7 +7,7 @@
           <mat-icon class="matIcon">home</mat-icon> &nbsp; &nbsp;&nbsp;
           <span *ngIf="isExpanded">Dashboard</span>
         </mat-list-item>
-        <mat-expansion-panel *ngIf="isExpanded" class="mat-elevation-z0">
+        <!-- <mat-expansion-panel *ngIf="isExpanded" class="mat-elevation-z0">
           <mat-expansion-panel-header>
             <mat-icon class="matIcon">app_registration</mat-icon>
             &nbsp; &nbsp;&nbsp;
@@ -31,7 +31,7 @@
               <span>Subject</span>
             </a>
           </mat-nav-list>
-        </mat-expansion-panel>
+        </mat-expansion-panel> -->
         <mat-expansion-panel *ngIf="isExpanded" class="mat-elevation-z0">
           <mat-expansion-panel-header>
             <mat-icon class="matIcon">assignment_ind</mat-icon>
@@ -45,12 +45,16 @@
             </a>
             <a mat-list-item routerLinkActive="current active" routerLink="/taxpayerRegistration">
               <mat-icon class="matIcon">app_registration</mat-icon>&nbsp; &nbsp;&nbsp;
-              <span *ngIf="isExpanded">Registration</span>
+              <span *ngIf="isExpanded">Register TaxPayer</span>
+            </a>
+            <a mat-list-item routerLinkActive="current active" routerLink="/withholding">
+              <mat-icon class="matIcon">app_registration</mat-icon>&nbsp; &nbsp;&nbsp;
+              <span *ngIf="isExpanded">Register Agent</span>
             </a>
           </mat-nav-list>
         </mat-expansion-panel>
         
-        <mat-expansion-panel *ngIf="isExpanded" class="mat-elevation-z0">
+        <!-- <mat-expansion-panel *ngIf="isExpanded" class="mat-elevation-z0">
           <mat-expansion-panel-header>
             <mat-icon class="matIcon">my_location</mat-icon>
             &nbsp; &nbsp;&nbsp;
@@ -70,7 +74,7 @@
               <span>Localities</span>
             </a>
           </mat-nav-list>
-        </mat-expansion-panel>
+        </mat-expansion-panel> -->
       </mat-nav-list>
     </div>
   </mat-sidenav>

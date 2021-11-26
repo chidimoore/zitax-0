@@ -89,17 +89,25 @@ export class KYCComponent implements OnInit {
   
   isNIDA:Boolean=true;
   isPassport:Boolean=false
+  isVerificationCodeSent:Boolean=false
+  isCodeVerified:Boolean=false
   dataFetchedFromTRA:Boolean=false;
   submittingRegistrationData:Boolean=false;
   verifying:Boolean=true;
-  isZNumberVefied: Boolean = true;
+  isZNumberVefied: Boolean = false;
+
+  iseVerifiucationOneSent: Boolean = false;
+
+  showKYCForm: Boolean = true;
 
   addUserForm: FormGroup  = new FormGroup({});
+
   applyForZNumberForm: FormGroup  = new FormGroup({});
   addressForm: FormGroup  = new FormGroup({});
   personForm: FormGroup  = new FormGroup({});  
   institutionForm: FormGroup  = new FormGroup({});
   verifyZNumberForm: FormGroup = new FormGroup({});
+  verificationNumberForm: FormGroup = new FormGroup({});
   constructor(
     private formBuilder:FormBuilder,
     private spinner: NgxSpinnerService,
@@ -194,6 +202,14 @@ export class KYCComponent implements OnInit {
       'NIDA':  new FormControl('',Validators.required),
       
     })
+
+    this.verificationNumberForm = this.formBuilder.group({
+      'verificationNumber':  new FormControl(),
+      // 'passportNumber':  new FormControl('',Validators.required),
+      // 'NIDA':  new FormControl('',Validators.required),
+      
+    })
+
 
 
 
@@ -360,7 +376,12 @@ verifyZNumberButtonPress() {
       //   duration: 2000,
       //   panelClass: [className]
       // });
-  
+      console.log('I am here!');
+      
+      // this.iseVerifiucationOneSent=true
+
+
+      
       this._snackBar.open('Z Number requested successfully', 'Close',{
         panelClass: ['red-snackbar']
       });
@@ -466,8 +487,14 @@ applyForZNumber() {
       })).subscribe(data=>{
       console.log("Application for Z number successfull=> ",data);
 
+      this.iseVerifiucationOneSent=true
+      this.showKYCForm=false
+      
       this._snackBar.open('Z Number requested successfully', 'Close',{
         panelClass: ['red-snackbar']
+
+      
+        // this.
   
       });
 
@@ -539,6 +566,10 @@ institutionApplyForZNumber() {
   }
   else{
 
+
+    this.iseVerifiucationOneSent=true
+    this.showKYCForm=false
+
     this.isZNumberVefied=true;
     this._snackBar.open('Institution Z Number Application Successfull', 'Close',{
       panelClass: ['red-snackbar']
@@ -564,6 +595,38 @@ institutionApplyForZNumber() {
 
   // if()
  
+
+}
+
+resendVerificationCode(){
+
+
+  this.spinner.show();
+  setTimeout(() => {
+
+    console.log("resend code");
+
+  this.isVerificationCodeSent=true
+
+    this.spinner.hide();
+  }, 2000);
+
+
+  
+}
+
+verifyCodeButtonPress(){
+
+  this.spinner.show();
+  setTimeout(() => {
+
+    this.isCodeVerified=true
+  this.iseVerifiucationOneSent=false
+  this.isVerificationCodeSent=false
+
+    this.spinner.hide();
+  }, 2000);
+
 
 }
 

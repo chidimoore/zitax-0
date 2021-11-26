@@ -111,13 +111,13 @@ const WARDS_DATA_THREE: Wards[] = [
 
 ];
 
-@Component({
-  selector: 'app-taxpayer-registration',
-  templateUrl: './taxpayer-registration.component.html',
-  styleUrls: ['./taxpayer-registration.component.css']
-})
 
-export class TaxpayerRegistrationComponent implements OnInit {
+@Component({
+  selector: 'app-withholding-registration',
+  templateUrl: './withholding-registration.component.html',
+  styleUrls: ['./withholding-registration.component.css']
+})
+export class WithholdingRegistrationComponent implements OnInit {
 
   // selectedRegion: string='';
 
@@ -572,17 +572,10 @@ export class TaxpayerRegistrationComponent implements OnInit {
     // })
 
     this.businessForm  = this.formBuilder.group({
-      "annualTurnover": 0,
-      "applicationType": 0,
-      "businessCategory": "Soleproprietor",
-      "businessName": "string",
-      "businessRegNumber": "string",
-      "businessType": 0,
-      "commencementDate": "2021-11-21T06:10:52.130Z",
-      "location": "string",
-      "taxpayerType": "Consultant",
-      "tinNumber": "string",
-      "znumber": "Z55"
+      "institutionZNumber": "string",
+      "responsibleFingerprint": 0,
+      "responsiblePersonZNumber": "string",
+      "responsiblePosition": "string",  
     });
 
 
@@ -1196,8 +1189,8 @@ verifyApplicationNumber(){
 
     this.applicationNumberVerified=false
 
-    this.BPRANumberVerified=true
-
+    // this.BPRANumberVerified=true
+    this.showRegistrationForm=true
     
     this.spinner.hide();
   }, 2000);

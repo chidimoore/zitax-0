@@ -4,6 +4,7 @@ import { MaterialModule } from '../material/material.module';
 import { TaxpayerManagementRoutingModule } from './taxpayer-management-routing.module';
 import { TaxpayerRegistrationComponent } from './taxpayer-registration/taxpayer-registration.component';
 import { KYCComponent } from './kyc/kyc.component';
+import { WithholdingRegistrationComponent } from './withholding-registration/withholding-registration.component';
 // import { RegistrationOfTaxpayerComponent } from './registration-of-taxpayer/registration-of-taxpayer.component';
 
 
@@ -11,7 +12,8 @@ import { KYCComponent } from './kyc/kyc.component';
   declarations: [
     TaxpayerRegistrationComponent,
     TaxpayerRegistrationComponent,
-    KYCComponent 
+    KYCComponent,
+    WithholdingRegistrationComponent 
   ],
   imports: [
     CommonModule,

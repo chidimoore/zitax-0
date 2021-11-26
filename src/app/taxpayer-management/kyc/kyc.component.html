@@ -23,21 +23,15 @@
   
 	  <mat-card>
 		<mat-card-content>
+
+		<div *ngIf="showKYCForm">
 		  <h2>Know Your Customer (KYC)</h2>
 
 		  <mat-tab-group>
 			<mat-tab label="Person"> 
 
 				<br>
-				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-    
-					<p fxFlex color="accent">
-						<mat-toolbar >
-						  <span>Tax Type</span>
-						</mat-toolbar>
-					  </p>
-			
-				</div>
+		
 				<form [formGroup]="verifyZNumberForm" (submit)="verifyZNumberButtonPress()">
 
 		
@@ -64,7 +58,7 @@
 						
 						  <mat-form-field appearance="outline" fxFlex color="accent" *ngIf="isNIDA">
 							<mat-label>NIDA</mat-label>
-							<input matInput placeholder="NIDA" formControlName="NIDA">
+							<input matInput placeholder="NIDA"  formControlName="NIDA">
 							<mat-icon class="matIcon" matSuffix>tag</mat-icon>
 							<mat-error *ngIf="verifyZNumberForm.controls['NIDA'].errors && verifyZNumberForm.controls['NIDA'].hasError('required')">
 							  NIDA Number* is required
@@ -89,11 +83,19 @@
 				</form>
 
 				<form [formGroup]="personForm" (submit)="applyForZNumber()" *ngIf="isZNumberVefied">
-
+					<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+						<p fxFlex color="accent">
+							<mat-toolbar >
+							  <span>Tax Information</span>
+							</mat-toolbar>
+						  </p>
+				
+					</div>
+			
 					<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
 				  
-				
-				
+			
 				
 						<mat-form-field appearance="outline" fxFlex color="accent">	
 							<mat-label>Date of Birth*</mat-label>
@@ -107,7 +109,7 @@
 					  
 						  <mat-form-field appearance="outline" fxFlex color="accent">	
 							  <mat-label>Email*</mat-label>
-							  <input matInput placeholder="Mobile Number*" formControlName="email">
+							  <input readonly 	matInput placeholder="Mobile Number*" formControlName="email">
 							  <mat-icon class="matIcon" matSuffix>email</mat-icon>
 							  <mat-error *ngIf="personForm.controls['email'].errors && personForm.controls['email'].hasError('required')">
 								Email * is required
@@ -234,19 +236,19 @@
 				</form>
 				
 				
-				<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-    
-					<p fxFlex color="accent">
-						<mat-toolbar >
-						  <span>Address</span>
-						</mat-toolbar>
-					  </p>
 			
-				</div>
 <form [formGroup]="addressForm" (submit)="applyForZNumber()" *ngIf="isZNumberVefied">
+	<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+    
+		<p fxFlex color="accent">
+			<mat-toolbar >
+			  <span>Address</span>
+			</mat-toolbar>
+		  </p>
 
+	</div>
     <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
-
+		
         <mat-form-field appearance="outline" fxFlex color="accent" >
             <mat-label>Address</mat-label>
             <textarea matInput
@@ -585,6 +587,54 @@
       </mat-tab>
 
 </mat-tab-group>
+
+</div>
+
+<div *ngIf="iseVerifiucationOneSent">
+
+	<form [formGroup]="verificationNumberForm" (submit)="verifyCodeButtonPress()" >
+
+		<div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+			
+			  <mat-form-field appearance="outline" fxFlex color="accent" >
+				<mat-label>Verification Number</mat-label>
+				<input matInput placeholder="Verification Number"  formControlName="verificationNumber">
+				<mat-icon class="matIcon" matSuffix>lock</mat-icon>
+				<mat-error *ngIf="verificationNumberForm.controls['verificationNumber'].errors && verificationNumberForm.controls['verificationNumber'].hasError('required')">
+				  verificationNumber Number is required
+				</mat-error>
+				
+			  </mat-form-field>
+			
+			
+		  
+	
+			  <button class="example-full-button " mat-raised-button color="primary" [disabled]="!verificationNumberForm.valid">Verify</button>
+	
+	  </div>
+
+	  <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+			
+		<h3>Verfication Code not sent?</h3>&nbsp;<a [routerLink]="" (click)="resendVerificationCode()"><h3>Resend</h3></a>  <h3 *ngIf="isVerificationCodeSent">Code Resent!</h3>
+     
+	  </div>
+
+	</form>
+</div>
+
+<div *ngIf="isCodeVerified">
+
+	<form [formGroup]="verificationNumberForm" (submit)="verifyCodeButtonPress()" >
+
+
+	  <div fxLayout="row" fxLayout.lt-sm="column"  fxLayout.lt-md="column" fxLayoutGap="16px">
+			
+      <!-- Verfication Code not sent?&nbsp;&nbsp;   <a [routerLink]="" (click)="resendVerificationCode()">Resend</a> -->
+     <h2>Congratulations code verifiation Successfull, please use information sent to you, to login in the system</h2>
+	  </div>
+
+	</form>
+</div>
 
 
 </mat-card-content>

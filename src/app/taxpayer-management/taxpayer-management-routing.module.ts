@@ -4,6 +4,8 @@ import { TaxpayerRegistrationComponent } from './taxpayer-registration/taxpayer-
 // import { TaxpayerRegistrationComponent} from './taxpayer-registration/taxpayer-registration.component';
 import { MainComponent } from '../Main/main.component';
 import { KYCComponent } from './kyc/kyc.component';
+
+import { WithholdingRegistrationComponent } from './withholding-registration/withholding-registration.component';
 const routes: Routes = [
   {
     path: '',
@@ -21,6 +23,11 @@ const routes: Routes = [
       {
         path:'kyc',
         component: KYCComponent
+      }
+      ,
+      {
+        path:'withholding',
+        component: WithholdingRegistrationComponent
       }
     ]
   }
